@@ -1,3 +1,4 @@
+import BrandsCarousel from './components/General/BrandsCarousel'
 import Footer from './components/UI/Footer'
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
 
   return (
     <>
+    <BrandsCarousel />
       <Footer />
     </>
   )
