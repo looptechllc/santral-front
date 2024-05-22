@@ -23,8 +23,8 @@ const Advantages = () => {
     ]
   return (
     <div className='md:w-[95%] mx-auto px-3 my-5'>
-        <h2 className='text-[48px] font-bold my-[16px]'>Üstünlüklərimiz</h2>
-        <div className='flex gap-[24px]'>
+        <h2 className=' text-[36px] md:text-[48px] font-bold my-[16px]'>Üstünlüklərimiz</h2>
+        <div className='flex flex-col md:flex-row gap-[24px]'>
             {advantages.map((item,index)=>(
                 <div key={index} className='drop-shadow-md rounded-[8px] bg-white w-full flex items-center p-[16px] justify-center gap-[16px]'>
                     <img className='p-[16px] bg-[#FFF9D1] rounded-full' src={item.icon} alt={item.title} />
