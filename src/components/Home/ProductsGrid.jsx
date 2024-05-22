@@ -4,7 +4,7 @@ import stihl from "../../assets/stihl.png";
 import gardena from "../../assets/gardena.png";
 const ProductsGrid = () => {
   return (
-    <div className="md:w-[95%] mx-auto px-3 grid grid-cols-2 gap-[24px]">
+    <div className="md:w-[95%] mx-auto px-3 my-[60px] grid grid-cols-2 gap-[24px]">
       <div className="  w-full row-span-2 rounded-[16px] overflow-hidden  relative">
         <img src={skyline} alt="skyline" className="object-cover" />
         <div className="absolute w-full bottom-0 bg-[#fff]/70 py-[16px] text-[20px] text-center font-medium"> Skyline design mebellər </div>

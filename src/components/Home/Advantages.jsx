@@ -22,7 +22,7 @@ const Advantages = () => {
         }
     ]
   return (
-    <div className='md:w-[95%] mx-auto px-3 my-5'>
+    <div className='md:w-[95%] mx-auto px-3 my-[60px]'>
         <h2 className=' text-[36px] md:text-[48px] font-bold my-[16px]'>Üstünlüklərimiz</h2>
         <div className='flex flex-col md:flex-row gap-[24px]'>
             {advantages.map((item,index)=>(
