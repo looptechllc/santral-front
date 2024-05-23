@@ -5,6 +5,10 @@ import ProductsGrid from './components/Home/ProductsGrid'
 import Footer from './components/UI/Footer'
 import elementImage from './assets/elementimage.jpg'
 import SaleProducts from './components/Home/SaleProducts'
+import { BrowserRouter,  Route, Routes } from 'react-router-dom'
+import Home from './Pages/Home'
+import Success from './Pages/Success'
+
 
 function App() {
 
@@ -12,13 +16,17 @@ function App() {
   
   return (
     <>
+    <BrowserRouter>
     {/* <BrandsCarousel /> */}
+      <Routes>
 
+        <Route path='/' element={<Home />} />
+        <Route path='/success' element={<Success />} />
+      </Routes>
 
-    <ProductsGrid />
-    <Advantages />
-    <SaleProducts />
+    
       <Footer />
+    </BrowserRouter>
     </>
   )
 }
