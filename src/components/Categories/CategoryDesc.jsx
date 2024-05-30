@@ -185,6 +185,7 @@ function CategoryDesc() {
               price={product.price}
               beforePrice={product.oldPrice}
               sale={product.discountPercent}
+              link={product.name}
             />
           ))}
         </div>
