@@ -24,7 +24,7 @@ function CategoryDesc() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         setCategoryName(data.data.filter((item) => item.id == id)[0]?.title);
       })
       .catch((error) => console.error("Error fetching products:", error));
@@ -46,7 +46,7 @@ function CategoryDesc() {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.data);
-
+        console.log(data.data)
         setTotalPages(data.pagination.pages);
         setItemCount(data.pagination.count);
       })
@@ -183,6 +183,8 @@ function CategoryDesc() {
               img={`https://cdn.santral.az//images/${product.thumbnail}`}
               name={product.title}
               price={product.price}
+              beforePrice={product.oldPrice}
+              sale={product.discountPercent}
             />
           ))}
         </div>
