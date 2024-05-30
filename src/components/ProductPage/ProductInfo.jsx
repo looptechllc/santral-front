@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import heart from "../../assets/heart.svg";
+import cart from "../../assets/cart.svg";
 import tamcard from "../../assets/tamcard.svg";
 import share from "../../assets/share.svg";
 import heartFill from "../../assets/heartFill.svg";
@@ -44,7 +45,7 @@ const ProductInfo = () => {
   return (
     <div className="w-[95%] mx-auto ">
       <div className="flex gap-[24px] my-[24px]">
-        <div className="bg-white rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA]">
+        <div className="bg-white w-full rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA]">
           <img
             className="rounded-[16px]"
             src={`https://cdn.santral.az/images/${description.thumbnail}`}
@@ -115,7 +116,7 @@ const ProductInfo = () => {
               </div>
             </div>
             <div className="p-[24px] border border-solid border-[#eaeaea] rounded-[10px] my-[16px] flex items-center justify-between">
-                  <div className="flex items-center justify-center w-full gap-[15px]">
+                  <div className="flex items-center justify-center w-full gap-[15px] px-[32px]">
                   <button onClick={()=>{setCreditMonth(6)}} className={`${creditMonth==6?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>6 ay</button>
                   <button onClick={()=>{setCreditMonth(9)}} className={`${creditMonth==9?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>9 ay</button>
                   <button onClick={()=>{setCreditMonth(12)}} className={`${creditMonth==12?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>12 ay</button>
@@ -129,8 +130,9 @@ const ProductInfo = () => {
                   </div>
             </div>
           </div>
-          <div>
-            <button>Zəng et</button>
+          <div className="flex items-center gap-[16px]">
+            <button className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">Zəng et</button>
+            <button className="border-2 border-solid border-[#ffd23f] bg-[#ffd23f] py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]"><img src={cart} alt="cart.svg" />Səbətə at</button>
           </div>
         </div>
       </div>
