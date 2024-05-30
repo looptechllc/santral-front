@@ -115,7 +115,7 @@ const CategoryAccordion = ({ category, language, onCategorySelect, isSelected,is
             {category.children?.length>0?<AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>{category.title}</Typography>
             </AccordionSummary>:<Link to={`/category/${category.id}`}>{category.title}</Link>}
-            <AccordionDetails className='flex flex-col'>
+            <AccordionDetails className='flex flex-col bg-black text-white'>
                 {category.children.map((child) => (
                     <Link to={`/category/${child.id}`}>{child.title}</Link>
                 ))}
@@ -124,12 +124,4 @@ const CategoryAccordion = ({ category, language, onCategorySelect, isSelected,is
     );
 };
 
-const CategoryGrid = ({ category, language }) => {
-    
 
-    return (
-        <div className='border border-gray-300 p-2 text-center rounded bg-gray-50'>
-            <Link to={`/category/${category.id}`}>{category.title}</Link>
-        </div>
-    );
-};
