@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import cart from '../../assets/cart.svg'
 import heart from '../../assets/heart.svg'
 import heartFill from '../../assets/heartFill.svg'
-const ElementCard = ({img,sale,name,price,beforePrice}) => {
+import { Link } from 'react-router-dom'
+const ElementCard = ({img,sale,name,price,beforePrice,link}) => {
     const [liked,setLiked] = useState()
     const toggleLike =()=>{
         setLiked(!liked)
     }
   return (
+    <Link to={`/product/${link}`}>
     <div className='bg-[#f5f5f5] rounded-[8px] overflow-hidden max-w-[330px]'>
         <div className="w-full relative">
         <img className='w-full max-h-[250px]' src={img} alt="element image" />
@@ -34,7 +36,7 @@ const ElementCard = ({img,sale,name,price,beforePrice}) => {
             </div>
 
         </div>
-    </div>
+    </div></Link>
   )
 }
 
