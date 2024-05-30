@@ -1,47 +1,118 @@
-import React from 'react'
-import logo from '../../assets/logo.svg'
-import phoneCall from '../../assets/iconCall.svg'
-import facebook from '../../assets/iconFacebook.svg'
-import instagram from '../../assets/iconInstagram.svg'
-import whatsapp from '../../assets/iconWhatsapp.svg'
-// import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import logo from "../../assets/logo.svg";
+import yellowCall from "../../assets/yellowCall.svg";
+import yellowMail from "../../assets/yellowMail.svg";
+import yellowLocation from "../../assets/yellowLocation.svg";
+import visa from "../../assets/visa.svg";
+import mastercard from "../../assets/mastercard.svg";
+import looptech from "../../assets/looptech.svg";
+import yellowWhatsapp from "../../assets/yellowWhatsapp.svg";
+import yellowInstagram from "../../assets/yellowInstagram.svg";
+import yellowFacebook from "../../assets/yellowFacebook.svg";
+import { Link } from "react-router-dom";
+
 const Footer = () => {
+  const [showMore, setShowMore] = useState(false);
   return (
-    <div className='border-t-[1px] border-solid border-[#ffd23f] pt-5 px-5 flex flex-col lg:flex-row items-start justify-between'>
-        <div className='w-full'>
-        <img className='w-64' src={logo} alt="logo.svg" />
-        <p>2000-ci ildən bu yana “Santral Elektrik” QSC şirkəti belə uğurlu iqtisadi siyasətdən bəhrələnərək müştərilərə müasir tələblərə cavab verən müxtəlif çeşidli məhsullar və sərfəli xidmətlər təklif edir.</p>
+    <div className="border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
+      <div className="w-[95%] mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-[30px] w-full">
+        <Link className="" to="/">
+          <img className="w-[217px]" src={logo} alt="logo.svg" />
+        </Link>
+        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowFacebook} alt="facebook.svg" />
+        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowInstagram} alt="facebook.svg" />
+        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowWhatsapp} alt="facebook.svg" />
         </div>
-       <div className='w-full flex items-center justify-center'>
-       <div className='flex flex-col items-start  justify-center'>
-            <h2 className='font-medium text-xl'>Şirkət</h2>
+        <div className="w-full"></div>
+        <p className="text-white/60">
+          2000-ci ildən bu yana “Santral Elektrik” QSC şirkəti belə uğurlu
+          iqtisadi siyasətdən bəhrələnərək{" "}
+          <span
+            onClick={() => {
+              setShowMore(true);
+            }}
+            className={
+              !showMore ? "text-[#FFD23F] cursor-pointer font-medium" : "hidden"
+            }
+          >
+            Ətraflı oxu
+          </span>{" "}
+          <span className={showMore ? "" : "hidden"}>
+            müştərilərə müasir tələblərə cavab verən müxtəlif çeşidli məhsullar
+            və sərfəli xidmətlər təklif edir.
+          </span>
+        </p>
+      </div>
+      <hr className="w-full h-[1px] bg-white/40 border-none my-[40px]" />
+      <div className="w-[95%] mx-auto flex items-start justify-between">
+        <div className="flex flex-col items-start  justify-center">
+          <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+            Şirkət
+          </h2>
+          <div className="flex flex-col items-start gap-[16px]">
             <a>Haqqımızda</a>
             <a>Dükanlar</a>
             <a>Partnyorlar</a>
+          </div>
         </div>
-       </div>
-        <div className="w-full flex items-center justify-center">
-        <div className='flex flex-col items-start  justify-center'>
-            <h2 className="font-medium text-xl">Əlaqə</h2>
-            <p className='hover:text-[#ffd23f] duration-300 text-xl flex items-center'><img className='w-6' src={phoneCall} alt="phoneCall.svg" /> 1410</p>
-            <p className='hover:text-[#ffd23f] duration-300 text-xl flex items-center'><img className='w-6' src={phoneCall} alt="phoneCall.svg" /> 0123104314</p>
-            <p>sales@santral.az</p>
+        <div className="flex flex-col items-start  justify-center">
+          <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+            Müştəri üçün
+          </h2>
+          <div className="flex flex-col items-start gap-[16px]">
+            <a>Çatdırılma qaydaları</a>
+            <a>İstifadə qaydaları</a>
+            <a>Ödəmə üsulları</a>
+            <a>Məxfilik siyasəti</a>
+            <a>Blog</a>
+          </div>
         </div>
+        <div className="flex flex-col items-start  justify-center">
+          <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+            Kateqoriyalar
+          </h2>
+          <div className="flex flex-col items-start gap-[16px]">
+            <a>Mebel</a>
+            <a>Divar kağızları</a>
+            <a>Bağçılıq</a>
+            <a>Seramika & Santexnik</a>
+            <a>Elektrik malları</a>
+          </div>
         </div>
-        <div className="w-full flex items-center justify-center">
-        <div className="flex flex-col items-start w-full justify-center">
-        <h2 className="font-medium text-xl">Bizə Çatın</h2>
-           <div className="flex gap-[5px]">
-           <a href="" className='bg-[#ffd23f] px-4 p-3 rounded-md flex items-center justify-center'><img className='w-4' src={facebook} alt="facebook.svg" /></a>
-            <a href="" className='bg-[#ffd23f]  p-3 rounded-md flex items-center justify-center'><img className='w-8' src={instagram} alt="facebook.svg" /></a>
-            <a href="" className='bg-[#ffd23f]  p-3 rounded-md flex items-center justify-center'><img className='w-8' src={instagram} alt="facebook.svg" /></a>
-            
-           </div>
-           <a href="">Ziya bunydaov pr., 2071 <br /> AZ 1029, Azərbaycan, Bakı</a>
+        <div className="flex flex-col items-start  justify-center">
+          <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+            Əlaqə
+          </h2>
+          <div className="flex flex-col items-start gap-[16px]">
+            <a className="flex items-center gap-[8px]">
+              <img src={yellowCall} alt="call" />
+              1410
+            </a>
+            <a className="flex items-center gap-[8px]">
+              <img src={yellowCall} alt="call" />
+              0123104314
+            </a>
+            <a className="flex items-center gap-[8px]">
+              <img src={yellowMail} alt="mail" /> sales@santral.az
+            </a>
+            <a className="flex items-center gap-[8px]">
+              <img src={yellowLocation} alt="location" /> Z.Bünyadov pr., 2071 <br />
+              AZ1029, AZərbaycan, Bakı
+            </a>
+            <div className="flex items-center gap-[8px]">
+            <img src={visa} alt="visa.svg" />
+            <img className="border-l border-solid border-[#EAEAEA] px-[8px]" src={mastercard} alt="mastercard.svg" />
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
+      <hr className="w-full h-[1px] bg-white/40 border-none mt-[40px]" />
+      <div className="flex items-center justify-center py-[20px]">
+        <p className="text-center flex items-center gap-[8px] text-[18px]">Saytı hazırladı: <img src={looptech} alt="looptechLogo" /></p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
