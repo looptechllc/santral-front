@@ -12,6 +12,7 @@ import Registration from './Pages/Registration'
 import Categories from './Pages/Categories'
 import CategoryDesc from './components/Categories/CategoryDesc'
 import Product from './Pages/Product'
+import Header from './components/UI/Header'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
     <>
     <BrowserRouter>
     {/* <BrandsCarousel /> */}
+    <Header />
       <Routes>
 
         <Route path='/' element={<Home />} />
