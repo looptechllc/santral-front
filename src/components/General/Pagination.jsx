@@ -12,12 +12,12 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         <button
           className={`pagination-arrow ${
             currentPage === 1 ? "hidden" : ""
-          } rounded-full w-[40px] h-[40px] mx-[4px] border border-[#EAEAEA] flex items-center justify-center p-2 bg-white hover:bg-yellow-200 transition-colors`}
+          } rounded-full min-w-[40px] min-h-[40px] mx-[4px] border border-[#EAEAEA] flex items-center justify-center p-2 bg-white hover:bg-yellow-200 transition-colors`}
           onClick={() => onPageChange(currentPage - 1)}
         >
           {"<"}
         </button>
-        <div className="pagination">
+        <div className="pagination flex">
           {pages.map((page) => (
             <button
               key={page}
@@ -25,7 +25,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
                 page === currentPage
                   ? "active bg-[#FFD23F] border-[#ffd23f]"
                   : "border-[#EAEAEA] "
-              } rounded-full w-[40px] h-[40px] mx-[4px] border  p-2  transition-colors`}
+              } rounded-full w-[40px] h-[40px] mx-[4px] border flex items-center justify-center  p-2  transition-colors`}
               onClick={() => onPageChange(page)}
             >
               {page}
