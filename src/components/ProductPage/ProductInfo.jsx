@@ -47,28 +47,39 @@ const ProductInfo = () => {
           alt=""
         />
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full">
-          <div className="flex items-center gap-[16px] w-full justify-between">
-            <p className="text-[24px] font-medium">{description?.title}</p>
-            <div className="flex items-center gap-[16px]">
-              <button
-                onClick={toggleLike}
-                className={`p-3 rounded-full ${
-                  liked ? "bg-[#FDDBD8]" : "bg-[#efefef]"
-                } duration-300`}
-              >
-                {liked ? (
-                  <img src={heartFill} alt="heart.svg" className="bg" />
-                ) : (
-                  <img src={heart} alt="heart.svg" className="bg" />
-                )}
-              </button>
-              <button className={`p-3 rounded-full bg-[#efefef] duration-300`}>
-                <img src={share} alt="share.svg" className="bg" />
-              </button>
+          <div className=" border-b border-[#eaeaea] py-[24px]">
+            <div className="flex items-center gap-[16px] w-full justify-between">
+              <p className="text-[24px] font-medium">{description?.title}</p>
+              <div className="flex items-center gap-[16px]">
+                <button
+                  onClick={toggleLike}
+                  className={`p-3 rounded-full ${
+                    liked ? "bg-[#FDDBD8]" : "bg-[#efefef]"
+                  } duration-300`}
+                >
+                  {liked ? (
+                    <img src={heartFill} alt="heart.svg" className="bg" />
+                  ) : (
+                    <img src={heart} alt="heart.svg" className="bg" />
+                  )}
+                </button>
+                <button
+                  className={`p-3 rounded-full bg-[#efefef] duration-300`}
+                >
+                  <img src={share} alt="share.svg" className="bg" />
+                </button>
+              </div>
+            </div>
+            <div className="flex w-full items-center justify-between mt-[16px]">
+              <p className="text-[#17A539] font-medium">Məhsul mövcuddur</p>
+              <p className="text-[#777] font-light">
+                SKU: {description?.title}
+              </p>
             </div>
           </div>
-          <div className="">
-            <div className="flex items-center gap-[10px] p-[12px] border border-[#EAEAEA] w-fit rounded-[32px]">
+
+          <div className="py-[24px] flex w-full items-center justify-between">
+            <div className="flex items-center gap-[10px] p-[6px]  border border-[#EAEAEA] w-fit rounded-[32px]">
               <button
                 className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0"
                 onClick={decrement}
@@ -83,9 +94,10 @@ const ProductInfo = () => {
                 <span>+</span>
               </button>
             </div>
-            <p>{(count * description?.price).toFixed(2)} ₼</p>
+            <p className="text-[#FD8521] text-[32px] font-bold">
+              {(count * description?.price).toFixed(2)} ₼
+            </p>
           </div>
-          <p>SKU: {description?.title}</p>
         </div>
       </div>
     </div>
