@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ElementCard from "../General/ElementCard";
-import { space } from "postcss/lib/list";
-import Pagination from "../General/Pagination";
 
+import Pagination from "../General/Pagination";
+import searchIcon from '../../assets/search.svg'
 function CategoryDesc() {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
@@ -78,13 +78,33 @@ function CategoryDesc() {
     }));
   };
   return (
-    <div className="my-24 bg-white container mx-auto">
-      <h1 className="text-[48px] font-bold">
-        {categoryName}{" "}
-        <span className="text-black/40 text-[24px] font-medium">
-          ({itemCount} məhsul)
-        </span>
-      </h1>
+    <div className="my-24 bg-white lg:w-[95%] mx-auto">
+      <div className="w-full flex items-center justify-between mb-[24px]">
+        <h1 className="text-[48px] font-bold whitespace-nowrap">
+          {categoryName}{" "}
+          <span className="text-black/40 text-[24px] font-medium">
+            ({itemCount} məhsul)
+          </span>
+        </h1>
+        <div className="flex items-center gap-[24px]">
+          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+            A-dan Z-yə
+          </button>
+          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+            Z-dən A-ya
+          </button>
+          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+            Ucuzdan bahaya
+          </button>
+          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+            Bahadan ucuza
+          </button>
+          <div className="border border-solid border-black/40 rounded-[32px] flex items-center p-[16px] gap-[10px]">
+            <img src={searchIcon} alt="search.svg" />
+            <input  type="text" placeholder="Məhsul axtarın" className=" rounded-[32px] focus:outline-none" />
+          </div>
+        </div>
+      </div>
       <div className="flex gap-[22px] items-start justify-between">
         <div className="flex max-h-[872px] overflow-y-scroll select-none flex-col w-[318px] gap-4 bg-[#232323] text-white rounded-[16px] p-[24px]">
           {filterOptions.map((filter) => (
@@ -178,5 +198,3 @@ function CategoryDesc() {
 }
 
 export default CategoryDesc;
-
-
