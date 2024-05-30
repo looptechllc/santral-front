@@ -45,7 +45,7 @@ const Footer = () => {
         </p>
       </div>
       <hr className="w-full h-[1px] bg-white/40 border-none my-[40px]" />
-      <div className="w-[95%] mx-auto flex items-start justify-between">
+      <div className="w-[95%] mx-auto grid grid-cols-2 md:grid-cols-4 place-content-start place-items-start">
         <div className="flex flex-col items-start  justify-center">
           <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
             Şirkət
@@ -68,7 +68,7 @@ const Footer = () => {
             <a>Blog</a>
           </div>
         </div>
-        <div className="flex flex-col items-start  justify-center">
+        <div className="flex flex-col items-start col-span-2 md:col-span-1  justify-center">
           <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
             Kateqoriyalar
           </h2>
