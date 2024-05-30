@@ -5,3 +5,7 @@
 body{
 background-color: #fffefa;
 }
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root.Mui-expanded{
+    margin: 0!important;
+}
