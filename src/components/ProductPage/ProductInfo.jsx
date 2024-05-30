@@ -46,7 +46,7 @@ const ProductInfo = () => {
           src={`https://cdn.santral.az/images/${description.thumbnail}`}
           alt=""
         />
-        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full">
+        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full flex flex-col gap-[24px]">
           <div className=" border-b border-[#eaeaea] py-[24px]">
             <div className="flex items-center gap-[16px] w-full justify-between">
               <p className="text-[24px] font-medium">{description?.title}</p>
@@ -78,7 +78,7 @@ const ProductInfo = () => {
             </div>
           </div>
 
-          <div className="py-[24px] flex w-full items-center justify-between">
+          <div className=" flex w-full items-center justify-between border-b border-[#eaeaea] py-[24px]">
             <div className="flex items-center gap-[10px] p-[6px]  border border-[#EAEAEA] w-fit rounded-[32px]">
               <button
                 className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0"
