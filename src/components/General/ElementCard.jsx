@@ -9,10 +9,10 @@ const ElementCard = ({img,sale,name,price,beforePrice,link}) => {
         setLiked(!liked)
     }
   return (
-    <Link to={`/product/${link}`}>
+    
     <div className='bg-[#f5f5f5] rounded-[8px] overflow-hidden max-w-[330px]'>
         <div className="w-full relative">
-        <img className='w-full max-h-[250px]' src={img} alt="element image" />
+        <Link to={`/product/${link}`}> <img className='w-full max-h-[250px]' src={img} alt="element image" /></Link>
         {sale!=0&&
         <p className='bg-red-500 text-white rounded-bl-[8px] absolute top-0 right-0 p-[12px]'>
             {sale} %
@@ -36,7 +36,7 @@ const ElementCard = ({img,sale,name,price,beforePrice,link}) => {
             </div>
 
         </div>
-    </div></Link>
+    </div>
   )
 }
 
