@@ -11,7 +11,7 @@ const ElementCard = ({img,sale,name,price,beforePrice}) => {
     <div className='bg-[#f5f5f5] rounded-[8px] overflow-hidden max-w-[330px]'>
         <div className="w-full relative">
         <img className='w-full max-h-[250px]' src={img} alt="element image" />
-        {sale&&
+        {sale!=0&&
         <p className='bg-red-500 text-white rounded-bl-[8px] absolute top-0 right-0 p-[12px]'>
             {sale} %
         </p>}
@@ -20,7 +20,7 @@ const ElementCard = ({img,sale,name,price,beforePrice}) => {
             <p className='font-medium text-[24px]'>{name}</p>
             <div className='flex items-center gap-[12px]'>
             <p className='text-[#FD8521] text-[24px] font-medium leading-[32px]'>{price} ₼</p>
-            {beforePrice&&<p className='text-[#808080] line-through text-[18px] font-medium leading-[32px]'>{beforePrice} ₼</p>}
+            {beforePrice!=0&&<p className='text-[#808080] line-through text-[18px] font-medium leading-[32px]'>{beforePrice} ₼</p>}
             
             </div>
             <div className='flex items-center justify-between w-full'>
