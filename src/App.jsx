@@ -9,6 +9,7 @@ import { BrowserRouter,  Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home'
 import Success from './Pages/Success'
 import Registration from './Pages/Registration'
+import Categories from './Pages/Categories'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/success' element={<Success />} />
         <Route path='/registration' element={<Registration />} />
+        <Route path='/category/:lang/:id' element={<Categories />} />
       </Routes>
 
     
