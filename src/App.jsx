@@ -11,6 +11,7 @@ import Success from './Pages/Success'
 import Registration from './Pages/Registration'
 import Categories from './Pages/Categories'
 import CategoryDesc from './components/Categories/CategoryDesc'
+import Product from './Pages/Product'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/success' element={<Success />} />
         <Route path='/registration' element={<Registration />} />
         <Route path='/category/:id' element={<CategoryDesc />} />
+        <Route path='/product/:name' element={<Product />} />
       </Routes>
 
     
