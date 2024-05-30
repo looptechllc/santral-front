@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import heart from "../../assets/heart.svg";
+import tamcard from "../../assets/tamcard.svg";
 import share from "../../assets/share.svg";
 import heartFill from "../../assets/heartFill.svg";
 const ProductInfo = () => {
   const { name } = useParams();
   const [description, setDescription] = useState("");
   const [count, setCount] = useState(1);
+  const [creditMonth,setCreditMonth] = useState(6)
 
   useEffect(() => {
     const fetchDescription = async () => {
@@ -41,11 +43,14 @@ const ProductInfo = () => {
   };
   return (
     <div className="w-[95%] mx-auto ">
-      <div className="flex gap-[24px]">
-        <img
-          src={`https://cdn.santral.az/images/${description.thumbnail}`}
-          alt=""
-        />
+      <div className="flex gap-[24px] my-[24px]">
+        <div className="bg-white rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA]">
+          <img
+            className="rounded-[16px]"
+            src={`https://cdn.santral.az/images/${description.thumbnail}`}
+            alt=""
+          />
+        </div>
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full flex flex-col gap-[24px]">
           <div className=" border-b border-[#eaeaea] py-[24px]">
             <div className="flex items-center gap-[16px] w-full justify-between">
@@ -97,6 +102,35 @@ const ProductInfo = () => {
             <p className="text-[#FD8521] text-[32px] font-bold">
               {(count * description?.price).toFixed(2)} ₼
             </p>
+          </div>
+          <div>
+            <div className="flex items-center w-full gap-[16px]">
+              <div className="w-full">
+                <p className="text-[20px] font-medium">Hissəli alış kalkulyatoru</p>
+                <p className="text-[#777] font-light my-[6px]">Şərtlər endirimsiz qiymətə tətbiq olunur</p>
+              </div>
+              <div className=" w-full border-[2px] border-solid border-[#FFD23F] rounded-[10px] p-[16px] flex items-center justify-center gap-[10px]">
+                <img src={tamcard} alt="tamcard.svg" />
+                <p className="font-light">TamKart ilə faizsiz ödə!</p>
+              </div>
+            </div>
+            <div className="p-[24px] border border-solid border-[#eaeaea] rounded-[10px] my-[16px] flex items-center justify-between">
+                  <div className="flex items-center justify-center w-full gap-[15px]">
+                  <button onClick={()=>{setCreditMonth(6)}} className={`${creditMonth==6?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>6 ay</button>
+                  <button onClick={()=>{setCreditMonth(9)}} className={`${creditMonth==9?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>9 ay</button>
+                  <button onClick={()=>{setCreditMonth(12)}} className={`${creditMonth==12?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>12 ay</button>
+                  <button onClick={()=>{setCreditMonth(15)}} className={`${creditMonth==15?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>15 ay</button>
+                  <button onClick={()=>{setCreditMonth(18)}} className={`${creditMonth==18?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>18 ay</button>
+                  <button onClick={()=>{setCreditMonth(24)}} className={`${creditMonth==24?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>24 ay</button>
+                  </div>
+                  <div className="px-[32px] border-l border-solid border-[#eaeaea] flex flex-col items-center">
+                    <p className="whitespace-nowrap">Aylıq ödəniş</p>
+                    <p className="font-medium mt-[9px]">{((description.price*count)/creditMonth).toFixed(2)} ₼</p>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <button>Zəng et</button>
           </div>
         </div>
       </div>
