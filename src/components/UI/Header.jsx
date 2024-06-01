@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/headerlogo.svg";
 import call from "../../assets/call.svg";
+import catalog from "../../assets/catalog.svg";
+import heart from "../../assets/whiteHeart.svg";
+import cart from "../../assets/whiteCart.svg";
+import searchIcon from "../../assets/search.svg";
 import whiteRightArrow from "../../assets/whiteRightArrow.svg";
 import yellowrightarrow from "../../assets/yellowRightArrow.svg";
 
@@ -11,6 +15,7 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showCatalog, setShowCatalog] = useState();
   const language = "en";
 
   useEffect(() => {
@@ -66,10 +71,37 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Container className=" rounded-[16px] overflow-hidden">
+      <div className="bg-[#323232] w-full p-[16px]">
+        <div className="w-[95%] mx-auto flex items-center justify-between gap-[80px]">
+          <button className="bg-[#232323] border border-white p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-start gap-[8px] w-[50%]">
+            <img src={catalog} alt="catalog.svg" /> Kataloq
+          </button>
+          <div className="bg-white w-full rounded-[32px] flex items-center p-[16px] gap-[10px]">
+            <img src={searchIcon} alt="search.svg" />
+            <input
+              type="text"
+              placeholder="25000 müxtəlif məhsul içindən axtarın"
+              className=" rounded-[32px] focus:outline-none w-full px-5"
+            />
+          </div>
+          <div className="w-[50%] flex items-center justify-end gap-[20px]">
+            <button className="rounded-full bg-[#232323] p-[8px]">
+              <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
+            </button>
+            <button className="rounded-full bg-[#232323] p-[8px]">
+              <img className="w-[24px] h-[24px]" src={cart} alt="heart.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <Container className=" rounded-[16px] overflow-hidden my-[24px]">
         {!loading && (
           <div className="flex  ">
-            <div className={`w-1/4 bg-black ${!selectedCategory?"rounded-[16px]":"rounded-l-[16px]"} overflow-hidden`}>
+            <div
+              className={`w-1/4 bg-black ${
+                !selectedCategory ? "rounded-[16px]" : "rounded-l-[16px]"
+              } overflow-hidden`}
+            >
               {categories.map((category) => (
                 <CustomAccordion
                   key={category.id}
@@ -79,21 +111,23 @@ const Header = () => {
                   isSelected={
                     selectedCategory && selectedCategory.id === category.id
                   }
-                  expandable = {false}
+                  expandable={false}
                 />
               ))}
             </div>
-            {selectedCategory&&<div className="w-3/4  bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll max-h-[500px]">
-              {selectedCategory &&
-                selectedCategory.children.map((child) => (
-                  <CustomAccordion
-                    isExpanded={true}
-                    key={child.id}
-                    category={child}
-                    language={language}
-                  />
-                ))}
-            </div>}
+            {selectedCategory && (
+              <div className="w-3/4  bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll max-h-[500px]">
+                {selectedCategory &&
+                  selectedCategory.children.map((child) => (
+                    <CustomAccordion
+                      isExpanded={true}
+                      key={child.id}
+                      category={child}
+                      language={language}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         )}
       </Container>
@@ -111,12 +145,12 @@ const CustomAccordion = ({
   onCategorySelect,
   isSelected,
   isExpanded,
-  expandable
+  expandable,
 }) => {
   const [expanded, setExpanded] = useState(isExpanded);
 
   const handleChange = () => {
-    expandable&&setExpanded(!expanded);
+    expandable && setExpanded(!expanded);
     onCategorySelect(category);
   };
 
@@ -133,7 +167,12 @@ const CustomAccordion = ({
       >
         {category.children?.length > 0 ? (
           <div className="flex w-full items-center justify-between">
-            <span className={isSelected?"text-yellow-400":"text-white"}>{category.title}</span>
+            <Link
+              to={`/category/${category.id}`}
+              className={isSelected ? "text-yellow-400" : "text-white"}
+            >
+              {category.title}
+            </Link>
             <span className="">
               {isSelected ? (
                 <img src={yellowrightarrow} alt="rightarrow.svg" />
