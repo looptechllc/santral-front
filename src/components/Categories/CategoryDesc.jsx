@@ -14,6 +14,7 @@ function CategoryDesc() {
   const [filters, setFilters] = useState({}); // State to store selected filter options
   const [filterOptions, setFilterOptions] = useState([]);
   const [categoryName, setCategoryName] = useState();
+  const [sort,setSort] = useState()
   useEffect(() => {
     fetch(`https://api.santral.az/v1/categories/mobile?lang=az`, {
       method: "POST",
@@ -34,7 +35,7 @@ function CategoryDesc() {
   }, [id]);
   useEffect(() => {
     fetch(
-      `https://api.santral.az/v1/products/mobile?category=${id}&limit=10&lang=az&page=${currentPage}`,
+      `https://api.santral.az/v1/products/mobile?category=${id}&limit=18&lang=az&sort=${sort}|page=${currentPage}&`,
       {
         method: "POST",
         headers: {
@@ -51,7 +52,7 @@ function CategoryDesc() {
         setItemCount(data.pagination.count);
       })
       .catch((error) => console.error("Error fetching products:", error));
-  }, [id, currentPage, filters]);
+  }, [id, currentPage, filters,sort]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -87,16 +88,16 @@ function CategoryDesc() {
           </span>
         </h1>
         <div className="flex items-center gap-[24px]">
-          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button onClick={()=>setSort('az')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
             A-dan Z-yə
           </button>
-          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button onClick={()=>setSort('za')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
             Z-dən A-ya
           </button>
-          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button onClick={()=>setSort('chp')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
             Ucuzdan bahaya
           </button>
-          <button className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button onClick={()=>setSort('exp')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
             Bahadan ucuza
           </button>
           <div className="border border-solid border-black/40 rounded-[32px] flex items-center p-[16px] gap-[10px]">
