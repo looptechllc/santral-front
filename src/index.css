@@ -35,7 +35,8 @@ background-color: #fffefa;
 }
 
 .accordion-details.expanded {
-    max-height: 500px; /* Adjust based on content */
+    max-height: 500px; 
+    height: 100%;
     transition: max-height 0.5s ease-in;
 }
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/headerlogo.svg";
 import call from "../../assets/call.svg";
 import catalog from "../../assets/catalog.svg";
@@ -18,6 +18,8 @@ const Header = () => {
   const [showCatalog, setShowCatalog] = useState();
   const language = "en";
 
+  const location = useLocation();
+  const catalogRef = useRef(null)
   useEffect(() => {
     fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
       method: "POST",
@@ -40,8 +42,19 @@ const Header = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    
   };
-
+  useEffect(() => {
+    if (catalogRef.current) {
+      // catalogRef.current.scrollIntoView({ behavior: "smooth" });
+      window.scrollBy({
+        top: 600,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+    setSelectedCategory(null); 
+  }, [location]);
   return (
     <>
       <div className="w-full bg-[#FFD23F] p-[16px]">
@@ -94,9 +107,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Container className=" rounded-[16px] overflow-hidden my-[24px]">
+      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden my-[24px]">
         {!loading && (
-          <div className="flex  ">
+          <div className="flex items-stretch">
             <div
               className={`w-1/4 bg-black ${
                 !selectedCategory ? "rounded-[16px]" : "rounded-l-[16px]"
@@ -116,7 +129,7 @@ const Header = () => {
               ))}
             </div>
             {selectedCategory && (
-              <div className="w-3/4  bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll max-h-[500px]">
+              <div className="w-3/4  max-h-[630px]  bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll ">
                 {selectedCategory &&
                   selectedCategory.children.map((child) => (
                     <CustomAccordion
@@ -162,14 +175,14 @@ const CustomAccordion = ({
   return (
     <div className="accordion w-full">
       <div
-        className="accordion-summary text-[20px] font-medium w-full"
+        className="accordion-summary text-[20px] font-medium w-full p-[16px]"
         onClick={handleChange}
       >
         {category.children?.length > 0 ? (
           <div className="flex w-full items-center justify-between">
             <Link
               to={`/category/${category.id}`}
-              className={isSelected ? "text-yellow-400" : "text-white"}
+              className={isSelected ? "text-yellow-400  p-[8px]" : "text-white p-[8px]"}
             >
               {category.title}
             </Link>
