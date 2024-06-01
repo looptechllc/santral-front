@@ -9,3 +9,39 @@ background-color: #fffefa;
 .css-1086bdv-MuiPaper-root-MuiAccordion-root.Mui-expanded{
     margin: 0!important;
 }
+
+.accordion {
+
+
+    /* border-radius: 4px; */
+    overflow: hidden;
+}
+
+.accordion-summary {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.accordion-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #000;
+    color: #fff;
+}
+
+.accordion-details.expanded {
+    max-height: 500px; /* Adjust based on content */
+    transition: max-height 0.5s ease-in;
+}
+
+.accordion-details a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+}
