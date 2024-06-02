@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ElementCard from "../General/ElementCard";
 
 import Pagination from "../General/Pagination";
-import searchIcon from '../../assets/search.svg'
+import searchIcon from "../../assets/search.svg";
 function CategoryDesc() {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
@@ -14,14 +14,50 @@ function CategoryDesc() {
   const [filters, setFilters] = useState({}); // State to store selected filter options
   const [filterOptions, setFilterOptions] = useState([]);
   const [categoryName, setCategoryName] = useState();
-  const [sort,setSort] = useState()
+  const [sort, setSort] = useState();
+  const [search, setSearch] = useState("");
+  const [filterData,setFilterData] = useState(
+    {
+      "filter":{}
+    }
+  )
+
+  async function fetchProducts() {
+    const url =  `https://api.santral.az/v1/products/mobile?category=${id}&limit=18&lang=az&page=${currentPage}&sort=${sort}&search=${search}`;
+
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify(filterData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setProducts(data.data);
+
+        setTotalPages(data.pagination.pages);
+        setItemCount(data.pagination.count);
+
+      } else {
+       console.log('error')
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  }
   useEffect(() => {
     fetch(`https://api.santral.az/v1/categories/mobile?lang=az`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Accept": "*/*"
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify(filterData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -34,25 +70,8 @@ function CategoryDesc() {
     fetchFilters();
   }, [id]);
   useEffect(() => {
-    fetch(
-      `https://api.santral.az/v1/products/mobile?category=${id}&limit=18&lang=az&sort=${sort}|page=${currentPage}&`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.data);
-        console.log(data.data)
-        setTotalPages(data.pagination.pages);
-        setItemCount(data.pagination.count);
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [id, currentPage, filters,sort]);
+    fetchProducts()
+  }, [id, currentPage, filters, sort, search]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -88,21 +107,39 @@ function CategoryDesc() {
           </span>
         </h1>
         <div className="flex items-center gap-[24px]">
-          <button onClick={()=>setSort('az')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button
+            onClick={() => setSort("az")}
+            className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]"
+          >
             A-dan Z-yə
           </button>
-          <button onClick={()=>setSort('za')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button
+            onClick={() => setSort("za")}
+            className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]"
+          >
             Z-dən A-ya
           </button>
-          <button onClick={()=>setSort('chp')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button
+            onClick={() => setSort("chp")}
+            className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]"
+          >
             Ucuzdan bahaya
           </button>
-          <button onClick={()=>setSort('exp')} className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]">
+          <button
+            onClick={() => setSort("exp")}
+            className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]"
+          >
             Bahadan ucuza
           </button>
           <div className="border border-solid border-black/40 rounded-[32px] flex items-center p-[16px] gap-[10px]">
             <img src={searchIcon} alt="search.svg" />
-            <input  type="text" placeholder="Məhsul axtarın" className=" rounded-[32px] focus:outline-none" />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder="Məhsul axtarın"
+              className=" rounded-[32px] focus:outline-none"
+            />
           </div>
         </div>
       </div>
@@ -178,7 +215,7 @@ function CategoryDesc() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <ElementCard
               key={index}
               img={`https://cdn.santral.az//images/${product.thumbnail}`}
