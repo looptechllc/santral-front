@@ -45,14 +45,14 @@ const Header = () => {
     
   };
   useEffect(() => {
-    if (catalogRef.current) {
+
       // catalogRef.current.scrollIntoView({ behavior: "smooth" });
       window.scrollBy({
         top: 600,
         left: 0,
         behavior: "smooth",
       });
-    }
+
     setSelectedCategory(null); 
   }, [location]);
   return (
