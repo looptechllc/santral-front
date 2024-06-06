@@ -232,6 +232,18 @@ const ProductInfo = () => {
           </div>
         </div>
       </div>
+          <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] ">
+
+            <p className="text-black/90">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+            <div className="grid grid-cols-2 gap-[24px] my-[24px]">
+                {description.parameters?.map((item,index)=>(
+                  <div className="pb-[12px] w-full border-b border-[#EAEAEA] flex items-center justify-between">
+                    <p className="text-[#777777]">{item?.param?.title}</p>
+                    <p>{item?.option?.title}</p>
+                  </div>
+                ))}
+            </div>
+          </div>
     </div>
   );
 };
