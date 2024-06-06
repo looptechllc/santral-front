@@ -6,12 +6,13 @@ import cart from "../../assets/cart.svg";
 import tamcard from "../../assets/tamcard.svg";
 import share from "../../assets/share.svg";
 import heartFill from "../../assets/heartFill.svg";
+import ReactImageGallery from "react-image-gallery";
 const ProductInfo = () => {
   const { name } = useParams();
   const [description, setDescription] = useState("");
   const [count, setCount] = useState(1);
-  const [creditMonth,setCreditMonth] = useState(6)
-
+  const [creditMonth, setCreditMonth] = useState(6);
+  const [selectedIndex,setSelectedIndex] = useState(0)
   useEffect(() => {
     const fetchDescription = async () => {
       try {
@@ -42,15 +43,33 @@ const ProductInfo = () => {
   const toggleLike = () => {
     setLiked(!liked);
   };
+  const images = description?.images?.length>0?description?.images?.map((item) => item):[description.thumbnail];
+  console.log(images);
   return (
     <div className="w-[95%] mx-auto ">
       <div className="flex gap-[24px] my-[24px]">
-        <div className="bg-white w-full rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA]">
-          <img
-            className="rounded-[16px]"
-            src={`https://cdn.santral.az/images/${description.thumbnail}`}
-            alt=""
-          />
+        <div className="bg-white w-full rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA] ">
+          {images&&<div className="flex items-start gap-[16px]">
+            <div className="flex flex-col gap-[16px]">
+              {images?.map((item, index) => (
+                <img
+                  key={index}
+                  onClick={()=>setSelectedIndex(index)}
+                  className="rounded-[16px] w-[74px]"
+                  src={`https://cdn.santral.az/images/${item}`}
+                  alt=""
+                />
+              ))}
+            </div>
+
+            <div className="h-[525px] max-w-[530px]">
+            <img
+              className="rounded-[16px] object-fit"
+              src={`https://cdn.santral.az/images/${images[selectedIndex]}`}
+              alt=""
+            />
+            </div>
+          </div>}
         </div>
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full flex flex-col gap-[24px]">
           <div className=" border-b border-[#eaeaea] py-[24px]">
@@ -107,8 +126,12 @@ const ProductInfo = () => {
           <div>
             <div className="flex items-center w-full gap-[16px]">
               <div className="w-full">
-                <p className="text-[20px] font-medium">Hissəli alış kalkulyatoru</p>
-                <p className="text-[#777] font-light my-[6px]">Şərtlər endirimsiz qiymətə tətbiq olunur</p>
+                <p className="text-[20px] font-medium">
+                  Hissəli alış kalkulyatoru
+                </p>
+                <p className="text-[#777] font-light my-[6px]">
+                  Şərtlər endirimsiz qiymətə tətbiq olunur
+                </p>
               </div>
               <div className=" w-full border-[2px] border-solid border-[#FFD23F] rounded-[10px] p-[16px] flex items-center justify-center gap-[10px]">
                 <img src={tamcard} alt="tamcard.svg" />
@@ -116,23 +139,96 @@ const ProductInfo = () => {
               </div>
             </div>
             <div className="p-[24px] border border-solid border-[#eaeaea] rounded-[10px] my-[16px] flex items-center justify-between">
-                  <div className="flex items-center justify-center w-full gap-[15px] px-[32px]">
-                  <button onClick={()=>{setCreditMonth(6)}} className={`${creditMonth==6?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>6 ay</button>
-                  <button onClick={()=>{setCreditMonth(9)}} className={`${creditMonth==9?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>9 ay</button>
-                  <button onClick={()=>{setCreditMonth(12)}} className={`${creditMonth==12?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>12 ay</button>
-                  <button onClick={()=>{setCreditMonth(15)}} className={`${creditMonth==15?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>15 ay</button>
-                  <button onClick={()=>{setCreditMonth(18)}} className={`${creditMonth==18?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>18 ay</button>
-                  <button onClick={()=>{setCreditMonth(24)}} className={`${creditMonth==24?"bg-[#323232] text-white":"bg-[#F3F3F3] text-black"} w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}>24 ay</button>
-                  </div>
-                  <div className="px-[32px] border-l border-solid border-[#eaeaea] flex flex-col items-center">
-                    <p className="whitespace-nowrap">Aylıq ödəniş</p>
-                    <p className="font-medium mt-[9px]">{((description.price*count)/creditMonth).toFixed(2)} ₼</p>
-                  </div>
+              <div className="flex items-center justify-center w-full gap-[15px] px-[32px]">
+                <button
+                  onClick={() => {
+                    setCreditMonth(6);
+                  }}
+                  className={`${
+                    creditMonth == 6
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  6 ay
+                </button>
+                <button
+                  onClick={() => {
+                    setCreditMonth(9);
+                  }}
+                  className={`${
+                    creditMonth == 9
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  9 ay
+                </button>
+                <button
+                  onClick={() => {
+                    setCreditMonth(12);
+                  }}
+                  className={`${
+                    creditMonth == 12
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  12 ay
+                </button>
+                <button
+                  onClick={() => {
+                    setCreditMonth(15);
+                  }}
+                  className={`${
+                    creditMonth == 15
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  15 ay
+                </button>
+                <button
+                  onClick={() => {
+                    setCreditMonth(18);
+                  }}
+                  className={`${
+                    creditMonth == 18
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  18 ay
+                </button>
+                <button
+                  onClick={() => {
+                    setCreditMonth(24);
+                  }}
+                  className={`${
+                    creditMonth == 24
+                      ? "bg-[#323232] text-white"
+                      : "bg-[#F3F3F3] text-black"
+                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                >
+                  24 ay
+                </button>
+              </div>
+              <div className="px-[32px] border-l border-solid border-[#eaeaea] flex flex-col items-center">
+                <p className="whitespace-nowrap">Aylıq ödəniş</p>
+                <p className="font-medium mt-[9px]">
+                  {((description.price * count) / creditMonth).toFixed(2)} ₼
+                </p>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-[16px]">
-            <button className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">Zəng et</button>
-            <button className="border-2 border-solid border-[#ffd23f] bg-[#ffd23f] py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]"><img src={cart} alt="cart.svg" />Səbətə at</button>
+            <button className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">
+              Zəng et
+            </button>
+            <button className="border-2 border-solid border-[#ffd23f] bg-[#ffd23f] py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
+              <img src={cart} alt="cart.svg" />
+              Səbətə at
+            </button>
           </div>
         </div>
       </div>
@@ -141,87 +237,3 @@ const ProductInfo = () => {
 };
 
 export default ProductInfo;
-/* 
-{
-    "parent": {
-        "parent": null,
-        "language": "az",
-        "public": true,
-        "id": 38,
-        "route": "/az/products/",
-        "viewModule": "Ecommerce",
-        "view": "Products",
-        "lookup": "Page",
-        "lookupId": 100,
-        "title": "Məhsullar"
-    },
-    "language": "az",
-    "public": true,
-    "id": 33488,
-    "route": "/az/products/lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488/",
-    "viewModule": "Ecommerce",
-    "view": "ProductItem",
-    "modelModule": "Ecommerce",
-    "model": "Product",
-    "lookup": "Product",
-    "lookupId": 33488,
-    "type": "none",
-    "title": "LS-UT042-24W INPUT VOLTAGE 48V DC  50SM LEDASUN SPOT ",
-    "desc": "",
-    "stock": 100,
-    "minimalOrder": 1,
-    "price": 32.6,
-    "oldPrice": 0,
-    "category": {
-        "id": 1308,
-        "title": "Ledasun",
-        "parent": {
-            "id": 202,
-            "title": "Spotlar",
-            "parent": {
-                "id": 194,
-                "title": "İşıqlandırma",
-                "route": "/iqlandrma-194"
-            },
-            "route": "/iqlandrma-194/spotlar-202"
-        },
-        "route": "/iqlandrma-194/spotlar-202/ledasun-1308"
-    },
-    "brand": {
-        "id": 766,
-        "title": "LEDASUN"
-    },
-    "translations": [
-        {
-            "language": "az",
-            "name": "lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488",
-            "title": "LS-UT042-24W INPUT VOLTAGE 48V DC  50SM LEDASUN SPOT ",
-            "desc": "",
-            "_id": "664dc4d97abbaefc02c1b8aa",
-            "route": "/az/products/lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488"
-        },
-        {
-            "language": "en",
-            "name": "lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488",
-            "title": "",
-            "desc": "",
-            "_id": "664dc4d97abbaefc02c1b8ab",
-            "route": "/en/products/lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488"
-        },
-        {
-            "language": "ru",
-            "name": "lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488",
-            "title": "",
-            "desc": "",
-            "_id": "664dc4d97abbaefc02c1b8ac",
-            "route": "/ru/products/lsut04224w-input-voltage-48v-dc-50sm-ledasun-spot--33488"
-        }
-    ],
-    "thumbnail": "a25fe575-4eff-11ee-8450-005056b06295.png",
-    "images": [],
-    "favorite": false,
-    "parameters": null,
-    "params": []
-}
-
-*/
