@@ -12,7 +12,8 @@ const ProductInfo = () => {
   const [description, setDescription] = useState("");
   const [count, setCount] = useState(1);
   const [creditMonth, setCreditMonth] = useState(6);
-  const [selectedIndex,setSelectedIndex] = useState(0)
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedDetail,setSelectedDetail] = useState(0);
   useEffect(() => {
     const fetchDescription = async () => {
       try {
@@ -43,33 +44,38 @@ const ProductInfo = () => {
   const toggleLike = () => {
     setLiked(!liked);
   };
-  const images = description?.images?.length>0?description?.images?.map((item) => item):[description.thumbnail];
+  const images =
+    description?.images?.length > 0
+      ? description?.images?.map((item) => item)
+      : [description.thumbnail];
   console.log(images);
   return (
-    <div className="w-[95%] mx-auto ">
+    <div className="w-[95%] mx-auto pb-[120px] ">
       <div className="flex gap-[24px] my-[24px]">
         <div className="bg-white w-full rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA] ">
-          {images&&<div className="flex items-start gap-[16px]">
-            <div className="flex flex-col gap-[16px]">
-              {images?.map((item, index) => (
+          {images && (
+            <div className="flex items-start gap-[16px]">
+              <div className="flex flex-col gap-[16px]">
+                {images?.map((item, index) => (
+                  <img
+                    key={index}
+                    onClick={() => setSelectedIndex(index)}
+                    className="rounded-[16px] w-[74px]"
+                    src={`https://cdn.santral.az/images/${item}`}
+                    alt=""
+                  />
+                ))}
+              </div>
+
+              <div className="h-[525px] w-[530px]">
                 <img
-                  key={index}
-                  onClick={()=>setSelectedIndex(index)}
-                  className="rounded-[16px] w-[74px]"
-                  src={`https://cdn.santral.az/images/${item}`}
+                  className="rounded-[16px] object-cover"
+                  src={`https://cdn.santral.az/images/${images[selectedIndex]}`}
                   alt=""
                 />
-              ))}
+              </div>
             </div>
-
-            <div className="h-[525px] max-w-[530px]">
-            <img
-              className="rounded-[16px] object-fit"
-              src={`https://cdn.santral.az/images/${images[selectedIndex]}`}
-              alt=""
-            />
-            </div>
-          </div>}
+          )}
         </div>
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] w-full flex flex-col gap-[24px]">
           <div className=" border-b border-[#eaeaea] py-[24px]">
@@ -232,18 +238,25 @@ const ProductInfo = () => {
           </div>
         </div>
       </div>
-          <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] ">
-
-            <p className="text-black/90">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
-            <div className="grid grid-cols-2 gap-[24px] my-[24px]">
-                {description.parameters?.map((item,index)=>(
-                  <div className="pb-[12px] w-full border-b border-[#EAEAEA] flex items-center justify-between">
-                    <p className="text-[#777777]">{item?.param?.title}</p>
-                    <p>{item?.option?.title}</p>
-                  </div>
-                ))}
-            </div>
+      <div className="flex items-center gap-[16px]">
+        <button onClick={()=>{setSelectedDetail(0)}} className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${selectedDetail==0?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Xüsusiyyətlər</button>
+        <button onClick={()=>{setSelectedDetail(1)}} className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${selectedDetail==1?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Oxşar məhsullar</button>
+      </div>
+      <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] ">
+        {description?.desc && (
+          <p className="text-black/90">{description?.desc}</p>
+        )}
+        {description?.parameters?.length > 0 && (
+          <div className="grid grid-cols-2 gap-[24px] my-[24px]">
+            {description?.parameters?.map((item, index) => (
+              <div className="pb-[12px] w-full border-b border-[#EAEAEA] flex items-center justify-between">
+                <p className="text-[#777777]">{item?.param?.title}</p>
+                <p>{item?.option?.title}</p>
+              </div>
+            ))}
           </div>
+        )}
+      </div>
     </div>
   );
 };
