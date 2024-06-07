@@ -7,14 +7,15 @@ import tamcard from "../../assets/tamcard.svg";
 import share from "../../assets/share.svg";
 import heartFill from "../../assets/heartFill.svg";
 import ReactImageGallery from "react-image-gallery";
+import ElementCard from "../General/ElementCard";
 const ProductInfo = () => {
   const { name } = useParams();
   const [description, setDescription] = useState("");
   const [count, setCount] = useState(1);
   const [creditMonth, setCreditMonth] = useState(6);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedDetail,setSelectedDetail] = useState(0);
-  const [relatedProducts,setRealProducts] = useState();
+  const [selectedDetail, setSelectedDetail] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState();
   useEffect(() => {
     const fetchDescription = async () => {
       try {
@@ -24,7 +25,7 @@ const ProductInfo = () => {
         const data = await response.json();
         // console.log(data);
         setDescription(data.route);
-        setCount(data.route.minimalOrder)
+        setCount(data.route.minimalOrder);
       } catch (error) {
         console.error("Error fetching description:", error);
       }
@@ -33,8 +34,7 @@ const ProductInfo = () => {
     fetchDescription();
   }, [name]);
   async function fetchRelated(id) {
-    const url =  `https://api.santral.az/v1/products/published?id=${id}&related=1&lang=az`;
-
+    const url = `https://api.santral.az/v1/products/published?id=${id}&related=1&lang=az`;
 
     try {
       const response = await fetch(url, {
@@ -42,24 +42,22 @@ const ProductInfo = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-
         },
         body: JSON.stringify({}),
       });
       const data = await response.json();
       if (response.ok) {
-
-       console.log(data)
+        setRelatedProducts(data.data);
       } else {
-       console.log('error')
+        console.log("error");
       }
     } catch (error) {
       // toast.error("Error:", error);
     }
   }
-useEffect(()=>{
-fetchRelated(description?.id)
-},[description])
+  useEffect(() => {
+    fetchRelated(description?.id);
+  }, [description]);
   const increment = () => {
     setCount((prevCount) => prevCount + 1);
   };
@@ -131,7 +129,13 @@ fetchRelated(description?.id)
               </div>
             </div>
             <div className="flex w-full items-center justify-between mt-[16px]">
-              {description?.stock>0?<p className="text-[#17A539] font-medium">Məhsul mövcuddur</p>:<p className="text-[#a51717] font-medium">Məhsul mövcud deyil</p>}
+              {description?.stock > 0 ? (
+                <p className="text-[#17A539] font-medium">Məhsul mövcuddur</p>
+              ) : (
+                <p className="text-[#a51717] font-medium">
+                  Məhsul mövcud deyil
+                </p>
+              )}
               <p className="text-[#777] font-light">
                 SKU: {description?.title}
               </p>
@@ -268,24 +272,57 @@ fetchRelated(description?.id)
         </div>
       </div>
       <div className="flex items-center gap-[16px]">
-        <button onClick={()=>{setSelectedDetail(0)}} className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${selectedDetail==0?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Xüsusiyyətlər</button>
-        <button onClick={()=>{setSelectedDetail(1)}} className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${selectedDetail==1?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Oxşar məhsullar</button>
+        <button
+          onClick={() => {
+            setSelectedDetail(0);
+          }}
+          className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${
+            selectedDetail == 0 ? "bg-[#FFD23F]" : "bg-[#EAEAEA]"
+          }`}
+        >
+          Xüsusiyyətlər
+        </button>
+        <button
+          onClick={() => {
+            setSelectedDetail(1);
+          }}
+          className={`duration-300 mb-[16px] p-[16px] rounded-[32px] ${
+            selectedDetail == 1 ? "bg-[#FFD23F]" : "bg-[#EAEAEA]"
+          }`}
+        >
+          Oxşar məhsullar
+        </button>
       </div>
-      <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] ">
-        {description?.desc && (
-          <p className="text-black/90">{description?.desc}</p>
-        )}
-        {description?.parameters?.length > 0 && (
-          <div className="grid grid-cols-2 gap-[24px] my-[24px]">
-            {description?.parameters?.map((item, index) => (
-              <div className="pb-[12px] w-full border-b border-[#EAEAEA] flex items-center justify-between">
-                <p className="text-[#777777]">{item?.param?.title}</p>
-                <p>{item?.option?.title}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {!selectedDetail ? (
+        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] ">
+          {description?.desc && (
+            <p className="text-black/90">{description?.desc}</p>
+          )}
+          {description?.parameters?.length > 0 && (
+            <div className="grid grid-cols-2 gap-[24px] my-[24px]">
+              {description?.parameters?.map((item, index) => (
+                <div className="pb-[12px] w-full border-b border-[#EAEAEA] flex items-center justify-between">
+                  <p className="text-[#777777]">{item?.param?.title}</p>
+                  <p>{item?.option?.title}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] grid gap-[24px] grid-cols-4">
+          {relatedProducts?.map((item, index) => (
+            <ElementCard
+              img={`https://cdn.santral.az//images/${item.thumbnail}`}
+              sale={item.discountPercent}
+              name={item?.name}
+              price={item?.price}
+              beforePrice={item.oldPrice}
+              link={item.name}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
