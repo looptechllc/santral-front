@@ -23,6 +23,7 @@ const ProductInfo = () => {
         const data = await response.json();
         console.log(data);
         setDescription(data.route);
+        setCount(data.route.minimalOrder)
       } catch (error) {
         console.error("Error fetching description:", error);
       }
@@ -36,7 +37,7 @@ const ProductInfo = () => {
   };
 
   const decrement = () => {
-    if (count > 1) {
+    if (count > description?.minimalOrder) {
       setCount((prevCount) => prevCount - 1);
     }
   };
