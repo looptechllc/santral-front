@@ -14,6 +14,7 @@ const ProductInfo = () => {
   const [creditMonth, setCreditMonth] = useState(6);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedDetail,setSelectedDetail] = useState(0);
+  const [relatedProducts,setRealProducts] = useState();
   useEffect(() => {
     const fetchDescription = async () => {
       try {
@@ -21,7 +22,7 @@ const ProductInfo = () => {
           `https://api.santral.az/v1/routes/find?domain=santral_www&location=/az/products/${name}`
         );
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setDescription(data.route);
         setCount(data.route.minimalOrder)
       } catch (error) {
@@ -31,7 +32,34 @@ const ProductInfo = () => {
 
     fetchDescription();
   }, [name]);
+  async function fetchRelated(id) {
+    const url =  `https://api.santral.az/v1/products/published?id=${id}&related=1&lang=az`;
 
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      if (response.ok) {
+
+       console.log(data)
+      } else {
+       console.log('error')
+      }
+    } catch (error) {
+      // toast.error("Error:", error);
+    }
+  }
+useEffect(()=>{
+fetchRelated(description?.id)
+},[description])
   const increment = () => {
     setCount((prevCount) => prevCount + 1);
   };
