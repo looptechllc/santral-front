@@ -102,7 +102,7 @@ const ProductInfo = () => {
               </div>
             </div>
             <div className="flex w-full items-center justify-between mt-[16px]">
-              <p className="text-[#17A539] font-medium">Məhsul mövcuddur</p>
+              {description?.stock>0?<p className="text-[#17A539] font-medium">Məhsul mövcuddur</p>:<p className="text-[#a51717] font-medium">Məhsul mövcud deyil</p>}
               <p className="text-[#777] font-light">
                 SKU: {description?.title}
               </p>
