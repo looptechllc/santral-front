@@ -1,7 +1,4 @@
-import BrandsCarousel from './components/General/BrandsCarousel'
-import ElementCard from './components/General/ElementCard'
-import Advantages from './components/Home/Advantages'
-import ProductsGrid from './components/Home/ProductsGrid'
+
 import Footer from './components/UI/Footer'
 import elementImage from './assets/elementimage.jpg'
 import SaleProducts from './components/Home/SaleProducts'
