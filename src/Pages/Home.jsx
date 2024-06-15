@@ -6,11 +6,13 @@ import Categories from "./Categories";
 import Catalog from "../components/General/Catalog";
 import Brands from "../components/Home/Brands";
 import News from "../components/Home/News";
+import NewComing from "../components/Home/NewComing";
 
 const Home = () => {
   return (
     <>
     <Catalog />
+    <NewComing />
       <Categories />
       <ProductsGrid />
       <Brands />
