@@ -44,17 +44,17 @@ const Header = () => {
     setSelectedCategory(category);
     
   };
-  useEffect(() => {
+  // useEffect(() => {
 
-      // catalogRef.current.scrollIntoView({ behavior: "smooth" });
-      window.scrollBy({
-        top: 600,
-        left: 0,
-        behavior: "smooth",
-      });
+  //     // catalogRef.current.scrollIntoView({ behavior: "smooth" });
+  //     window.scrollBy({
+  //       top: 600,
+  //       left: 0,
+  //       behavior: "smooth",
+  //     });
 
-    setSelectedCategory(null); 
-  }, [location]);
+  //   setSelectedCategory(null); 
+  // }, [location]);
   return (
     <>
       <div className="w-full bg-[#FFD23F] p-[16px]">

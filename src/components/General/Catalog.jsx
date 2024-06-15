@@ -44,17 +44,17 @@ const Catalog = () => {
     setSelectedCategory(category);
     
   };
-  useEffect(() => {
+  // useEffect(() => {
 
-      // catalogRef.current.scrollIntoView({ behavior: "smooth" });
-      window.scrollBy({
-        top: 600,
-        left: 0,
-        behavior: "smooth",
-      });
+  //     // catalogRef.current.scrollIntoView({ behavior: "smooth" });
+  //     window.scrollBy({
+  //       top: 600,
+  //       left: 0,
+  //       behavior: "smooth",
+  //     });
 
-    setSelectedCategory(null); 
-  }, [location]);
+  //   setSelectedCategory(null); 
+  // }, [location]);
   return (
     <>
       
