@@ -7,6 +7,7 @@ import Catalog from "../components/General/Catalog";
 import Brands from "../components/Home/Brands";
 import News from "../components/Home/News";
 import NewComing from "../components/Home/NewComing";
+import BottomBanner from "../components/Home/BottomBanner";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <Brands />
       <Advantages />
       <SaleProducts />
+      <BottomBanner />
       <News />
     </>
   );
