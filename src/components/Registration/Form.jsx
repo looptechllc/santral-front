@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 import rightarrow from "../../assets/rightarrow.svg";
+import { useNavigate } from "react-router-dom";
 const Form = () => {
   const [formData, setFormData] = useState();
+  const navigate = useNavigate()
+  async function registerUser(e) {
+    e.preventDefault();
+    const url =  `https://api.santral.az/v1/auth/signup`;
+    
 
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        navigate("/success")
+      } else {
+        console.error("Your request cannot be completed")
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  }
   return (
     <div className="p-[40px] w-full bg-[#fffefa] flex items-center justify-center">
       <div className="flex flex-col bg-white p-[24px] border border-solid border-[#EAEAEA] rounded-[16px]">
@@ -10,17 +36,17 @@ const Form = () => {
         <p className="my-[16px]">
           Qeydiyyatdan keçmək üçün zəhmət olmasa məlumatlarınızı doldurun{" "}
         </p>
-        <form className="grid grid-cols-2 gap-[24px]">
+        <form onSubmit={(e)=>{registerUser(e)}} className="grid grid-cols-2 gap-[24px]">
           <div className="flex flex-col ">
             <label className="mb-[]" htmlFor="">
               Ad
             </label>
             <input
-              value={formData?.firstName}
+              value={formData?.firstname}
               onChange={(e) =>
                 setFormData((prevFormData) => ({
                   ...prevFormData,
-                  firstName: e.target.value,
+                  firstname: e.target.value,
                 }))
               }
               placeholder="Ad"
@@ -33,11 +59,11 @@ const Form = () => {
               Soyad
             </label>
             <input
-            value={formData?.lastName}
+            value={formData?.lastname}
             onChange={(e) =>
               setFormData((prevFormData) => ({
                 ...prevFormData,
-                lastName: e.target.value,
+                lastname: e.target.value,
               }))
             }
               placeholder="Soyad"
@@ -67,11 +93,11 @@ const Form = () => {
               Mobil nömrə
             </label>
             <input
-            value={formData?.phoneNumber}
+            value={formData?.phone}
             onChange={(e) =>
               setFormData((prevFormData) => ({
                 ...prevFormData,
-                phoneNumber: e.target.value,
+                phone: e.target.value,
               }))
             }
               placeholder="Mobil nömrə daxil edin"
@@ -101,6 +127,13 @@ const Form = () => {
               Şifrə təkrar
             </label>
             <input
+            value={formData?.password2}
+            onChange={(e) =>
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                password2: e.target.value,
+              }))
+            }
               placeholder="Şifrə təkrar"
               type="password"
               className="p-[16px] min-w-[300px] focus:outline-none  my-[4px] bg-[#EBEBEB] border border-solid border-black/40 rounded-[16px]"
