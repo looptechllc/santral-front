@@ -17,46 +17,36 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [loggedIn,setLoggedIn] = useState(false)
   const [showCatalog, setShowCatalog] = useState();
   const language = "en";
   
   const location = useLocation();
   const catalogRef = useRef(null);
-  useEffect(() => {
-    fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setCategories(data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({}),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setCategories(data.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching categories:", error);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
-  // useEffect(() => {
-
-  //     // catalogRef.current.scrollIntoView({ behavior: "smooth" });
-  //     window.scrollBy({
-  //       top: 600,
-  //       left: 0,
-  //       behavior: "smooth",
-  //     });
-
-  //   setSelectedCategory(null);
-  // }, [location]);
-
+  
   const [dropdown, setDropdown] = useState();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -95,6 +85,10 @@ const Header = () => {
       toast.error("Error:", error);
     }
   }
+  useEffect(()=>{
+    const accessToken = secureLocalStorage.getItem("access_token")
+    accessToken?setLoggedIn(true):setLoggedIn(false)
+  },[])
   return (
     <>
       <div className="w-full bg-[#FFD23F] p-[16px]">
@@ -119,7 +113,7 @@ const Header = () => {
                 onClick={toggleDropdown}
                 className="dropbtn bg-black rounded-[32px] px-[24px] py-[16px] text-white"
               >
-                Daxil ol
+                {loggedIn?"Hesab":"Daxil ol"}
               </button>
               <div
                 id="dropdown"
@@ -164,7 +158,7 @@ const Header = () => {
                       }))
                     }
                       className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
-                      type="email"
+                      type="text"
                       placeholder="E-mail daxil edin"
                     />
                   </div>
