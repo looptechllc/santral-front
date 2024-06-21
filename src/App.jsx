@@ -10,6 +10,7 @@ import Categories from './Pages/Categories'
 import CategoryDesc from './components/Categories/CategoryDesc'
 import Product from './Pages/Product'
 import Header from './components/UI/Header'
+import Profile from './Pages/Profile'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/success' element={<Success />} />
         <Route path='/registration' element={<Registration />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='/category/:id' element={<CategoryDesc />} />
         <Route path='/product/:name' element={<Product />} />
       </Routes>
