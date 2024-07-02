@@ -11,11 +11,13 @@ import CategoryDesc from './components/Categories/CategoryDesc'
 import Product from './Pages/Product'
 import Header from './components/UI/Header'
 import Profile from './Pages/Profile'
+import News from './Pages/News'
+import NewsDetail from './Pages/NewsDetail'
 
 
 function App() {
 
-  const element = {img: elementImage,sale:"40",name:"A beautiful item for home",price:"699",beforePrice:"999"}
+
   
   return (
     <>
@@ -27,6 +29,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/success' element={<Success />} />
         <Route path='/registration' element={<Registration />} />
+        <Route path='/news' element={<News />} />
+        <Route path='/news/:slug' element={<NewsDetail />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/category/:id' element={<CategoryDesc />} />
         <Route path='/product/:name' element={<Product />} />
