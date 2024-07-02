@@ -33,15 +33,18 @@ const Profile = () => {
   }
   async function getAllOrders() {
     const accessToken = secureLocalStorage.getItem("access_token");
-    const url = `https://api.santral.az//v1/orders/info?token=${accessToken}`;
+;
+    const url = "https://api.santral.az/v1/orders/history?lang=az";
 
     try {
       const response = await fetch(url, {
-        method: "GET",
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
+        body:JSON.stringify({}),
       });
 
       if (!response.ok) {
@@ -49,16 +52,45 @@ const Profile = () => {
       }
 
       const data = await response.json();
-
+      console.log(data)
       return data;
     } catch (error) {
       console.error("Error:", error);
       throw error;
-    }
+}
+  }
+  async function getAddresses() {
+    const accessToken = secureLocalStorage.getItem("access_token");
+;
+    const url = "https://api.santral.az/v1/customers/address?lang=az";
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body:"{}",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+// console.log(data)
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   }
   useEffect(() => {
     getUserInfo();
-    getAllOrders();
+    getAddresses()
+    getAllOrders()
   }, []);
 
   const tabs = [
