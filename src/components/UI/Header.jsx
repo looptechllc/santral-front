@@ -250,9 +250,10 @@ const Header = () => {
         </div>
       </div>
       <div
+      
         className={`${showCatalog ? "" : "hidden"} z-[200] h-screen bg-black`}
       >
-        <Catalog />
+        <Catalog isVisible={setShowCatalog} />
       </div>
     </>
   );

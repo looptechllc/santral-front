@@ -11,7 +11,7 @@ import yellowrightarrow from "../../assets/yellowRightArrow.svg";
 
 import Container from "@mui/material/Container";
 
-const Catalog = () => {
+const Catalog = ({isVisible}) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -132,6 +132,7 @@ const CustomAccordion = ({
         {category.children?.length > 0 ? (
           <div className="flex w-full items-center justify-between">
             <Link
+              onClick={()=>isVisible?isVisible(false):""}
               to={`/category/${category.id}`}
               className={isSelected ? "text-yellow-400  p-[8px]" : "text-white p-[8px]"}
             >
@@ -146,13 +147,13 @@ const CustomAccordion = ({
             </span>
           </div>
         ) : (
-          <Link to={`/category/${category.id}`}>{category.title}</Link>
+          <Link onClick={()=>isVisible?isVisible(false):""} to={`/category/${category.id}`}>{category.title}</Link>
         )}
       </div>
       <div className={`accordion-details ${expanded ? "expanded" : ""}`}>
         {category.children &&
           category.children.map((child) => (
-            <Link key={child.id} to={`/category/${child.id}`}>
+            <Link onClick={()=>isVisible?isVisible(false):""} key={child.id} to={`/category/${child.id}`}>
               {child.title}
             </Link>
           ))}
