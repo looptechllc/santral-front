@@ -43,7 +43,10 @@ const News = () => {
     // ] 
   return (
     <div className='px-[47px]'>
+        <div className='w-full flex items-center justify-between'>
         <h2 className='font-[600] text-[48px]'>News</h2>
+        <Link to="/news" className='text-[20px] font-medium text-[#FFD23F]'>Hamısına bax</Link>
+        </div>
         <Slider {...settings}>
         {news?.map((item,index)=>(
             <NewsCard img={`https://cdn.santral.az/images/${item.thumbnail}`} title={item.title} desc={item.desc} date={item?.date?new Date(item?.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }):""} link={item.link} />
