@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/headerlogo.svg";
 import call from "../../assets/call.svg";
 import catalog from "../../assets/catalog.svg";
@@ -11,42 +11,25 @@ import yellowrightarrow from "../../assets/yellowRightArrow.svg";
 
 import Container from "@mui/material/Container";
 import secureLocalStorage from "react-secure-storage";
+import Catalog from "../General/Catalog";
 
 const Header = () => {
-  const [formData,setFormData] = useState()
+  const [formData, setFormData] = useState();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
   const [showCatalog, setShowCatalog] = useState();
   const language = "en";
-  
+
   const location = useLocation();
   const catalogRef = useRef(null);
-  // useEffect(() => {
-  //   fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({}),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setCategories(data.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching categories:", error);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  const navigate = useNavigate();
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
-  
+
   const [dropdown, setDropdown] = useState();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -61,8 +44,7 @@ const Header = () => {
 
   async function loginWithUser(e) {
     e.preventDefault();
-    const url =  `https://api.santral.az/v1/auth/login`;
-    
+    const url = `https://api.santral.az/v1/auth/login`;
 
     try {
       const response = await fetch(url, {
@@ -70,25 +52,33 @@ const Header = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-
         },
         body: JSON.stringify(formData),
       });
       const data = await response.json();
       if (response.ok) {
-        secureLocalStorage.setItem("access_token",data.access_token)
-        secureLocalStorage.setItem("refresh_token",data.refresh_token)
+        secureLocalStorage.setItem("access_token", data.access_token);
+        secureLocalStorage.setItem("refresh_token", data.refresh_token);
       } else {
-        console.error("Your request cannot be completed")
+        console.error("Your request cannot be completed");
       }
     } catch (error) {
       toast.error("Error:", error);
     }
   }
-  useEffect(()=>{
-    const accessToken = secureLocalStorage.getItem("access_token")
-    accessToken?setLoggedIn(true):setLoggedIn(false)
-  },[])
+
+  useEffect(() => {
+    const accessToken = secureLocalStorage.getItem("access_token");
+    accessToken ? setLoggedIn(true) : setLoggedIn(false);
+  }, []);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    if (query) {
+      navigate(`/products/${query}`);
+    } else navigate("/");
+  };
+
   return (
     <>
       <div className="w-full bg-[#FFD23F] p-[16px]">
@@ -109,15 +99,21 @@ const Header = () => {
             </a>
 
             <div className="dropdown w-fit relative">
-              <button
-                onClick={toggleDropdown}
-                className="dropbtn bg-black rounded-[32px] px-[24px] py-[16px] text-white"
-              >
-                {loggedIn?"Hesab":"Daxil ol"}
-              </button>
+              {loggedIn ? (
+                <Link to="/profile" className="dropbtn bg-black rounded-[32px] px-[24px] py-[16px] text-white">
+                  Hesab
+                </Link>
+              ) : (
+                <button
+                  onClick={toggleDropdown}
+                  className="dropbtn bg-black rounded-[32px] px-[24px] py-[16px] text-white"
+                >
+                  Daxil ol
+                </button>
+              )}
               <div
                 id="dropdown"
-                className="dropdown-content w-[395px] bg-white rounded-[16px] mt-2  absolute right-0  hidden flex flex-col   p-[16px]   z-50"
+                className="dropdown-content w-[395px] bg-white rounded-[16px] mt-2 absolute right-0 hidden flex flex-col p-[16px] z-50"
               >
                 <button className="self-end" onClick={toggleDropdown}>
                   <svg
@@ -144,19 +140,22 @@ const Header = () => {
                     />
                   </svg>
                 </button>
-                <form onSubmit={(e)=>{loginWithUser(e)}} className="w-full flex flex-col gap-[24px]">
+                <form
+                  onSubmit={(e) => loginWithUser(e)}
+                  className="w-full flex flex-col gap-[24px]"
+                >
                   <div className="flex flex-col gap-[8px]">
                     <label htmlFor="" className="text-[14px]">
                       E-mail
                     </label>
                     <input
-                    value={formData?.username}
-                    onChange={(e) =>
-                      setFormData((prevFormData) => ({
-                        ...prevFormData,
-                        username: e.target.value,
-                      }))
-                    }
+                      value={formData?.username}
+                      onChange={(e) =>
+                        setFormData((prevFormData) => ({
+                          ...prevFormData,
+                          username: e.target.value,
+                        }))
+                      }
                       className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
                       type="text"
                       placeholder="E-mail daxil edin"
@@ -167,13 +166,13 @@ const Header = () => {
                       Şifrə
                     </label>
                     <input
-                    value={formData?.password}
-                    onChange={(e) =>
-                      setFormData((prevFormData) => ({
-                        ...prevFormData,
-                        password: e.target.value,
-                      }))
-                    }
+                      value={formData?.password}
+                      onChange={(e) =>
+                        setFormData((prevFormData) => ({
+                          ...prevFormData,
+                          password: e.target.value,
+                        }))
+                      }
                       className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
                       type="password"
                       placeholder="*****"
@@ -182,7 +181,10 @@ const Header = () => {
                   <a href="" className="text-black/60 text-[14px] self-end">
                     Şifrəni unutmusunuz?
                   </a>
-                  <button type="submit" className="w-full bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[16px]">
+                  <button
+                    type="submit"
+                    className="w-full bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[16px]"
+                  >
                     Daxil ol{" "}
                     <svg
                       width="25"
@@ -202,7 +204,13 @@ const Header = () => {
                   </button>
                 </form>
                 <p className="text-black/60 mt-[16px]">
-                Hesabınız yoxdur? <Link to="/registration" className="underline font-bold text-[#FD8521]">Qeydiyyatdan keç</Link>
+                  Hesabınız yoxdur?{" "}
+                  <Link
+                    to="/registration"
+                    className="underline font-bold text-[#FD8521]"
+                  >
+                    Qeydiyyatdan keç
+                  </Link>
                 </p>
               </div>
             </div>
@@ -216,7 +224,10 @@ const Header = () => {
       </div>
       <div className="bg-[#323232] w-full p-[16px]">
         <div className="w-[95%] mx-auto flex items-center justify-between gap-[80px]">
-          <button className="bg-[#232323] border border-white p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-start gap-[8px] w-[50%]">
+          <button
+            onClick={() => setShowCatalog(!showCatalog)}
+            className="bg-[#232323] border border-white p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-start gap-[8px] w-[50%]"
+          >
             <img src={catalog} alt="catalog.svg" /> Kataloq
           </button>
           <div className="bg-white w-full rounded-[32px] flex items-center p-[16px] gap-[10px]">
@@ -224,7 +235,8 @@ const Header = () => {
             <input
               type="text"
               placeholder="25000 müxtəlif məhsul içindən axtarın"
-              className=" rounded-[32px] focus:outline-none w-full px-5"
+              className="rounded-[32px] focus:outline-none w-full px-5"
+              onChange={handleSearchChange}
             />
           </div>
           <div className="w-[50%] flex items-center justify-end gap-[20px]">
@@ -236,6 +248,11 @@ const Header = () => {
             </button>
           </div>
         </div>
+      </div>
+      <div
+        className={`${showCatalog ? "" : "hidden"} z-[200] h-screen bg-black`}
+      >
+        <Catalog />
       </div>
     </>
   );

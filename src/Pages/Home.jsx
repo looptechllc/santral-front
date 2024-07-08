@@ -12,7 +12,9 @@ import BottomBanner from "../components/Home/BottomBanner";
 const Home = () => {
   return (
     <>
+    <div className="mt-[24px]">
     <Catalog />
+    </div>
     <NewComing />
       <Categories />
       <ProductsGrid />

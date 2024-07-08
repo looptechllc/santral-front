@@ -58,7 +58,7 @@ const Catalog = () => {
   return (
     <>
       
-      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden my-[24px]">
+      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden mb-[24px]">
         {!loading && (
           <div className="flex items-stretch">
             <div
