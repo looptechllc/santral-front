@@ -141,6 +141,7 @@ const NewComing = () => {
       <Slider ref={productSliderRef} {...productSettings}>
         {products.map((product, index) => (
           <ElementCard
+          id={product?.id}
             key={index}
             img={`https://cdn.santral.az//images/${product.thumbnail}`}
             name={product.title}

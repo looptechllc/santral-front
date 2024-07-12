@@ -313,6 +313,7 @@ const ProductInfo = () => {
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] grid gap-[24px] grid-cols-4">
           {relatedProducts?.map((item, index) => (
             <ElementCard
+            id={item?.id}
               img={`https://cdn.santral.az//images/${item.thumbnail}`}
               sale={item.discountPercent}
               name={item?.name}

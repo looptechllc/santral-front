@@ -14,6 +14,7 @@ import Profile from './Pages/Profile'
 import News from './Pages/News'
 import NewsDetail from './Pages/NewsDetail'
 import Products from './Pages/Products'
+import Basket from './Pages/Basket'
 
 
 function App() {
@@ -33,9 +34,11 @@ function App() {
         <Route path='/news' element={<News />} />
         <Route path='/news/:slug' element={<NewsDetail />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/basket' element={<Basket />} />
         <Route path='/category/:id' element={<CategoryDesc />} />
         <Route path='/products/:query' element={<Products />} />
         <Route path='/product/:name' element={<Product />} />
+
       </Routes>
 
     
