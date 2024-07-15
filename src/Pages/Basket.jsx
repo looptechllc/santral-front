@@ -27,6 +27,10 @@ const Basket = () => {
       if (response.ok) {
         console.log(data);
         setBasket(data);
+        const updatedOrderList = data.data.filter((basketItem) =>
+          selectedItems.includes(basketItem.id)
+        );
+        setOrderList(updatedOrderList);
       } else {
         console.log("error");
       }
@@ -119,11 +123,10 @@ const Basket = () => {
   }
 
   async function decrement(id) {
-    if (count > 1) {
-      // Assuming minimalOrder is 1
-      const accessToken = secureLocalStorage.getItem("access_token");
-      const url = `https://api.santral.az/v1/products/basket/dec`; // Assuming a decrement API endpoint
 
+
+      const accessToken = secureLocalStorage.getItem("access_token");
+      const url = `https://api.santral.az/v1/products/basket/dec`; 
       try {
         const response = await fetch(url, {
           method: "POST",
@@ -145,7 +148,7 @@ const Basket = () => {
       } catch (error) {
         console.error("Error:", error);
       }
-    }
+
   }
 
   const handleSelectAll = () => {
@@ -182,7 +185,7 @@ const Basket = () => {
 
   useEffect(() => {
     const updatedOrderList = orderList.filter((orderItem) =>
-      basket.data.some((basketItem) => basketItem.id === orderItem.id)
+      basket.data.filter((basketItem) => basketItem.id === orderItem.id)
     );
     setOrderList(updatedOrderList);
   }, [basket]);
