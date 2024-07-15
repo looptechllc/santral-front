@@ -88,7 +88,7 @@ const Basket = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("item deleted successfully");
-        fetchBasket(); // Re-fetch the basket data
+        fetchBasket(); 
       } else {
         console.error("Your request cannot be completed");
       }
@@ -123,32 +123,29 @@ const Basket = () => {
   }
 
   async function decrement(id) {
-
-
-      const accessToken = secureLocalStorage.getItem("access_token");
-      const url = `https://api.santral.az/v1/products/basket/dec`; 
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            product: id,
-          }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          fetchBasket();
-        } else {
-          console.error("Your request cannot be completed");
-        }
-      } catch (error) {
-        console.error("Error:", error);
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/products/basket/dec`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          product: id,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        fetchBasket();
+      } else {
+        console.error("Your request cannot be completed");
       }
-
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   const handleSelectAll = () => {
@@ -320,57 +317,61 @@ const Basket = () => {
           </div>
         ))}
       </div>
-      {selectedItems.length>0&&<div className="w-[432px] bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col ">
-        <div className="w-full border-b border-[#EAEAEA] pb-[16px] flex items-center justify-between">
-          <p>Məhsul:</p>
-          <p className="font-[500] text-[20px]">
-            {selectedItems.length} məhsul
-          </p>
-        </div>
-        <div className="pt-[24px] pb-[16px] border-b border-[#eaeaea] flex flex-col gap-[16px]">
-          {orderList.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between w-full gap-[16px] pb-[16px]"
-            >
-              <p className="leading-[24px] ">{item.title}</p>
-              <p className="font-[500]  text-[#FD8521]">{item.total?.toFixed(2)}₼</p>
+      {selectedItems.length > 0 && (
+        <div className="w-[432px] bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col ">
+          <div className="w-full border-b border-[#EAEAEA] pb-[16px] flex items-center justify-between">
+            <p>Məhsul:</p>
+            <p className="font-[500] text-[20px]">
+              {selectedItems.length} məhsul
+            </p>
+          </div>
+          <div className="pt-[24px] pb-[16px] border-b border-[#eaeaea] flex flex-col gap-[16px]">
+            {orderList.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between w-full gap-[16px] pb-[16px]"
+              >
+                <p className="leading-[24px] ">{item.title}</p>
+                <p className="font-[500]  text-[#FD8521]">
+                  {item.total?.toFixed(2)}₼
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="pt-[24px] pb-[16px] border-b border-[#eaeaea] flex flex-col gap-[16px]">
+            <div className="flex items-center justify-between w-full gap-[16px] pb-[16px]">
+              <p className="leading-[24px] ">Ümumi məbləğ:</p>
+              <p className="font-[500]  text-[#FD8521]">{totalPrice}₼</p>
             </div>
-          ))}
-        </div>
-        <div className="pt-[24px] pb-[16px] border-b border-[#eaeaea] flex flex-col gap-[16px]">
-          <div className="flex items-center justify-between w-full gap-[16px] pb-[16px]">
-            <p className="leading-[24px] ">Ümumi məbləğ:</p>
-            <p className="font-[500]  text-[#FD8521]">{totalPrice}₼</p>
+          </div>
+          <div className="pt-[8px] pb-[16px]">
+            <p className="text-[12px] text-black/90 leading-[16px]">
+              Çatdırılma məsafədən asılı olaraq 2-8 azn məbləğində dəyişir.
+              Onlayn alış-verişləriniz zamanı cashback ilə ödənişdən faydalana
+              bilərsiniz. Hər uğurlu sifarişdə(1₼ və üzəri) sifariş məbləğinin
+              1%-i qədər cashback qazanın.
+            </p>
+            <button className="bg-[#FFD23F] mt-[32px] flex items-center justify-center p-[16px] gap-[10px] w-full rounded-[32px]">
+              Sifarişi rəsmiləşdir
+              <svg
+                width="8"
+                height="14"
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7.70711 6.29289C8.09763 6.68342 8.09763 7.31658 7.70711 7.70711L1.70711 13.7071C1.31658 14.0976 0.683417 14.0976 0.292893 13.7071C-0.0976311 13.3166 -0.0976311 12.6834 0.292893 12.2929L5.58579 7L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
+                  fill="black"
+                  fill-opacity="0.87"
+                />
+              </svg>
+            </button>
           </div>
         </div>
-        <div className="pt-[8px] pb-[16px]">
-          <p className="text-[12px] text-black/90 leading-[16px]">
-            Çatdırılma məsafədən asılı olaraq 2-8 azn məbləğində dəyişir. Onlayn
-            alış-verişləriniz zamanı cashback ilə ödənişdən faydalana
-            bilərsiniz. Hər uğurlu sifarişdə(1₼ və üzəri) sifariş məbləğinin
-            1%-i qədər cashback qazanın.
-          </p>
-          <button className="bg-[#FFD23F] mt-[32px] flex items-center justify-center p-[16px] gap-[10px] w-full rounded-[32px]">
-            Sifarişi rəsmiləşdir
-            <svg
-              width="8"
-              height="14"
-              viewBox="0 0 8 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7.70711 6.29289C8.09763 6.68342 8.09763 7.31658 7.70711 7.70711L1.70711 13.7071C1.31658 14.0976 0.683417 14.0976 0.292893 13.7071C-0.0976311 13.3166 -0.0976311 12.6834 0.292893 12.2929L5.58579 7L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
-                fill="black"
-                fill-opacity="0.87"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>}
+      )}
     </div>
   );
 };

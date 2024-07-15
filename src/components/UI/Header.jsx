@@ -240,9 +240,9 @@ const Header = () => {
             />
           </div>
           <div className="w-[50%] flex items-center justify-end gap-[20px]">
-            <button className="rounded-full bg-[#232323] p-[8px]">
+            <Link to="/favorites" className="rounded-full bg-[#232323] p-[8px]">
               <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
-            </button>
+            </Link>
             <Link to="/basket" className="rounded-full bg-[#232323] p-[8px]">
               <img className="w-[24px] h-[24px]" src={cart} alt="heart.svg" />
             </Link>
