@@ -8,6 +8,7 @@ import Brands from "../components/Home/Brands";
 import News from "../components/Home/News";
 import NewComing from "../components/Home/NewComing";
 import BottomBanner from "../components/Home/BottomBanner";
+import SeasonalOffers from "../components/Home/SeasonalOffers";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       <Categories />
       <ProductsGrid />
       <Brands />
+      <SeasonalOffers />
       <Advantages />
       <SaleProducts />
       <BottomBanner />
