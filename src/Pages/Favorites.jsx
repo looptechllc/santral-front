@@ -42,7 +42,7 @@ const Favorites = () => {
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-[24px] my-[24px]'>
             {favorites?.map((item,index)=>(
-                <ElementCard id ={item.id} img={`https://cdn.santral.az//images/${item.thumbnail}`} sale={0}  name={item.title} price={item.price}  beforePrice={item.oldPrice} isLiked={true}  link={item.title}/>
+                <ElementCard key={index} id ={item.id} img={`https://cdn.santral.az//images/${item.thumbnail}`} sale={0}  name={item.title} price={item.price}  beforePrice={item.oldPrice} isLiked={true}  link={item.title}/>
             ))}
         </div>
     </div>
