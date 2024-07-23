@@ -49,7 +49,7 @@ const News = () => {
         </div>
         <Slider {...settings}>
         {news?.map((item,index)=>(
-            <NewsCard img={`https://cdn.santral.az/images/${item.thumbnail}`} title={item.title} desc={item.desc} date={item?.date?new Date(item?.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }):""} link={item.link} />
+            <NewsCard img={`https://cdn.santral.az/images/${item.thumbnail}`} title={item.title} desc={item.desc} date={item?.date?new Date(item?.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }):""} link={item.id} />
         ))}
         </Slider>
     </div>
@@ -68,7 +68,7 @@ const NewsCard = ({img,title,desc,date,link})=>{
             <p className='font-[400] text-[16px] text-[#333]'>{desc}</p>
             </div>
             <div className='w-full flex items-start justify-between'>
-                <Link className='font-[500] px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]'>Ətraflı oxu</Link>
+                <Link to={`/news/${link}`} className='font-[500] px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]'>Ətraflı oxu</Link>
                 <p className='text-[12px] text-[#333] font-400'>{date}</p>
             </div>
 
