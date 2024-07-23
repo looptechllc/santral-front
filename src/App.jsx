@@ -16,6 +16,7 @@ import NewsDetail from './Pages/NewsDetail'
 import Products from './Pages/Products'
 import Basket from './Pages/Basket'
 import Favorites from './Pages/Favorites'
+import About from './Pages/About'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 
         <Route path='/' element={<Home />} />
         <Route path='/success' element={<Success />} />
+        <Route path='/about' element={<About />} />
         <Route path='/registration' element={<Registration />} />
         <Route path='/news' element={<News />} />
         <Route path='/news/:slug' element={<NewsDetail />} />
