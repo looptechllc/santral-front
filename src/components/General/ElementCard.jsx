@@ -19,7 +19,7 @@ const ElementCard = ({
     setLiked(!liked);
   };
 
-  const accessToken = secureLocalStorage.getItem("access_token");
+  // const accessToken = secureLocalStorage.getItem("access_token");
 
   async function addToCard(e) {
     e.preventDefault();

@@ -38,6 +38,7 @@ const NewComing = () => {
       });
       const data = await response.json();
       if (response.ok) {
+        console.log(data)
         setProducts(data.data);
       } else {
         console.log("error");

@@ -62,11 +62,11 @@ const NewsCard = ({img,title,desc,date,link})=>{
         <div className='max-w-[433px] flex flex-col items-start gap-[16px]'>
             <img src={img} alt={title} className='w-[433px] h-[295px] object-center rounded-[8px]' />
             <div className='flex flex-col items-start gap-[8px]'>
-            <p className='font-[500] text-[24px] text-[#333]'>{title}</p>
+            <p className='font-[500]  text-[24px] text-[#333]'>{title}</p>
             <p className='font-[400] text-[16px] text-[#333] pr-5'   dangerouslySetInnerHTML={{ __html: plainText }}></p>
             </div>
             <div className='w-full flex items-start justify-between'>
-                <Link to={`/news/${link}`} className='font-[500] px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]'>Ətraflı oxu</Link>
+                <Link to={`/news/${link}`} className='font-[500] z-20 px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]'>Ətraflı oxu</Link>
                 <p className='text-[12px] text-[#333] font-400'>{date}</p>
             </div>
 
