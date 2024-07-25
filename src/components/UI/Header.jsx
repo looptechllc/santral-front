@@ -59,6 +59,8 @@ const Header = () => {
       if (response.ok) {
         secureLocalStorage.setItem("access_token", data.access_token);
         secureLocalStorage.setItem("refresh_token", data.refresh_token);
+        setLoggedIn(true)
+        toggleDropdown()
       } else {
         console.error("Your request cannot be completed");
       }
