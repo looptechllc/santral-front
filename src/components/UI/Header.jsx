@@ -90,7 +90,7 @@ const Header = () => {
           </Link>
           <div className="flex items-center gap-[100px] font-light">
             <Link to="/about">Haqqımızda</Link>
-            <Link to="/filliallar">Filiallar</Link>
+            <Link to="/branches">Filiallar</Link>
             <Link to="/kampaniyalar">Kampaniyalar</Link>
             <Link to="/partners">Partnyorlar</Link>
           </div>
