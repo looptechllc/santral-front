@@ -44,6 +44,31 @@ const Profile = () => {
       throw error;
     }
   }
+  async function updateProfileinfo(e) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/auth/profile`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("user info updated successfully");
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  }
   async function getAllOrders() {
     const accessToken = secureLocalStorage.getItem("access_token");
     const url = "https://api.santral.az/v1/orders/history?page=1&lang=az";
@@ -363,6 +388,7 @@ const Profile = () => {
                 <div className="w-full flex items-center my-[32px] justify-end col-span-2">
                   <button
                     type="submit"
+                    onClick={updateProfileinfo}
                     className="w-[295px] bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
                   >
                     Yadda saxla
