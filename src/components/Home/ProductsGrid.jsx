@@ -4,7 +4,7 @@ import banner2 from "../../assets/upperbanner2.png";
 import banner3 from "../../assets/upperbanner3.png";
 const ProductsGrid = () => {
   return (
-    <div className="md:w-[95%] mx-auto px-3 my-[60px] flex  gap-[24px]">
+    <div className="md:w-[95%] mx-auto px-3 my-[60px] flex flex-col md:flex-row  gap-[24px]">
       <div className="rounded-[16px] overflow-hidden   relative">
         <img src={banner1} alt="gardena" className="object-cover" />
        
