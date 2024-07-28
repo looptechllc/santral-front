@@ -108,15 +108,15 @@ function CategoryDesc() {
 
   };
   return (
-    <div className="my-24 bg-white lg:w-[95%] mx-auto">
-      <div className="w-full flex items-center justify-between mb-[24px]">
-        <h1 className="text-[48px] font-bold whitespace-nowrap">
+    <div className="my-24 bg-white lg:w-[95%] mx-auto p-[16px]">
+      <div className="w-full flex flex-col md:flex-row items-center justify-between mb-[24px]">
+        <h1 className="text-[24px] md:text-[48px] font-bold md:whitespace-nowrap pb-[10px] md:pb-0">
           {categoryName}{" "}
           <span className="text-black/40 text-[24px] font-medium">
             ({itemCount} məhsul)
           </span>
         </h1>
-        <div className="flex items-center gap-[24px]">
+        <div className="flex flex-col md:flex-row md:items-center gap-[24px]">
           <button
             onClick={() => setSort("az")}
             className="px-[16px] whitespace-nowrap py-[8px] bg-[#EBEBEB] rounded-[32px]"
@@ -153,7 +153,7 @@ function CategoryDesc() {
           </div>
         </div>
       </div>
-      <div className="flex gap-[22px] items-start justify-between">
+      <div className="flex flex-col md:flex-row gap-[22px] items-center md:items-start  justify-between">
         <div className="flex max-h-[872px] overflow-y-scroll select-none flex-col w-[318px] gap-4 bg-[#232323] text-white rounded-[16px] p-[24px]">
           {filterOptions.map((filter) => (
             <div key={filter.id}>
@@ -224,7 +224,7 @@ function CategoryDesc() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
           {products?.map((product, index) => (
             <ElementCard
             id={product?.id}

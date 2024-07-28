@@ -251,15 +251,15 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#323232] w-full p-[16px] hidden md:block">
-        <div className="w-[95%] mx-auto flex items-center justify-between gap-[80px]">
+      <div className="bg-[#323232] w-full p-[16px] ">
+        <div className="w-[95%] mx-auto flex items-center justify-between gap-[16px] md:gap-[80px]">
           <button
             onClick={() => setShowCatalog(!showCatalog)}
-            className="bg-[#232323] border border-white p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-start gap-[8px] w-[50%]"
+            className="bg-[#232323] border border-white/40 p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-center md:justify-start gap-[8px] md:w-[50%]"
           >
-            <img src={catalog} alt="catalog.svg" /> Kataloq
+            <img src={catalog} alt="catalog.svg" /><span className="hidden md:block"> Kataloq</span>
           </button>
-          <div className="bg-white w-full rounded-[32px] flex items-center p-[16px] gap-[10px]">
+          <div className="bg-white md:w-full rounded-[32px] flex items-center p-[16px] gap-[10px]">
             <img src={searchIcon} alt="search.svg" />
             <input
               type="text"
@@ -268,8 +268,8 @@ const Header = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <div className="w-[50%] flex items-center justify-end gap-[20px]">
-            <Link to="/favorites" className="rounded-full bg-[#232323] p-[8px]">
+          <div className="md:w-[50%] flex items-center justify-end gap-[20px]">
+            <Link to="/favorites" className="rounded-full bg-[#232323] p-[8px] hidden md:block">
               <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
             </Link>
             <Link to="/basket" className="rounded-full bg-[#232323] p-[8px]">
