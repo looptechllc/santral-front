@@ -9,7 +9,7 @@ const Basket = () => {
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
   const [step, setStep] = useState(1);
-  const [paymentMethod,setPaymentMethod] = useState(1);
+  const [paymentMethod, setPaymentMethod] = useState(1);
 
   async function fetchBasket() {
     const accessToken = secureLocalStorage.getItem("access_token");
@@ -188,13 +188,13 @@ const Basket = () => {
     );
     setOrderList(updatedOrderList);
   }, [basket]);
-  const [orderData,setOrderData]= useState()
+  const [orderData, setOrderData] = useState();
 
   return (
-    <div className="pt-[40px] pb-[120px] bg-[#fffefa] px-[48px] flex items-start gap-[24px]">
+    <div className="pt-[40px] pb-[120px] bg-[#fffefa] px-[16px] md:px-[48px] flex flex-col md:flex-row items-start gap-[24px]">
       {step === 1 ? (
         <div className="w-full bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col gap-[24px]">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
             <p className="text-[32px]">Səbət</p>
             <div className="flex items-center gap-[16px]">
               <button
@@ -250,7 +250,7 @@ const Basket = () => {
           {basket?.data?.map((item) => (
             <div
               key={item.id}
-              className=" flex items-center justify-between gap-[16px] border border-solid border-[#EAEAEA] p-[16px] rounded-[16px]"
+              className=" flex flex-col md:flex-row items-center justify-between gap-[16px] border border-solid border-[#EAEAEA] p-[8px] md:p-[16px] rounded-[16px]"
             >
               <div className="flex items-center gap-[16px]">
                 <input
@@ -261,12 +261,13 @@ const Basket = () => {
                   checked={selectedItems.includes(item.id)}
                   onChange={() => handleSelectItem(item.id)}
                 />
+
                 <img
                   className="w-[86px] rounded-[8px] border border-solid border-[#EAEAEA]"
                   src={`https://cdn.santral.az//images/${item.thumbnail}`}
-                  alt=""
+                  alt="product thumbnail"
                 />
-                <p className=" font-[500] text-[24px] max-w-[390px]">
+                <p className=" font-[500] text-[20px] md:text-[24px] md:max-w-[390px]">
                   {item.title}
                 </p>
               </div>
@@ -322,33 +323,52 @@ const Basket = () => {
           ))}
         </div>
       ) : (
-        <div className="w-full  p-[16px] flex flex-col gap-[24px]"> 
+        <div className="w-full  p-[16px] flex flex-col gap-[24px]">
           <p className="text-[32px]">Sifarişin rəsmiləşdirilməsi</p>
           <div>
             <h4 className="text-[20px]">Şəxsi məlumatlar</h4>
             <div className="w-full grid grid-cols-2 gap-x-[24px] gap-y-[16px] my-[16px]">
               <div className="flex flex-col gap-[8px]">
-                <label>Ad <span className="text-[#F44336]">*</span></label>
-                <input value={orderData?.senderFirstname}
-                    onChange={(e) =>
-                      setOrderData((prevUserData) => ({
-                        ...prevUserData,
-                        senderFirstname: e.target.value,
-                        receiverFirstname: e.target.value,
-                      }))
-                    } type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <label>
+                  Ad <span className="text-[#F44336]">*</span>
+                </label>
+                <input
+                  value={orderData?.senderFirstname}
+                  onChange={(e) =>
+                    setOrderData((prevUserData) => ({
+                      ...prevUserData,
+                      senderFirstname: e.target.value,
+                      receiverFirstname: e.target.value,
+                    }))
+                  }
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
               <div className="flex flex-col gap-[8px]">
-                <label>Soyad <span className="text-[#F44336]">*</span></label>
-                <input type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <label>
+                  Soyad <span className="text-[#F44336]">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
               <div className="flex flex-col gap-[8px]">
-                <label>Mobil nömrə <span className="text-[#F44336]">*</span></label>
-                <input type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <label>
+                  Mobil nömrə <span className="text-[#F44336]">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
               <div className="flex flex-col gap-[8px]">
                 <label>E-mail </label>
-                <input type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <input
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
             </div>
           </div>
@@ -356,32 +376,67 @@ const Basket = () => {
             <h4 className="text-[20px]">Çatdırılma ünvanı</h4>
             <div className="w-full grid grid-cols-2 gap-x-[24px] gap-y-[16px] my-[16px]">
               <div className="flex flex-col gap-[8px]">
-                <label>Şəhər <span className="text-[#F44336]">*</span></label>
-                <input type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <label>
+                  Şəhər <span className="text-[#F44336]">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
               <div className="flex flex-col gap-[8px]">
-                <label>Ünvan <span className="text-[#F44336]">*</span></label>
-                <input type="text" className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]" />
+                <label>
+                  Ünvan <span className="text-[#F44336]">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/90 rounded-[16px] p-[16px]"
+                />
               </div>
               <div className="flex flex-col gap-[8px] col-span-2">
                 <label>Əlavə qeydləriniz </label>
-                <textarea type="text" className="bg-[#ebebeb] border border-black/40 rounded-[16px] p-[16px]" ></textarea>
+                <textarea
+                  type="text"
+                  className="bg-[#ebebeb] border border-black/40 rounded-[16px] p-[16px]"
+                ></textarea>
               </div>
-              
             </div>
           </div>
           <div className="">
-            <h4 className="text-[20px]">Ödəniş üsulu <span className="text-[#F44336]">*</span></h4>
+            <h4 className="text-[20px]">
+              Ödəniş üsulu <span className="text-[#F44336]">*</span>
+            </h4>
             <div className="w-full grid grid-cols-2 gap-x-[24px] gap-y-[16px] my-[16px]">
-              <button onClick={()=>{setPaymentMethod(1)}} className={`px-[24px] py-[16px] rounded-[16px] text-[20px] ${paymentMethod==1?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Qapıda ödəniş( Nağd və ya kart)</button>
-              <button onClick={()=>{setPaymentMethod(2)}} className={`px-[24px] py-[16px] rounded-[16px] text-[20px] ${paymentMethod==2?"bg-[#FFD23F]":"bg-[#EAEAEA]"}`}>Saytda onlayn ödəniş</button>
-              
+              <button
+                onClick={() => {
+                  setPaymentMethod(1);
+                }}
+                className={`px-[24px] py-[16px] rounded-[16px] text-[20px] ${
+                  paymentMethod == 1 ? "bg-[#FFD23F]" : "bg-[#EAEAEA]"
+                }`}
+              >
+                <span className="block md:hidden">Nağd</span>
+                <span className="hidden md:block">
+                  Qapıda ödəniş( Nağd və ya kart)
+                </span>
+              </button>
+              <button
+                onClick={() => {
+                  setPaymentMethod(2);
+                }}
+                className={`px-[24px] py-[16px] rounded-[16px] text-[20px] ${
+                  paymentMethod == 2 ? "bg-[#FFD23F]" : "bg-[#EAEAEA]"
+                }`}
+              >
+                <span className="block md:hidden">Onlayn</span>
+                <span className="hidden md:block">Saytda onlayn ödəniş</span>
+              </button>
             </div>
           </div>
         </div>
       )}
       {selectedItems.length > 0 && (
-        <div className="w-[432px] bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col ">
+        <div className="w-full md:w-[432px]  bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col ">
           <div className="w-full border-b border-[#EAEAEA] pb-[16px] flex items-center justify-between">
             <p>Məhsul:</p>
             <p className="font-[500] text-[20px]">

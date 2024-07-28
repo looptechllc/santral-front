@@ -280,7 +280,7 @@ updateProfilePicture()
   };
   return (
     <div className="w-[95%] mx-auto py-[24px]">
-      <div className="flex items-start gap-[24px]">
+      <div className="flex flex-col md:flex-row items-start gap-[24px]">
         <div className="p-[16px] bg-black text-white rounded-[16px] flex flex-col items-start lg:min-w-[318px]">
           {tabs?.map((item, index) => (
             <button
@@ -640,7 +640,7 @@ updateProfilePicture()
                         Şəhər
                       </option>
                       {Object.keys(addresses?.cities).map((item, index) => (
-                        <option value={item}>{addresses?.cities[item]}</option>
+                        <option key={index} value={item}>{addresses?.cities[item]}</option>
                       ))}
                     </select>
                   </div>
@@ -674,7 +674,7 @@ updateProfilePicture()
           ) : (
             <div>
               <p className="text-[32px] mb-[16px]">Şifrəni dəyiş</p>
-              <form className="flex flex-col gap-[16px] max-w-[50%]">
+              <form className="flex flex-col gap-[16px] md:max-w-[50%]">
                 <div className="w-full">
                   <label htmlFor="">Cari şifrə</label>
                   <input

@@ -1,5 +1,5 @@
 function Pagination({ currentPage, totalPages, onPageChange }) {
-    const pagesToShow = 10; // Number of pages to show
+    const pagesToShow = 5; // Number of pages to show
     const startPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2)); // Calculate start page
     const endPage = Math.min(totalPages, startPage + pagesToShow - 1); // Calculate end page
   

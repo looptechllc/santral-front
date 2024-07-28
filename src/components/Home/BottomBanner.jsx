@@ -4,7 +4,7 @@ import banner2 from "../../assets/bottombanner2.png";
 import banner3 from "../../assets/bottombanner3.png";
 const BottomBanner = () => {
   return (
-    <div className="md:w-[95%] mx-auto px-3 my-[60px] flex  gap-[24px]">
+    <div className="md:w-[95%] mx-auto px-3 my-[60px] flex flex-col md:flex-row  gap-[24px]">
       <div className="flex flex-col gap-[24px] ">
       <div className="  w-full  rounded-[16px] overflow-hidden  relative">
         <img src={banner1} alt="skyline" className="object-cover" />

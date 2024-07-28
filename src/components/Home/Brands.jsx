@@ -22,7 +22,7 @@ const Brands = () => {
           });
       }, []);
   return (
-    <div className='py-[52px] px-[48px]'>
+    <div className='py-[52px] px-[48px] hidden md:block'>
         <h2 className='font-[600] text-[48px]'>
         Brands
         </h2>

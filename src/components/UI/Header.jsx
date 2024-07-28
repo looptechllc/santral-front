@@ -82,8 +82,8 @@ const Header = () => {
   };
 
   return (
-    <>
-      <div className="w-full bg-[#FFD23F] p-[16px]">
+    <> 
+      <div className="w-full bg-[#FFD23F] p-[16px] hidden md:block">
         <div className="w-[95%] mx-auto flex items-center justify-between text-black/90">
           <Link to="/">
             <img src={logo} alt="logo.svg" />
@@ -251,7 +251,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#323232] w-full p-[16px]">
+      <div className="bg-[#323232] w-full p-[16px] hidden md:block">
         <div className="w-[95%] mx-auto flex items-center justify-between gap-[80px]">
           <button
             onClick={() => setShowCatalog(!showCatalog)}

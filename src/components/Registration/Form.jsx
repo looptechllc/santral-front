@@ -30,13 +30,13 @@ const Form = () => {
     }
   }
   return (
-    <div className="p-[40px] w-full bg-[#fffefa] flex items-center justify-center">
+    <div className="p-[16px] md:p-[40px] w-full bg-[#fffefa] flex items-center justify-center">
       <div className="flex flex-col bg-white p-[24px] border border-solid border-[#EAEAEA] rounded-[16px]">
-        <h2 className="font-bold text-[48px] text-center">Qeydiyyat</h2>
-        <p className="my-[16px]">
+        <h2 className="font-bold text-[24px] md:text-[48px] text-center">Qeydiyyat</h2>
+        <p className="my-[16px] text-[14px] md:text-[16px] text-center">
           Qeydiyyatdan keçmək üçün zəhmət olmasa məlumatlarınızı doldurun{" "}
         </p>
-        <form onSubmit={(e)=>{registerUser(e)}} className="grid grid-cols-2 gap-[24px]">
+        <form onSubmit={(e)=>{registerUser(e)}} className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
           <div className="flex flex-col ">
             <label className="mb-[]" htmlFor="">
               Ad
@@ -71,7 +71,7 @@ const Form = () => {
               className="p-[16px] min-w-[300px]  focus:outline-none my-[4px] bg-[#EBEBEB] border border-solid border-black/40 rounded-[16px]"
             />
           </div>
-          <div className="flex flex-col col-span-2 ">
+          <div className="flex flex-col md:col-span-2 ">
             <label className="mb-[]" htmlFor="">
               E-mail
             </label>
@@ -88,7 +88,7 @@ const Form = () => {
               className="p-[16px] min-w-[300px] focus:outline-none  my-[4px] bg-[#EBEBEB] border border-solid border-black/40 rounded-[16px]"
             />
           </div>
-          <div className="flex flex-col col-span-2 ">
+          <div className="flex flex-col md:col-span-2 ">
             <label className="mb-[]" htmlFor="">
               Mobil nömrə
             </label>
@@ -139,7 +139,7 @@ const Form = () => {
               className="p-[16px] min-w-[300px] focus:outline-none  my-[4px] bg-[#EBEBEB] border border-solid border-black/40 rounded-[16px]"
             />
           </div>
-          <div className="col-span-2">
+          <div className="md:col-span-2">
             <button className="w-full bg-[#FFD23F] p-[16px] rounded-[32px] flex items-center justify-center gap-[18px]">
               Qeydiyyatdan keç <img src={rightarrow} alt="rightarrow.svg" />
             </button>

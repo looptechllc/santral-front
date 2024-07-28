@@ -13,10 +13,10 @@ import SeasonalOffers from "../components/Home/SeasonalOffers";
 const Home = () => {
   return (
     <>
-    <div className="mt-[24px]">
-    <Catalog />
-    </div>
-    <NewComing />
+      <div className="mt-[24px] hidden md:block">
+        <Catalog />
+      </div>
+      <NewComing />
       <Categories />
       <ProductsGrid />
       <Brands />

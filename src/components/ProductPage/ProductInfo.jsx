@@ -77,8 +77,8 @@ const ProductInfo = () => {
       : [description.thumbnail];
   console.log(images);
   return (
-    <div className="w-[95%] mx-auto pb-[120px] ">
-      <div className="flex gap-[24px] my-[24px]">
+    <div className="md:w-[95%] mx-auto pb-[120px] ">
+      <div className="flex flex-col md:flex-row gap-[24px] my-[24px]">
         <div className="bg-white w-full rounded-[16px] p-[16px]  drop-shadow-sm border border-solid border-[#EAEAEA] ">
           {images && (
             <div className="flex items-start gap-[16px]">
@@ -108,7 +108,7 @@ const ProductInfo = () => {
           <div className=" border-b border-[#eaeaea] py-[24px]">
             <div className="flex items-center gap-[16px] w-full justify-between">
               <p className="text-[24px] font-medium">{description?.title}</p>
-              <div className="flex items-center gap-[16px]">
+              <div className="w-full flex items-center justify-end gap-[8px] md:gap-[16px]">
                 <button
                   onClick={toggleLike}
                   className={`p-3 rounded-full ${
@@ -163,7 +163,7 @@ const ProductInfo = () => {
             </p>
           </div>
           <div>
-            <div className="flex items-center w-full gap-[16px]">
+            <div className="flex flex-col-reverse md:flex-row items-center w-full gap-[16px]">
               <div className="w-full">
                 <p className="text-[20px] font-medium">
                   Hissəli alış kalkulyatoru
@@ -177,8 +177,8 @@ const ProductInfo = () => {
                 <p className="font-light">TamKart ilə faizsiz ödə!</p>
               </div>
             </div>
-            <div className="p-[24px] border border-solid border-[#eaeaea] rounded-[10px] my-[16px] flex items-center justify-between">
-              <div className="flex items-center justify-center w-full gap-[15px] px-[32px]">
+            <div className="p-[24px] border border-solid border-[#eaeaea] rounded-[10px] my-[16px] flex flex-col-reverse md:flex-row items-center justify-between">
+              <div className="flex items-center justify-center w-full gap-[15px] px-[16px] md:px-[32px] py-[16px] md:py-0">
                 <button
                   onClick={() => {
                     setCreditMonth(6);
@@ -187,7 +187,7 @@ const ProductInfo = () => {
                     creditMonth == 6
                       ? "bg-[#323232] text-white"
                       : "bg-[#F3F3F3] text-black"
-                  } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
+                  } w-[40px] md:w-[50px] h-[50px] md:h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                 >
                   6 ay
                 </button>
@@ -252,7 +252,7 @@ const ProductInfo = () => {
                   24 ay
                 </button>
               </div>
-              <div className="px-[32px] border-l border-solid border-[#eaeaea] flex flex-col items-center">
+              <div className="md:px-[32px]  border-b md:border-l md:border-b-0 border-solid border-[#eaeaea] flex md:flex-col items-center w-full justify-between md:w-fit">
                 <p className="whitespace-nowrap">Aylıq ödəniş</p>
                 <p className="font-medium mt-[9px]">
                   {((description.price * count) / creditMonth).toFixed(2)} ₼
@@ -310,7 +310,7 @@ const ProductInfo = () => {
           )}
         </div>
       ) : (
-        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] grid gap-[24px] grid-cols-4">
+        <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] grid  gap-[24px] grid-cols-1 md:grid-cols-4 place-items-center">
           {relatedProducts?.map((item, index) => (
             <ElementCard
             id={item?.id}

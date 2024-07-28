@@ -82,9 +82,9 @@ function Products() {
     }));
   };
   return (
-    <div className="my-24 bg-white lg:w-[95%] mx-auto">
+    <div className="my-24 bg-white lg:w-[95%] mx-auto p-[16px]">
       <div className="w-full flex items-center justify-between mb-[24px]">
-        <h1 className="text-[48px] font-bold whitespace-nowrap">
+        <h1 className="text-[24px] md:text-[48px] font-bold whitespace-nowrap">
           {query}{" "}
           <span className="text-black/40 text-[24px] font-medium">
             ({itemCount} məhsul)
@@ -198,7 +198,7 @@ function Products() {
           ))}
         </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 place-items-center">
           {products?.map((product, index) => (
             <ElementCard
             id={product?.id}

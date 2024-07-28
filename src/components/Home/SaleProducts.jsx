@@ -6,7 +6,7 @@ import ElementCard from "../General/ElementCard";
 const SaleProducts = () => {
   const element = {img: elementimage,sale:"40",name:"Lorem ipsum dolor sit amet consectetur",price:"699",beforePrice:"999"}
   return (
-    <div className="md:w-[95%] mx-auto my-[60px]">
+    <div className="md:w-[95%] mx-auto my-[60px] hidden md:block">
     <h2 className=' text-[36px] md:text-[48px] font-bold my-[16px]'>Endirimli məhsullar</h2>
 
 <div className=" px-3 grid grid-cols-2 gap-[24px]">

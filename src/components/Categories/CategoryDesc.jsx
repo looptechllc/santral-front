@@ -72,7 +72,7 @@ function CategoryDesc() {
   }, [id]);
   useEffect(() => {
     fetchProducts()
-  }, [id, currentPage, filters, sort, search]);
+  }, [id, currentPage, filters, sort, search,filterData]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -97,6 +97,15 @@ function CategoryDesc() {
       ...prevFilters,
       [filterId]: optionId,
     }));
+
+      setFilterData((prevFilters) => ({
+        ...prevFilters,
+        filter: {
+          ...prevFilters.filter,
+          ["param_"+filterId]: [optionId],
+        }
+      }));
+
   };
   return (
     <div className="my-24 bg-white lg:w-[95%] mx-auto">

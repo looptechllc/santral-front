@@ -35,11 +35,11 @@ const Branches = () => {
     getPublicStores();
   }, []);
   return (
-    <div className="p-[50px]">
+    <div className="p-[16px] md:p-[50px]">
       <div>
         <h2 className="text-black/90 text-[32px]">Filiallarımız</h2>
       </div>
-      <div className="mt-[16px] flex items-start gap-[24px] ">
+      <div className="mt-[16px] flex flex-col-reverse md:flex-row items-start gap-[24px] ">
         <div className="flex flex-col gap-[16px] w-full">
           {branches?.map((item, index) => (
             <div className="border border-[#EAEAEA] p-[16px] rounded-[16px] flex flex-col gap-[8px]">
@@ -62,12 +62,12 @@ const Branches = () => {
         <div className="w-full">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.9532990351986!2d49.81402397598864!3d40.365559858752164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307db7d72d5843%3A0xc31ecb0133827674!2sSantral%20Elektrik%20(Elmler%20filiali)!5e0!3m2!1sen!2saz!4v1721972847937!5m2!1sen!2saz"
-            width="600"
-            height="450"
+            
 
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
+            className="w-full h-[313px] md:h-[420px]"
           ></iframe>
         </div>
       </div>

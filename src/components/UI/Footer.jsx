@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <div className="border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
+    <div className="hidden md:block border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
       <div className="w-[95%] mx-auto flex items-center justify-between">
         <div className="flex items-center gap-[30px] w-full">
         <Link className="" to="/">
