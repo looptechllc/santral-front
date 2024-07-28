@@ -83,19 +83,19 @@ const Header = () => {
 
   return (
     <> 
-      <div className="w-full bg-[#FFD23F] p-[16px] hidden md:block">
+      <div className="w-full bg-[#FFD23F] p-[16px] ">
         <div className="w-[95%] mx-auto flex items-center justify-between text-black/90">
           <Link to="/">
-            <img src={logo} alt="logo.svg" />
+            <img src={logo} alt="logo.svg" className="w-[142px] md:w-[217px]"/>
           </Link>
-          <div className="flex items-center gap-[100px] font-light">
+          <div className=" items-center gap-[100px] font-light hidden md:flex">
             <Link to="/about">Haqqımızda</Link>
             <Link to="/branches">Filiallar</Link>
             <Link to="/kampaniyalar">Kampaniyalar</Link>
             <Link to="/partners">Partnyorlar</Link>
           </div>
           <div className="flex items-center gap-[16px]">
-            <a href="tel:1410" className="flex items-center gap-[8px]">
+            <a href="tel:1410" className=" items-center gap-[8px] hidden md:flex">
               <img src={call} alt="" />
               1410
             </a>
@@ -135,7 +135,7 @@ const Header = () => {
               ) : (
                 <button
                   onClick={toggleDropdown}
-                  className="dropbtn bg-black rounded-[32px] px-[24px] py-[16px] text-white"
+                  className="dropbtn bg-black rounded-[32px] px-[16px] md:px-[24px] py-[12px] md:py-[16px] text-white"
                 >
                   Daxil ol
                 </button>
@@ -243,7 +243,7 @@ const Header = () => {
                 </p>
               </div>
             </div>
-            <select name="" id="" className="bg-transparent">
+            <select name="" id="" className="bg-transparent hidden md:block">
               <option value="">Az</option>
               <option value="">En</option>
               <option value="">Ru</option>
