@@ -16,6 +16,9 @@ const Profile = () => {
   const [addresses, setAddresses] = useState();
   const [addressData, setAddressData] = useState();
   const [passwordData, setPasswordData] = useState();
+  const [profilePhoto,setProfilePhoto] = useState();
+
+
   async function getUserInfo() {
     const url = `https://api.santral.az/v1/auth/me`;
     const accessToken = secureLocalStorage.getItem("access_token");
@@ -69,6 +72,35 @@ const Profile = () => {
       toast.error("Error:", error);
     }
   }
+  async function updateProfilePicture() {
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/file/upload/photo`;
+
+    const formData = new FormData();
+    formData.append('photo', profilePhoto.photo);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          photo: data.data.public,
+        }));
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+}
+
   async function getAllOrders() {
     const accessToken = secureLocalStorage.getItem("access_token");
     const url = "https://api.santral.az/v1/orders/history?page=1&lang=az";
@@ -129,6 +161,11 @@ const Profile = () => {
     getAddresses();
     getAllOrders();
   }, []);
+  useEffect(()=>{
+updateProfilePicture()
+  },[
+    profilePhoto
+  ])
 
   const tabs = [
     "Şəxsi məlumatlar",
@@ -229,12 +266,13 @@ const Profile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(profilePhoto)
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUserData((prevUserData) => ({
+        setProfilePhoto((prevUserData) => ({
           ...prevUserData,
-          newPhoto: reader.result,
+          photo: file,
         }));
       };
       reader.readAsDataURL(file);
@@ -270,7 +308,7 @@ const Profile = () => {
                   <div className="relative">
                     <input
                       type="image"
-                      src={userData.newPhoto || profilePic || defaultProfile}
+                      src={ profilePic || defaultProfile}
                       alt="profile picture"
                       className="w-[147px] h-[147px] rounded-full"
                     />
