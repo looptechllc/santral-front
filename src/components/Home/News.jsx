@@ -87,10 +87,10 @@ export default News;
 
 const NewsCard = ({img,title,desc,date,link})=>{
     return(
-        <div className='max-w-[433px] flex flex-col items-start gap-[16px]'>
+        <div className='max-w-[433px] flex flex-col items-start gap-[16px] mb-[48px] md:mb-[120px]'>
             <img src={img} alt={title} className='w-[433px] h-[295px] object-center rounded-[8px]' />
             <div className='flex flex-col items-start gap-[8px]'>
-            <p className='font-[500] text-[24px] text-[#333]'>{title}</p>
+            <p className='font-[500] text-[24px] text-[#333] line-clamp-1'>{title}</p>
             <p className='font-[400] text-[16px] text-[#333]'>{desc}</p>
             </div>
             <div className='w-full flex items-start justify-between'>

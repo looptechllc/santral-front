@@ -18,17 +18,20 @@ import Basket from './Pages/Basket'
 import Favorites from './Pages/Favorites'
 import About from './Pages/About'
 import Branches from './Pages/Branches'
+import Drawer from './components/UI/Drawer'
+import { useState } from 'react'
 
 
 function App() {
-
+  const [isOpen,setIsOpen] = useState();
 
   
   return (
     <>
     <BrowserRouter>
     {/* <BrandsCarousel /> */}
-    <Header />
+    <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+    <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
       <Routes>
 
         <Route path='/' element={<Home />} />

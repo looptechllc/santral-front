@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import secureLocalStorage from "react-secure-storage";
 import Catalog from "../General/Catalog";
 
-const Header = () => {
+const Header = ({isOpen,setIsOpen}) => {
   const [formData, setFormData] = useState();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,8 +59,8 @@ const Header = () => {
       if (response.ok) {
         secureLocalStorage.setItem("access_token", data.access_token);
         secureLocalStorage.setItem("refresh_token", data.refresh_token);
-        setLoggedIn(true)
-        toggleDropdown()
+        setLoggedIn(true);
+        toggleDropdown();
       } else {
         console.error("Your request cannot be completed");
       }
@@ -82,11 +82,11 @@ const Header = () => {
   };
 
   return (
-    <> 
+    <>
       <div className="w-full bg-[#FFD23F] p-[16px] ">
         <div className="w-[95%] mx-auto flex items-center justify-between text-black/90">
           <Link to="/">
-            <img src={logo} alt="logo.svg" className="w-[142px] md:w-[217px]"/>
+            <img src={logo} alt="logo.svg" className="w-[142px] md:w-[217px]" />
           </Link>
           <div className=" items-center gap-[100px] font-light hidden md:flex">
             <Link to="/about">Haqqımızda</Link>
@@ -95,7 +95,10 @@ const Header = () => {
             <Link to="/partners">Partnyorlar</Link>
           </div>
           <div className="flex items-center gap-[16px]">
-            <a href="tel:1410" className=" items-center gap-[8px] hidden md:flex">
+            <a
+              href="tel:1410"
+              className=" items-center gap-[8px] hidden md:flex"
+            >
               <img src={call} alt="" />
               1410
             </a>
@@ -243,6 +246,20 @@ const Header = () => {
                 </p>
               </div>
             </div>
+            <button className="md:hidden" onClick={() => setIsOpen(true)}>
+              <svg
+                width="42"
+                height="42"
+                viewBox="0 0 63 63"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.5 47.25H52.5C53.9437 47.25 55.125 46.0688 55.125 44.625C55.125 43.1812 53.9437 42 52.5 42H10.5C9.05625 42 7.875 43.1812 7.875 44.625C7.875 46.0688 9.05625 47.25 10.5 47.25ZM10.5 34.125H52.5C53.9437 34.125 55.125 32.9438 55.125 31.5C55.125 30.0562 53.9437 28.875 52.5 28.875H10.5C9.05625 28.875 7.875 30.0562 7.875 31.5C7.875 32.9438 9.05625 34.125 10.5 34.125ZM7.875 18.375C7.875 19.8187 9.05625 21 10.5 21H52.5C53.9437 21 55.125 19.8187 55.125 18.375C55.125 16.9312 53.9437 15.75 52.5 15.75H10.5C9.05625 15.75 7.875 16.9312 7.875 18.375Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
             <select name="" id="" className="bg-transparent hidden md:block">
               <option value="">Az</option>
               <option value="">En</option>
@@ -257,7 +274,8 @@ const Header = () => {
             onClick={() => setShowCatalog(!showCatalog)}
             className="bg-[#232323] border border-white/40 p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-center md:justify-start gap-[8px] md:w-[50%]"
           >
-            <img src={catalog} alt="catalog.svg" /><span className="hidden md:block"> Kataloq</span>
+            <img src={catalog} alt="catalog.svg" />
+            <span className="hidden md:block"> Kataloq</span>
           </button>
           <div className="bg-white md:w-full rounded-[32px] flex items-center p-[16px] gap-[10px]">
             <img src={searchIcon} alt="search.svg" />
@@ -269,7 +287,10 @@ const Header = () => {
             />
           </div>
           <div className="md:w-[50%] flex items-center justify-end gap-[20px]">
-            <Link to="/favorites" className="rounded-full bg-[#232323] p-[8px] hidden md:block">
+            <Link
+              to="/favorites"
+              className="rounded-full bg-[#232323] p-[8px] hidden md:block"
+            >
               <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
             </Link>
             <Link to="/basket" className="rounded-full bg-[#232323] p-[8px]">

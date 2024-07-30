@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <div className="hidden md:block border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
-      <div className="w-[95%] mx-auto flex items-center justify-between">
+    <div className=" border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
+      <div className="w-[95%] mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center gap-[30px] w-full">
         <Link className="" to="/">
           <img className="w-[217px]" src={logo} alt="logo.svg" />
@@ -45,7 +45,7 @@ const Footer = () => {
         </p>
       </div>
       <hr className="w-full h-[1px] bg-white/40 border-none my-[40px]" />
-      <div className="w-[95%] mx-auto grid grid-cols-2 md:grid-cols-4 place-content-start place-items-start">
+      <div className="w-[95%] mx-auto gap-y-[20px] grid grid-cols-2 md:grid-cols-4 place-content-start place-items-start">
         <div className="flex flex-col items-start  justify-center">
           <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
             Şirkət
@@ -81,7 +81,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col items-start  justify-center">
-          <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+          <h2 className="font-medium text-[20px] mb-[16px] md:mb-[32px] text-[#FFD23F]">
             Əlaqə
           </h2>
           <div className="flex flex-col items-start gap-[16px]">
