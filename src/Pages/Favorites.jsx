@@ -21,7 +21,7 @@ const Favorites = () => {
       const data = await response.json();
       if (response.ok) {
         console.log(data);
-        setFavorites(data);
+        data.error?setFavorites(data.data):setFavorites(data);
       } else {
         console.log("error");
       }
