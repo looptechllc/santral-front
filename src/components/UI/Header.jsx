@@ -82,7 +82,7 @@ const Header = ({isOpen,setIsOpen}) => {
   };
 
   return (
-    <>
+    <header className="sticky top-0 z-[9999]">
       <div className="w-full bg-[#FFD23F] p-[16px] ">
         <div className="w-[95%] mx-auto flex items-center justify-between text-black/90">
           <Link to="/">
@@ -304,7 +304,7 @@ const Header = ({isOpen,setIsOpen}) => {
       >
         <Catalog isVisible={setShowCatalog} />
       </div>
-    </>
+    </header>
   );
 };
 
