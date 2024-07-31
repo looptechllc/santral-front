@@ -144,19 +144,48 @@ const ProductInfo = () => {
 
           <div className=" flex w-full items-center justify-between border-b border-[#eaeaea] py-[24px]">
             <div className="flex items-center gap-[10px] p-[6px]  border border-[#EAEAEA] w-fit rounded-[32px]">
-              <button
-                className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0"
-                onClick={decrement}
-              >
-                <span>-</span>
-              </button>
-              <span className="text-[20px] font-medium">{count}</span>
-              <button
-                className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0"
-                onClick={increment}
-              >
-                <span>+</span>
-              </button>
+            <button
+  className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0 group"
+  onClick={decrement}
+>
+  <svg
+    className="fill-current text-black/40 group-hover:text-white"
+    width="18"
+    height="2"
+    viewBox="0 0 18 2"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M17 2H1C0.453333 2 0 1.54667 0 1C0 0.453333 0.453333 0 1 0H17C17.5467 0 18 0.453333 18 1C18 1.54667 17.5467 2 17 2Z"
+      fill="currentColor"
+    />
+  </svg>
+</button>
+<span className="text-[20px] font-medium">{count}</span>
+<button
+  className="duration-300 bg-white hover:bg-[#FFD23F] text-black/40 hover:text-white w-[40px] h-[40px] rounded-full text-[32px] flex items-center justify-center p-0 group"
+  onClick={increment}
+>
+  <svg
+    className="fill-current text-black/40 group-hover:text-white"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M24 17H8C7.45333 17 7 16.5467 7 16C7 15.4533 7.45333 15 8 15H24C24.5467 15 25 15.4533 25 16C25 16.5467 24.5467 17 24 17Z"
+      fill="currentColor"
+    />
+    <path
+      d="M16 25C15.4533 25 15 24.5467 15 24V8C15 7.45333 15.4533 7 16 7C16.5467 7 17 7.45333 17 8V24C17 24.5467 16.5467 25 16 25Z"
+      fill="currentColor"
+    />
+  </svg>
+</button>
+
             </div>
             <p className="text-[#FD8521] text-[32px] font-bold">
               {(count * description?.price).toFixed(2)} ₼
@@ -313,7 +342,7 @@ const ProductInfo = () => {
         <div className="bg-white drop-shadow-sm border border-solid border-[#EAEAEA] rounded-[16px] p-[18px] grid  gap-[24px] grid-cols-1 md:grid-cols-4 place-items-center">
           {relatedProducts?.map((item, index) => (
             <ElementCard
-            id={item?.id}
+              id={item?.id}
               img={`https://cdn.santral.az//images/${item.thumbnail}`}
               sale={item.discountPercent}
               name={item?.name}
