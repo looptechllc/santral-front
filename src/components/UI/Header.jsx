@@ -83,7 +83,7 @@ const Header = ({isOpen,setIsOpen}) => {
 
   return (
     <header className="sticky top-0 z-[9999]">
-      <div className="w-full bg-[#FFD23F] p-[16px] ">
+      <div className="w-full bg-[#FFD23F] p-[12px] ">
         <div className="w-[95%] mx-auto max-w-[1440px] flex items-center justify-between text-black/90">
           <Link to="/">
             <img src={logo} alt="logo.svg" className="w-[142px] md:w-[217px]" />
@@ -91,8 +91,7 @@ const Header = ({isOpen,setIsOpen}) => {
           <div className=" items-center gap-[100px] font-light hidden md:flex">
             <Link to="/about">Haqqımızda</Link>
             <Link to="/branches">Filiallar</Link>
-            <Link to="/kampaniyalar">Kampaniyalar</Link>
-            <Link to="/partners">Partnyorlar</Link>
+            <Link to="/news">Xəbərlər</Link>
           </div>
           <div className="flex items-center gap-[16px]">
             <a
@@ -268,7 +267,7 @@ const Header = ({isOpen,setIsOpen}) => {
           </div>
         </div>
       </div>
-      <div className="bg-[#323232] w-full p-[16px] ">
+      <div className="bg-[#323232] w-full p-[12px] ">
         <div className="w-[95%] max-w-[1440px] mx-auto flex items-center justify-between gap-[16px] md:gap-[80px]">
           <button
             onClick={() => setShowCatalog(!showCatalog)}
