@@ -60,7 +60,7 @@ const ProductInfo = () => {
     fetchRelated(description?.id);
   }, [description]);
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    count<description?.stock?setCount((prevCount) => prevCount + 1):null;
   };
 
   const decrement = () => {
