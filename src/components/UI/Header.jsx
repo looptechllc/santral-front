@@ -84,7 +84,7 @@ const Header = ({isOpen,setIsOpen}) => {
   return (
     <header className="sticky top-0 z-[9999]">
       <div className="w-full bg-[#FFD23F] p-[16px] ">
-        <div className="w-[95%] mx-auto flex items-center justify-between text-black/90">
+        <div className="w-[95%] mx-auto max-w-[1440px] flex items-center justify-between text-black/90">
           <Link to="/">
             <img src={logo} alt="logo.svg" className="w-[142px] md:w-[217px]" />
           </Link>
@@ -269,7 +269,7 @@ const Header = ({isOpen,setIsOpen}) => {
         </div>
       </div>
       <div className="bg-[#323232] w-full p-[16px] ">
-        <div className="w-[95%] mx-auto flex items-center justify-between gap-[16px] md:gap-[80px]">
+        <div className="w-[95%] max-w-[1440px] mx-auto flex items-center justify-between gap-[16px] md:gap-[80px]">
           <button
             onClick={() => setShowCatalog(!showCatalog)}
             className="bg-[#232323] border border-white/40 p-[16px] rounded-[16px] text-[20px] text-white font-medium flex items-center justify-center md:justify-start gap-[8px] md:w-[50%]"

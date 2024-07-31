@@ -34,7 +34,7 @@ const Favorites = () => {
     fetchFavorites();
   }, []);
   return (
-    <div className=" px-[16px] md:px-[48px] pt-[24px] pb-[108px]">
+    <div className="max-w-[1440px] mx-auto px-[16px] md:px-[48px] pt-[24px] pb-[108px]">
       <div>
         <h2 className="text-[32px] text-black/90">Seçilmişlər</h2>
       </div>

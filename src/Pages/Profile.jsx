@@ -279,7 +279,7 @@ updateProfilePicture()
     }
   };
   return (
-    <div className="w-[95%] mx-auto py-[24px]">
+    <div className="w-[95%]  py-[24px] max-w-[1440px] mx-auto">
       <div className="flex flex-col md:flex-row items-start gap-[24px]">
         <div className="p-[16px] bg-black text-white rounded-[16px] flex flex-col items-start lg:min-w-[318px]">
           {tabs?.map((item, index) => (

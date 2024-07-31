@@ -12,7 +12,7 @@ import SeasonalOffers from "../components/Home/SeasonalOffers";
 
 const Home = () => {
   return (
-    <>
+    <main className="max-w-[1440px] mx-auto">
       <div className="mt-[24px] hidden md:block">
         <Catalog />
       </div>
@@ -25,7 +25,7 @@ const Home = () => {
       <SaleProducts />
       <BottomBanner />
       <News />
-    </>
+    </main>
   );
 };
 

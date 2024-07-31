@@ -191,7 +191,7 @@ const Basket = () => {
   const [orderData, setOrderData] = useState();
 
   return (
-    <div className="pt-[40px] pb-[120px] bg-[#fffefa] px-[16px] md:px-[48px] flex flex-col md:flex-row items-start gap-[24px]">
+    <div className="max-w-[1440px] mx-auto pt-[40px] pb-[120px] bg-[#fffefa] px-[16px] md:px-[48px] flex flex-col md:flex-row items-start gap-[24px]">
       {step === 1 ? (
         <div className="w-full bg-white border border-solid border-[#EAEAEA] rounded-[16px] p-[16px] flex flex-col gap-[24px]">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between">

@@ -31,7 +31,7 @@ const About = () => {
     contentbox.innerHTML = about?.content
   },[about])
   return (
-    <div className='py-[24px] px-[16px] md:px-[48px]'>
+    <div className='max-w-[1440px] mx-auto py-[24px] px-[16px] md:px-[48px]'>
       <h2 className='text-[32px] font-[400]'>{about?.title}</h2>
       <div id='content'></div>
     </div>

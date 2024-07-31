@@ -82,7 +82,7 @@ function Products() {
     }));
   };
   return (
-    <div className="my-24 bg-white lg:w-[95%] mx-auto p-[16px]">
+    <div className="my-24 bg-white lg:w-[95%] p-[16px] max-w-[1440px] mx-auto">
       <div className="w-full flex items-center justify-between mb-[24px]">
         <h1 className="text-[24px] md:text-[48px] font-bold whitespace-nowrap">
           {query}{" "}

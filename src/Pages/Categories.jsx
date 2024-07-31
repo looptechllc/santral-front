@@ -65,7 +65,7 @@ function Categories() {
     };
 
     return (
-        <div className='my-24 container mx-auto'>
+        <div className='my-24 max-w-[1440px] mx-auto'>
             <Slider {...settings}>
                 {categories.map(category => (
                     <CategoryCard key={category.id} category={category} />

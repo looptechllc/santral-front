@@ -35,7 +35,7 @@ const Branches = () => {
     getPublicStores();
   }, []);
   return (
-    <div className="p-[16px] md:p-[50px]">
+    <div className="max-w-[1440px] mx-auto p-[16px] md:p-[50px]">
       <div>
         <h2 className="text-black/90 text-[32px]">Filiallarımız</h2>
       </div>

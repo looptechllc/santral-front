@@ -31,7 +31,7 @@ const NewsDetail = () => {
     contentbox.innerHTML = news?.content
   },[news])
   return (
-    <div  className='px-[16px] md:px-[276px] py-[32px] '>
+    <div  className='px-[16px] md:px-[276px] py-[32px] max-w-[1440px] mx-auto'>
       <h2 className='text-[48px] text-[#333]'>{news?.title}</h2>
       <img src={`https://cdn.santral.az//images/${news?.thumbnail}`} alt='thumbnail' className='w-full rounded-[16px] my-[26px]' />
       <div id='content'></div>
