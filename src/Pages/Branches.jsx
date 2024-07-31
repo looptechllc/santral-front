@@ -40,7 +40,7 @@ const Branches = () => {
         <h2 className="text-black/90 text-[32px]">Filiallarımız</h2>
       </div>
       <div className="mt-[16px] flex flex-col-reverse md:flex-row items-start gap-[24px] ">
-        <div className="flex flex-col gap-[16px] w-full">
+        <div className="flex flex-col gap-[16px] w-full md:overflow-scroll md:max-h-[424px]">
           {branches?.map((item, index) => (
             <div className="border border-[#EAEAEA] p-[16px] rounded-[16px] flex flex-col gap-[8px]">
               <div className="flex items-start gap-[16px] justify-between">
