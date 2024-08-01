@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Container from "@mui/material/Container";
 import logo from "../../assets/headerlogo.svg";
 import call from "../../assets/call.svg";
 import catalog from "../../assets/catalog.svg";
@@ -10,7 +9,9 @@ import searchIcon from "../../assets/search.svg";
 import whiteRightArrow from "../../assets/whiteRightArrow.svg";
 import yellowrightarrow from "../../assets/yellowRightArrow.svg";
 
-const Catalog = ({ isVisible }) => {
+import Container from "@mui/material/Container";
+
+const Catalog = ({isVisible}) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -18,7 +19,7 @@ const Catalog = ({ isVisible }) => {
   const language = "en";
 
   const location = useLocation();
-  const catalogRef = useRef(null);
+  const catalogRef = useRef(null)
   useEffect(() => {
     fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
       method: "POST",
@@ -41,18 +42,27 @@ const Catalog = ({ isVisible }) => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    
   };
+  // useEffect(() => {
 
+  //     // catalogRef.current.scrollIntoView({ behavior: "smooth" });
+  //     window.scrollBy({
+  //       top: 600,
+  //       left: 0,
+  //       behavior: "smooth",
+  //     });
+
+  //   setSelectedCategory(null); 
+  // }, [location]);
   return (
     <>
-      <Container
-        ref={catalogRef}
-        className="rounded-[16px] overflow-hidden mb-[24px]"
-      >
+      
+      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden mb-[24px]">
         {!loading && (
-          <div className="flex flex-col md:flex-row items-stretch">
+          <div className="flex items-stretch">
             <div
-              className={`w-full md:w-1/4 bg-black ${
+              className={`w-1/4 bg-black ${
                 !selectedCategory ? "rounded-[16px]" : "rounded-l-[16px]"
               } overflow-hidden`}
             >
@@ -65,20 +75,21 @@ const Catalog = ({ isVisible }) => {
                   isSelected={
                     selectedCategory && selectedCategory.id === category.id
                   }
-                  expandable={true} // Make it expandable on mobile
+                  expandable={false}
                 />
               ))}
             </div>
             {selectedCategory && (
-              <div className="hidden md:block w-full md:w-3/4 max-h-[630px] bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll">
-                {selectedCategory.children.map((child) => (
-                  <CustomAccordion
-                    isExpanded={true}
-                    key={child.id}
-                    category={child}
-                    language={language}
-                  />
-                ))}
+              <div className="w-3/4  max-h-[630px]  bg-black rounded-r-[16px] p-4 grid grid-cols-3 place-content-start place-items-start overflow-scroll ">
+                {selectedCategory &&
+                  selectedCategory.children.map((child) => (
+                    <CustomAccordion
+                      isExpanded={true}
+                      key={child.id}
+                      category={child}
+                      language={language}
+                    />
+                  ))}
               </div>
             )}
           </div>
@@ -89,6 +100,8 @@ const Catalog = ({ isVisible }) => {
 };
 
 export default Catalog;
+
+// import './CustomAccordion.css';
 
 const CustomAccordion = ({
   category,
@@ -101,9 +114,7 @@ const CustomAccordion = ({
   const [expanded, setExpanded] = useState(isExpanded);
 
   const handleChange = () => {
-    if (expandable) {
-      setExpanded(!expanded);
-    }
+    expandable && setExpanded(!expanded);
     onCategorySelect(category);
   };
 
@@ -121,9 +132,9 @@ const CustomAccordion = ({
         {category.children?.length > 0 ? (
           <div className="flex w-full items-center justify-between">
             <Link
-              onClick={() => (isVisible ? isVisible(false) : "")}
+              onClick={()=>isVisible?isVisible(false):""}
               to={`/category/${category.id}`}
-              className={isSelected ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
+              className={isSelected ? "text-yellow-400  p-[8px]" : "text-white p-[8px]"}
             >
               {category.title}
             </Link>
@@ -136,22 +147,13 @@ const CustomAccordion = ({
             </span>
           </div>
         ) : (
-          <Link
-            onClick={() => (isVisible ? isVisible(false) : "")}
-            to={`/category/${category.id}`}
-          >
-            {category.title}
-          </Link>
+          <Link onClick={()=>isVisible?isVisible(false):""} to={`/category/${category.id}`}>{category.title}</Link>
         )}
       </div>
-      <div className={`accordion-details ${expanded ? "block" : "hidden"} md:${expanded ? "expanded" : ""}`}>
+      <div className={`accordion-details ${expanded ? "expanded" : ""}`}>
         {category.children &&
           category.children.map((child) => (
-            <Link
-              onClick={() => (isVisible ? isVisible(false) : "")}
-              key={child.id}
-              to={`/category/${child.id}`}
-            >
+            <Link onClick={()=>isVisible?isVisible(false):""} key={child.id} to={`/category/${child.id}`}>
               {child.title}
             </Link>
           ))}
