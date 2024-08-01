@@ -140,7 +140,7 @@ const Form = () => {
             />
           </div>
           <div className="md:col-span-2">
-            <button className="w-full bg-[#FFD23F] p-[16px] rounded-[32px] flex items-center justify-center gap-[18px]">
+            <button className="w-full bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 p-[16px] rounded-[32px] flex items-center justify-center gap-[18px]">
               Qeydiyyatdan keç <img src={rightarrow} alt="rightarrow.svg" />
             </button>
           </div>

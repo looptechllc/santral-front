@@ -12,7 +12,7 @@ const Thanks = () => {
             <p className=''>Sifarişinizin rəsmiləşdirilməsi üçün sizinlə əlaqə saxlanılacaqdır</p>
             </div>
             <div className="flex w-full gap-[16px]">
-                <Link className='bg-[#FFD23F] border border-solid border-[#FFD23F] rounded-[32px] px-[24px] py-[16px] w-full text-center' to="/">
+                <Link className='bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-[32px] px-[24px] py-[16px] w-full text-center' to="/">
                 Əsas səhifə
                 </Link>
                 <Link className='border border-solid border-[#FFD23F] rounded-[32px] px-[24px] py-[16px] w-full text-center text-[#FFD23F]' to="/orders">

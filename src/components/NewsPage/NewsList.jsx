@@ -79,7 +79,7 @@ const NewsCard = ({ img, title, desc, date, link }) => {
       <div className="w-full flex items-start justify-between">
         <Link
           to={`/news/${link}`}
-          className="font-[500] z-20 px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F] flex items-center gap-[10px]"
+          className="font-[500] z-20 px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 flex items-center gap-[10px]"
         >
           Ətraflı oxu{" "}
           <svg

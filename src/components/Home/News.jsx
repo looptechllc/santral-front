@@ -94,7 +94,7 @@ const NewsCard = ({img,title,desc,date,link})=>{
             <p className='font-[400] text-[16px] text-[#333]'>{desc}</p>
             </div>
             <div className='w-full flex items-start justify-between'>
-                <Link to={`/news/${link}`} className='font-[500] px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]'>Ətraflı oxu</Link>
+                <Link to={`/news/${link}`} className='font-[500] px-[16px] py-[8px] rounded-[32px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300'>Ətraflı oxu</Link>
                 <p className='text-[12px] text-[#333] font-400'>{date}</p>
             </div>
 

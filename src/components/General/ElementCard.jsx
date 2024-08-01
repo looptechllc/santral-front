@@ -106,7 +106,7 @@ const ElementCard = ({
     }
   }
   return (
-    <div className="bg-[#f5f5f5] rounded-[8px] overflow-hidden max-w-[330px]">
+    <div className="bg-[#f5f5f5] hover:bg-[#fff9d1] duration-300 rounded-[8px] overflow-hidden max-w-[330px]">
       <div className="w-full relative">
         <Link to={`/product/${link}`}>
           {" "}
@@ -133,7 +133,7 @@ const ElementCard = ({
         <div className="flex items-center justify-between w-full">
           <button
             onClick={addToCard}
-            className="flex items-center gap-[10px] bg-[#FFD23F] py-[16px] px-[30px] rounded-[32px]"
+            className="flex items-center gap-[10px] bg-[#FFD23F] border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300  py-[16px] px-[30px] rounded-[32px]"
           >
             <img src={cart} alt="cart.svg" />
             Səbətə əlavə et

@@ -325,7 +325,7 @@ updateProfilePicture()
                         onClick={() =>
                           document.getElementById("profileImageUpload").click()
                         }
-                        className="bg-[#FFD23F] rounded-full p-[14px]"
+                        className="bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-full p-[14px]"
                       >
                         <svg
                           width="31"
@@ -427,7 +427,7 @@ updateProfilePicture()
                   <button
                     type="submit"
                     onClick={updateProfileinfo}
-                    className="w-[295px] bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
+                    className="w-[295px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
                   >
                     Yadda saxla
                   </button>
@@ -663,7 +663,7 @@ updateProfilePicture()
                     <button
                       type="submit"
                       onClick={addAddress}
-                      className="w-[295px] bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
+                      className="w-[295px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
                     >
                       Ünvan əlavə et
                     </button>
@@ -724,7 +724,7 @@ updateProfilePicture()
                   <button
                     type="submit"
                     onClick={changePassword}
-                    className="w-[295px] bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
+                    className="w-[295px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
                   >
                     Şifrəni yenilə
                   </button>

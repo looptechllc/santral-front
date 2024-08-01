@@ -328,7 +328,7 @@ autoplaySpeed:2500,
             <button className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">
               Zəng et
             </button>
-            <button className="border-2 border-solid border-[#ffd23f] bg-[#ffd23f] py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
+            <button className="] bg-[#ffd23f]  border-2 border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
               <img src={cart} alt="cart.svg" />
               Səbətə at
             </button>

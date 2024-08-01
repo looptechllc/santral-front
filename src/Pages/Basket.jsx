@@ -473,7 +473,7 @@ const Basket = () => {
               onClick={() => {
                 step == 1 ? setStep(2) : "";
               }}
-              className="bg-[#FFD23F] mt-[32px] flex items-center justify-center p-[16px] gap-[10px] w-full rounded-[32px]"
+              className="bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 mt-[32px] flex items-center justify-center p-[16px] gap-[10px] w-full rounded-[32px]"
             >
               {step === 1 ? "Sifarişi rəsmiləşdir" : "Sifarişi tamamla"}
               <svg
