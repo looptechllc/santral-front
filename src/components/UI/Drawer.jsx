@@ -1,12 +1,15 @@
 // import Link from "next/link";
 
 import { Link } from "react-router-dom";
+import heart from "../../assets/whiteHeart.svg";
+import cart from "../../assets/whiteCart.svg";
+import searchIcon from "../../assets/search.svg";
 
 export default function Drawer({ isOpen, setIsOpen, scrollToSection }) {
   return (
     <main
       className={
-        "fixed inset-0 z-[999] transform overflow-hidden bg-gray-900 bg-opacity-25 ease-in-out " +
+        "fixed  inset-0 z-[99999999999] transform overflow-hidden bg-gray-900 bg-opacity-25 ease-in-out " +
         (isOpen
           ? " translate-x-0 opacity-100 transition-opacity duration-500  "
           : " translate-x-full opacity-0 transition-all delay-500  ")
@@ -19,9 +22,8 @@ export default function Drawer({ isOpen, setIsOpen, scrollToSection }) {
         }
       >
         <div className="relative flex h-full w-screen max-w-lg flex-col space-y-6 overflow-y-scroll pb-10">
-          <div className="flex flex-col items-start gap-10 px-4 pt-4 ">
+          <div className=" w-full flex flex-col items-start gap-10 px-4 pt-4 ">
             <div className="flex w-full items-center justify-end">
-              
               <button onClick={() => setIsOpen(false)}>
                 <svg
                   width="32"
@@ -46,18 +48,50 @@ export default function Drawer({ isOpen, setIsOpen, scrollToSection }) {
               </button>
             </div>
 
-            <ul className="flex flex-col items-start justify-between gap-[30px] mt-[54px] font-[500] text-[29px]">
-              <li>
-                <Link to="/">Əsas</Link>
+            <div className="bg-[#232323] rounded-[16px] p-[16px] w-full border border-[#D9D9D9]">
+              <Link
+                to="/basket"
+                className="py-[16px] bg-[#232323] p-[8px] text-white flex items-center gap-[16px]"
+              >
+                <img className="w-[24px] h-[24px]" src={cart} alt="heart.svg" />
+                Səbət
+              </Link>
+
+              <Link
+                to="/favorites"
+                className="py-[16px] border-y border-white/40 bg-[#232323] p-[8px] text-white flex items-center gap-[16px]"
+              >
+                <img
+                  className="w-[24px] h-[24px]"
+                  src={heart}
+                  alt="heart.svg"
+                />
+                Seçilmişlər
+              </Link>
+            </div>
+            <ul className=" w-full flex flex-col items-start justify-between gap-[16px] mt-[16px] font-[400] text-[20px]">
+              <li className="w-full border-b border-black/40 py-[12px]">
+                <Link className=" " to="/">
+                  Əsas
+                </Link>
               </li>
-              <li>
-                <Link to="/">Haqqımızda</Link>
+              <li className="w-full border-b border-black/40 py-[12px]">
+                <Link className=" " to="/about">
+                  Haqqımızda
+                </Link>
               </li>
-              <li>
-                <Link to="/">Liderlər lövhəsi</Link>
+              <li className="w-full border-b border-black/40 py-[12px]">
+                <Link
+                  className=" "
+                  to="/branches"
+                >
+                  Filliallar
+                </Link>
               </li>
-              <li>
-                <Link to="/">Əlaqə</Link>
+              <li className="w-full border-b border-black/40 py-[12px]">
+                <Link className=" " to="/news">
+                  Xəbərlər
+                </Link>
               </li>
             </ul>
           </div>
