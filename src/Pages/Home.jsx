@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductsGrid from "../components/Home/ProductsGrid";
 import Advantages from "../components/Home/Advantages";
 import SaleProducts from "../components/Home/SaleProducts";
@@ -10,63 +10,112 @@ import NewComing from "../components/Home/NewComing";
 import BottomBanner from "../components/Home/BottomBanner";
 import SeasonalOffers from "../components/Home/SeasonalOffers";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-
   const settings = {
     dots: false,
     infinite: true,
-    arrows:false,
+    arrows: false,
     speed: 2000,
-    slidesToShow: 7,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000, // Adjust the speed as needed (3000ms = 3 seconds)
     responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                infinite: true,
-                dots: false,
-                autoplay: true,
-                autoplaySpeed: 3000
-            }
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                initialSlide: 2,
-                autoplay: true,
-                autoplaySpeed: 3000
-            }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 3000
-            }
-        }
-    ]
-};
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3000,
+        },
+      },
+    ],
+  };
+
+  const [sliderData, setSliderData] = useState();
+  // const id = useParams();
+  // console.log(id)
+  useEffect(() => {
+    // const accessToken = secureLocalStorage.getItem("access_token");
+    fetch(`https://api.santral.az/v1/sliders/main/published?lang=az`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSliderData(data.data);
+        console.log(data);
+        console.log(sliderData[0].route?.split("/"))
+      })
+      .catch((error) => {
+        console.error("Error fetching slider:", error);
+      });
+  }, []);
   return (
     <main className="max-w-[1440px] mx-auto">
-      <div className="flex">
-      <div className="mt-[24px] hidden md:block w-full">
+     <div className="flex relative overflow-hidden w-full h-[700px]">
+      <div className="mt-[24px] hidden md:block hover:absolute hover:z-[80] w-full">
         <Catalog />
       </div>
-      {/* <Slider {...settings}>
-        <div className="w-full bg-black p-48">
+      <div className="w-full overflow-hidden md:w-[840px] absolute md:right-[144px] md:h-[600px] mt-[6px] md:mt-[24px]">
+        <Slider {...settings}>
+          {sliderData?.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                // backgroundImage: ,
+              }}
+              className="bg-center bg-cover h-[460px] md:h-[600px] w-full relative md:rounded-[16px] overflow-hidden"
+            >
+              <img src={`https://cdn.santral.az/images/${item.image}`} alt="background image" className="absolute top-0 left-0 w-full h-full object-fit" />
+              <div className="absolute bg-white/40 bottom-[48px] w-full left-[50%]  transform -translate-x-1/2 flex gap-[16px] justify-between rounded-[16px] flex-col md:flex-row items-start md:items-center p-[16px] ">
+                
+                <img
+                  src={`https://cdn.santral.az/images/${item.logo}`}
+                  alt="logo"
+                  className="max-h-[30px]"
+                />
+                <div className="flex flex-col gap-[8px]">
+                  <p className="text-[24px] font-[500]">{item.title}</p>
+                  <p className="text-[14px] font-[500]">{item.desc}</p>
+                </div>
+                <Link to={"/products/"+item.route?.split("/").slice(-1)[0]} className="px-[24px] py-[16px] bg-[#FFD23F] rounded-[32px]">
+                {item.label}
+                </Link>
 
-        </div>
-      </Slider> */}
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
+    </div>
       <NewComing />
       <Categories />
       <ProductsGrid />
