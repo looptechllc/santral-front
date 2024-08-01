@@ -119,7 +119,7 @@ const Header = ({isOpen,setIsOpen}) => {
               1410
             </a>
 
-            <div className="dropdown w-fit relative">
+            <div className="dropdown w-full md:w-fit relative">
               {loggedIn ? (
                 <Link
                   to="/profile"
@@ -161,7 +161,7 @@ const Header = ({isOpen,setIsOpen}) => {
               )}
               <div
                 id="dropdown"
-                className="dropdown-content w-[395px] bg-white rounded-[16px] mt-2 absolute right-0 hidden flex flex-col p-[16px] z-50"
+                className="dropdown-content w-[395px] bg-white rounded-[16px] mt-2 absolute right-[-80px] md:right-0 hidden flex flex-col p-[16px] z-50"
               >
                 <button className="self-end" onClick={toggleDropdown}>
                   <svg
