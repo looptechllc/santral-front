@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import ElementCard from "../General/ElementCard";
+import secureLocalStorage from "react-secure-storage";
 
 const SeasonalOffers = () => {
   const [categories, setCategories] = useState([]);
@@ -15,6 +16,7 @@ const SeasonalOffers = () => {
 
   async function fetchProducts() {
     setProducts([]);
+    const accessToken = secureLocalStorage.getItem("access_token");
     const url = `https://api.santral.az/v1/sliders/producttab/published?page=1&lang=az`;
     
     try {
@@ -23,6 +25,7 @@ const SeasonalOffers = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({}),
       });
@@ -129,6 +132,7 @@ const SeasonalOffers = () => {
             beforePrice={product.oldPrice}
             sale={product.discountPercent}
             link={product.name}
+            isLiked={product.isLiked}
           />
         ))}
       </Slider>
