@@ -74,11 +74,28 @@ const Header = ({isOpen,setIsOpen}) => {
     accessToken ? setLoggedIn(true) : setLoggedIn(false);
   }, []);
 
+  const [timeoutId, setTimeoutId] = useState(null);
+
   const handleSearchChange = (e) => {
     const query = e.target.value;
-    if (query) {
-      navigate(`/products/${query}`);
-    } else navigate("/");
+
+    // Clear the previous timeout if it exists
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // Set a new timeout
+    const newTimeoutId = setTimeout(() => {
+      if (query) {
+        navigate(`/products/${query}`);
+        setShowCatalog(false)
+      } else {
+        navigate("/");
+      }
+    }, 500); // Wait for 0.5 seconds
+
+    // Store the timeout ID
+    setTimeoutId(newTimeoutId);
   };
 
   return (
