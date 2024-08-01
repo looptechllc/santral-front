@@ -49,7 +49,7 @@ const CustomAccordion = ({
   return (
     <div className="accordion w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div
-        className="accordion-summary text-[20px] font-medium w-full p-[16px] cursor-pointer"
+        className="accordion-summary text-[20px] border-b border-white/40 md:border-0 font-medium w-full p-[16px] cursor-pointer"
         onClick={handleChange}
       >
         {category.children?.length > 0 ? (
@@ -80,7 +80,7 @@ const CustomAccordion = ({
         )}
       </div>
       {(isMobile || expanded) && (
-        <div className={`accordion-details ${expanded && isMobile ? "expanded" : ""}`}>
+        <div className={`accordion-details px-[16px] ${expanded && isMobile ? "expanded " : ""}`}>
           {category.children &&
             category.children.map((child) => (
               <Link
