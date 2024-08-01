@@ -46,7 +46,7 @@ const Favorites = () => {
               id={item.id}
               img={`https://cdn.santral.az//images/${item.thumbnail}`}
               sale={0}
-              name={item.title}
+              name={item.name}
               price={item.price}
               beforePrice={item.oldPrice}
               isLiked={true}
