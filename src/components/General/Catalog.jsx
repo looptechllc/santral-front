@@ -58,7 +58,7 @@ const Catalog = ({isVisible}) => {
   return (
     <>
       
-      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden mb-[24px]">
+      <Container ref={catalogRef} className=" rounded-[16px] overflow-hidden mb-[24px] z-[200]">
         {!loading && (
           <div className="flex items-stretch">
             <div

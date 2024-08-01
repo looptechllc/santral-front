@@ -61,11 +61,11 @@ const Home = () => {
       <div className="mt-[24px] hidden md:block w-full">
         <Catalog />
       </div>
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
         <div className="w-full bg-black p-48">
 
         </div>
-      </Slider>
+      </Slider> */}
       </div>
       <NewComing />
       <Categories />
