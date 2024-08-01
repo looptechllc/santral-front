@@ -16,8 +16,16 @@ const Profile = () => {
   const [addresses, setAddresses] = useState();
   const [addressData, setAddressData] = useState();
   const [passwordData, setPasswordData] = useState();
-  const [profilePhoto,setProfilePhoto] = useState();
+  const [profilePhoto, setProfilePhoto] = useState();
+  const [addressEditData, setEditAddressData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   async function getUserInfo() {
     const url = `https://api.santral.az/v1/auth/me`;
@@ -77,7 +85,7 @@ const Profile = () => {
     const url = `https://api.santral.az/v1/file/upload/photo`;
 
     const formData = new FormData();
-    formData.append('photo', profilePhoto.photo);
+    formData.append("photo", profilePhoto.photo);
 
     try {
       const response = await fetch(url, {
@@ -99,8 +107,33 @@ const Profile = () => {
     } catch (error) {
       toast.error("Error:", error);
     }
-}
+  }
+  async function updateAddresss(e, id) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/customers/address/update/${id}`;
 
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("user address updated successfully");
+        closeModal()
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  }
   async function getAllOrders() {
     const accessToken = secureLocalStorage.getItem("access_token");
     const url = "https://api.santral.az/v1/orders/history?page=1&lang=az";
@@ -161,11 +194,9 @@ const Profile = () => {
     getAddresses();
     getAllOrders();
   }, []);
-  useEffect(()=>{
-updateProfilePicture()
-  },[
-    profilePhoto
-  ])
+  useEffect(() => {
+    updateProfilePicture();
+  }, [profilePhoto]);
 
   const tabs = [
     "Şəxsi məlumatlar",
@@ -266,7 +297,7 @@ updateProfilePicture()
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(profilePhoto)
+    console.log(profilePhoto);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -308,7 +339,7 @@ updateProfilePicture()
                   <div className="relative">
                     <input
                       type="image"
-                      src={ profilePic || defaultProfile}
+                      src={profilePic || defaultProfile}
                       alt="profile picture"
                       className="w-[147px] h-[147px] rounded-full"
                     />
@@ -567,7 +598,13 @@ updateProfilePicture()
                       </span>
                     </p>
                     <div className="flex w-full items-end justify-end">
-                      <button className="w-[56px] ">
+                      <button
+                        onClick={() => {
+                          setEditAddressData(item);
+                          openModal();
+                        }}
+                        className="w-[56px] "
+                      >
                         <img src={edit} alt="locationedit.png" />
                       </button>
                     </div>
@@ -640,7 +677,9 @@ updateProfilePicture()
                         Şəhər
                       </option>
                       {Object.keys(addresses?.cities).map((item, index) => (
-                        <option key={index} value={item}>{addresses?.cities[item]}</option>
+                        <option key={index} value={item}>
+                          {addresses?.cities[item]}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -732,6 +771,141 @@ updateProfilePicture()
               </form>
             </div>
           )}
+        </div>
+      </div>
+      <div
+        className={`${
+          isModalOpen ? "" : "hidden"
+        } fixed top-0 left-0 z-[100000000] bg-black/50 w-full h-screen flex items-center justify-center`}
+      >
+        <div className="bg-white p-[24px] rounded-[16px] relative md:w-[600px]">
+          <button
+            onClick={closeModal}
+            className="absolute top-[16px] right-[24px]"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z"
+                fill="black"
+                fill-opacity="0.87"
+              />
+              <path
+                d="M9.17035 15.5804C8.98035 15.5804 8.79035 15.5104 8.64035 15.3604C8.35035 15.0704 8.35035 14.5904 8.64035 14.3004L14.3004 8.64035C14.5904 8.35035 15.0704 8.35035 15.3604 8.64035C15.6504 8.93035 15.6504 9.41035 15.3604 9.70035L9.70035 15.3604C9.56035 15.5104 9.36035 15.5804 9.17035 15.5804Z"
+                fill="black"
+                fill-opacity="0.87"
+              />
+              <path
+                d="M14.8304 15.5804C14.6404 15.5804 14.4504 15.5104 14.3004 15.3604L8.64035 9.70035C8.35035 9.41035 8.35035 8.93035 8.64035 8.64035C8.93035 8.35035 9.41035 8.35035 9.70035 8.64035L15.3604 14.3004C15.6504 14.5904 15.6504 15.0704 15.3604 15.3604C15.2104 15.5104 15.0204 15.5804 14.8304 15.5804Z"
+                fill="black"
+                fill-opacity="0.87"
+              />
+            </svg>
+          </button>
+          <p className="text-[32px]">Ünvan edit</p>
+          <p className="text-black/60">Ünvana edit edə bilərsiniz</p>
+
+          <form className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
+            <div className="w-full">
+              <label htmlFor="">Ad</label>
+              <input
+                value={addressEditData?.firstname}
+                onChange={(e) =>
+                  setEditAddressData((prevUserData) => ({
+                    ...prevUserData,
+                    firstname: e.target.value,
+                  }))
+                }
+                className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
+                type="text"
+                placeholder="Adınızı daxil edin"
+              />
+            </div>
+            <div className="w-full">
+              <label htmlFor="">Soyad</label>
+              <input
+                value={addressEditData?.lastname}
+                onChange={(e) =>
+                  setEditAddressData((prevUserData) => ({
+                    ...prevUserData,
+                    lastname: e.target.value,
+                  }))
+                }
+                className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
+                type="text"
+                placeholder="Soyadınızı daxil edin"
+              />
+            </div>
+            <div className="w-full col-span-2">
+              <label htmlFor="">Mobil nömrə</label>
+              <input
+                value={addressEditData?.mobile}
+                onChange={(e) =>
+                  setEditAddressData((prevUserData) => ({
+                    ...prevUserData,
+                    mobile: e.target.value,
+                  }))
+                }
+                className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
+                type="text"
+                placeholder="Mobil nömrənizi daxil edin"
+              />
+            </div>
+            <div className="w-full col-span-2">
+              <label htmlFor="">Şəhər</label>
+              <select
+                value={addressEditData?.city}
+                onChange={(e) =>
+                  setEditAddressData((prevUserData) => ({
+                    ...prevUserData,
+                    city: e.target.value,
+                  }))
+                }
+                className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
+                type="text"
+                placeholder="Şəhər  "
+              >
+                <option value="" disabled selected>
+                  Şəhər
+                </option>
+                {addresses &&
+                  Object.keys(addresses?.cities).map((item, index) => (
+                    <option key={index} value={item}>
+                      {addresses?.cities[item]}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="w-full col-span-2">
+              <label htmlFor="">Ünvan</label>
+              <input
+                value={addressEditData?.address}
+                onChange={(e) =>
+                  setEditAddressData((prevUserData) => ({
+                    ...prevUserData,
+                    address: e.target.value,
+                  }))
+                }
+                className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
+                type="text"
+                placeholder="Ünvan"
+              />
+            </div>
+            <div className="w-full flex items-center my-[32px] justify-end col-span-2">
+              <button
+                type="submit"
+                onClick={(e)=>{updateAddresss(e,addressEditData.id)}}
+                className="w-[295px] bg-[#FFD23F]  border border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 rounded-[32px] flex items-center justify-center gap-[10px] p-[14px]"
+              >
+                Ünvan əlavə et
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
