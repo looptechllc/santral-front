@@ -9,6 +9,7 @@ import heartFill from "../../assets/heartFill.svg";
 import ReactImageGallery from "react-image-gallery";
 import ElementCard from "../General/ElementCard";
 import Slider from "react-slick";
+import secureLocalStorage from "react-secure-storage";
 const ProductInfo = () => {
   const { name } = useParams();
   const [description, setDescription] = useState("");
@@ -79,6 +80,34 @@ const ProductInfo = () => {
       ? description?.images?.map((item) => item)
       : [description.thumbnail];
 
+
+
+      async function createCall(e) {
+        e.preventDefault();
+        const accessToken = secureLocalStorage.getItem("access_token");
+        const url = `https://api.santral.az/v1/calls/create?lang=az&client=`;
+    
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(formData),
+          });
+          const data = await response.json();
+          if (response.ok) {
+            alert("user info updated successfully");
+          } else {
+            console.error("Your request cannot be completed");
+          }
+        } catch (error) {
+          toast.error("Error:", error);
+        }
+      }
+
   const productSettings = {
     dots: false,
     infinite: true,
@@ -122,6 +151,93 @@ const ProductInfo = () => {
     setIsModalOpen(false);
   };
 
+
+
+  async function addToCard(e) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/products/basket/add`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          count: count,
+          product: description?.id,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("item added successfully");
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  async function addFavorite(e) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/customers/favorites/add`;
+
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          product: description?.id,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("item added successfully");
+        toggleLike();
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  async function removeFavorite(e) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/customers/favorites/remove`;
+
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          product: description?.id,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("item added successfully");
+        toggleLike();
+      } else {
+        console.error("Your request cannot be completed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <>
       <div className="md:w-[95%] mx-auto pb-[120px] ">
@@ -157,7 +273,9 @@ const ProductInfo = () => {
                 <p className="text-[24px] font-medium">{description?.title}</p>
                 <div className="w-full flex items-center justify-end gap-[8px] md:gap-[16px]">
                   <button
-                    onClick={toggleLike}
+                     onClick={(e) => {
+                      isLiked ? removeFavorite(e) : addFavorite(e);
+                    }}
                     className={`p-3 rounded-full ${
                       liked ? "bg-[#FDDBD8]" : "bg-[#efefef]"
                     } duration-300`}
@@ -339,7 +457,7 @@ const ProductInfo = () => {
               <button onClick={openModal} className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">
                 Zəng et
               </button>
-              <button className="] bg-[#ffd23f]  border-2 border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
+              <button onClick={addToCard} className="] bg-[#ffd23f]  border-2 border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
                 <img src={cart} alt="cart.svg" />
                 Səbətə at
               </button>
@@ -450,11 +568,11 @@ const ProductInfo = () => {
               Ad 
               </label>
               <input
-                value={formData?.name}
+                value={formData?.firstname}
                 onChange={(e) =>
                   setFormData((prevFormData) => ({
                     ...prevFormData,
-                    name: e.target.value,
+                    firstname: e.target.value,
                   }))
                 }
                 className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
@@ -467,11 +585,11 @@ const ProductInfo = () => {
               Soyad
               </label>
               <input
-                value={formData?.surname}
+                value={formData?.lastname}
                 onChange={(e) =>
                   setFormData((prevFormData) => ({
                     ...prevFormData,
-                    surname: e.target.value,
+                    lastname: e.target.value,
                   }))
                 }
                 className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
@@ -484,11 +602,11 @@ const ProductInfo = () => {
                 Mobil nömrə
               </label>
               <input
-                value={formData?.phone}
+                value={formData?.mobile}
                 onChange={(e) =>
                   setFormData((prevFormData) => ({
                     ...prevFormData,
-                    phone: e.target.value,
+                    mobile: e.target.value,
                   }))
                 }
                 className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
@@ -501,11 +619,11 @@ const ProductInfo = () => {
                 Qeyd
               </label>
               <textarea
-                value={formData?.desc}
+                value={formData?.note}
                 onChange={(e) =>
                   setFormData((prevFormData) => ({
                     ...prevFormData,
-                    desc: e.target.value,
+                    note: e.target.value,
                   }))
                 }
                 className="bg-[#EBEBEB] w-full border border-solid border-black/40 rounded-[16px] p-[16px] focus:outline-[#FFD23F]"
