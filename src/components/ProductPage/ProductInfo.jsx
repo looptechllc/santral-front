@@ -91,7 +91,7 @@ const ProductInfo = () => {
   async function createCall(e) {
     e.preventDefault();
     const accessToken = secureLocalStorage.getItem("access_token");
-    const url = `https://api.santral.az/v1/calls/create?lang=az&client=`;
+    const url = `https://api.santral.az/v1/calls/create`;
 
     try {
       const response = await fetch(url, {
@@ -99,7 +99,7 @@ const ProductInfo = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          // Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(formData),
       });
@@ -383,7 +383,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 6
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[40px] md:w-[50px] h-[50px] md:h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     6 ay
@@ -395,7 +395,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 9
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     9 ay
@@ -407,7 +407,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 12
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     12 ay
@@ -419,7 +419,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 15
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     15 ay
@@ -431,7 +431,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 18
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     18 ay
@@ -443,7 +443,7 @@ const ProductInfo = () => {
                     className={`${
                       creditMonth == 24
                         ? "bg-[#323232] text-white"
-                        : "bg-[#F3F3F3] text-black"
+                        : "bg-[#F3F3F3] text-black hover:bg-black/70 hover:text-white duration-300"
                     } w-[50px] h-[50px] text-[12px] whitespace-nowrap px-[8px] py-[12px] rounded-full `}
                   >
                     24 ay
@@ -573,7 +573,7 @@ const ProductInfo = () => {
           <p className="text-black/60">Məlumatları daxil edin zəhmət olmasa</p>
 
           <form
-            // onSubmit={(e) => loginWithUser(e)}
+            onSubmit={(e) => createCall(e)}
             className="w-full grid grid-cols-1 md:grid-cols-2 gap-[24px]"
           >
             <div className="flex flex-col gap-[8px]">
@@ -647,7 +647,7 @@ const ProductInfo = () => {
 
             <button
               type="submit"
-              className="w-full md:col-span-2 bg-[#FFD23F] rounded-[32px] flex items-center justify-center gap-[10px] p-[16px]"
+              className="w-full md:col-span-2 bg-[#FFD23F] border border-[#FFD23F] hover:bg-white duration-300 active:border-white rounded-[32px] flex items-center justify-center gap-[10px] p-[16px]"
             >
               Göndər
             </button>
