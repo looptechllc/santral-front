@@ -202,6 +202,7 @@ const NewComing = () => {
             beforePrice={product.oldPrice}
             sale={product.discountPercent}
             link={product.name}
+            isLiked={product.isLiked}
           />
         ))}
       </Slider>

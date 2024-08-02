@@ -99,7 +99,7 @@ const Branches = () => {
                       </p>
                     </div>
                     <button
-                      className="py-[16px] px-[24px] rounded-[32px] bg-[#FFD23F]"
+                      className="py-[16px] px-[24px] rounded-[32px] bg-[#FFD23F] border border-[#ffd23f] hover:bg-white duration-300 active:border-white"
                       onClick={() => handleBranchClick(item.id)}
                     >
                       Ətraflı
