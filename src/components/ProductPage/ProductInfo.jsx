@@ -19,16 +19,24 @@ const ProductInfo = () => {
   const [selectedDetail, setSelectedDetail] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData,setFormData] = useState()
+  const [formData, setFormData] = useState();
   useEffect(() => {
     const fetchDescription = async () => {
+
+      const accessToken = secureLocalStorage.getItem("access_token");
       try {
         const response = await fetch(
-          `https://api.santral.az/v1/routes/find?domain=santral_www&location=/az/products/${name}`
-        );
+          `https://api.santral.az/v1/routes/find?domain=santral_www&location=/az/products/${name}`,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            }});
         const data = await response.json();
         console.log(data);
         setDescription(data.route);
+        setLiked(data.data.isLiked);
         setCount(data.route.minimalOrder);
       } catch (error) {
         console.error("Error fetching description:", error);
@@ -80,33 +88,31 @@ const ProductInfo = () => {
       ? description?.images?.map((item) => item)
       : [description.thumbnail];
 
+  async function createCall(e) {
+    e.preventDefault();
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/calls/create?lang=az&client=`;
 
-
-      async function createCall(e) {
-        e.preventDefault();
-        const accessToken = secureLocalStorage.getItem("access_token");
-        const url = `https://api.santral.az/v1/calls/create?lang=az&client=`;
-    
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(formData),
-          });
-          const data = await response.json();
-          if (response.ok) {
-            alert("user info updated successfully");
-          } else {
-            console.error("Your request cannot be completed");
-          }
-        } catch (error) {
-          toast.error("Error:", error);
-        }
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("user info updated successfully");
+      } else {
+        console.error("Your request cannot be completed");
       }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  }
 
   const productSettings = {
     dots: false,
@@ -150,8 +156,6 @@ const ProductInfo = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-
 
   async function addToCard(e) {
     e.preventDefault();
@@ -273,8 +277,8 @@ const ProductInfo = () => {
                 <p className="text-[24px] font-medium">{description?.title}</p>
                 <div className="w-full flex items-center justify-end gap-[8px] md:gap-[16px]">
                   <button
-                     onClick={(e) => {
-                      isLiked ? removeFavorite(e) : addFavorite(e);
+                    onClick={(e) => {
+                      liked ? removeFavorite(e) : addFavorite(e);
                     }}
                     className={`p-3 rounded-full ${
                       liked ? "bg-[#FDDBD8]" : "bg-[#efefef]"
@@ -454,10 +458,16 @@ const ProductInfo = () => {
               </div>
             </div>
             <div className="flex items-center gap-[16px]">
-              <button onClick={openModal} className="border-2 border-solid border-[#FFD23F] py-[16px] w-full rounded-[32px] font-medium">
+              <button
+                onClick={openModal}
+                className="border-2 border-solid border-[#FFD23F] hover:bg-[#FFD23F] duration-300 py-[16px] w-full rounded-[32px] font-medium"
+              >
                 Zəng et
               </button>
-              <button onClick={addToCard} className="] bg-[#ffd23f]  border-2 border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]">
+              <button
+                onClick={addToCard}
+                className="] bg-[#ffd23f]  border-2 border-solid border-[#FFD23F] active:border-white hover:bg-white duration-300 py-[16px] w-full rounded-[32px] font-medium flex items-center justify-center gap-[10px]"
+              >
                 <img src={cart} alt="cart.svg" />
                 Səbətə at
               </button>
@@ -531,7 +541,10 @@ const ProductInfo = () => {
         } w-full h-full fixed top-0 left-0 bg-black/50 z-[100000000] flex items-center justify-center`}
       >
         <div className="bg-white p-[24px] rounded-[16px] relative md:w-[600px]">
-          <button onClick={closeModal} className="absolute top-[16px] right-[24px]">
+          <button
+            onClick={closeModal}
+            className="absolute top-[16px] right-[24px]"
+          >
             <svg
               width="24"
               height="24"
@@ -565,7 +578,7 @@ const ProductInfo = () => {
           >
             <div className="flex flex-col gap-[8px]">
               <label htmlFor="" className="text-[14px]">
-              Ad 
+                Ad
               </label>
               <input
                 value={formData?.firstname}
@@ -582,7 +595,7 @@ const ProductInfo = () => {
             </div>
             <div className="flex flex-col gap-[8px]">
               <label htmlFor="" className="text-[14px]">
-              Soyad
+                Soyad
               </label>
               <input
                 value={formData?.lastname}
