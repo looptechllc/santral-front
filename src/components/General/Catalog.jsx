@@ -22,6 +22,7 @@ const Catalog = ({ isVisible }) => {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.data);
+        console.log(data.data)
         setLoading(false);
       })
       .catch((error) => {

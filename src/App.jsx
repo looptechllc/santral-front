@@ -50,7 +50,7 @@ function App() {
         <Route path='/product/:name' element={<Product />} />
 
 
-        <Route path='/:lang/:slug' element={<DynamicPage />} />
+        <Route path='/*' element={<DynamicPage />} />
       </Routes>
 
     

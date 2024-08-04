@@ -5,8 +5,8 @@ import Pagination from "../General/Pagination";
 import searchIcon from "../../assets/search.svg";
 import secureLocalStorage from "react-secure-storage";
 
-function CategoryDesc() {
-  const { id, lang, slug } = useParams();
+function CategoryDesc({ title, lookupId, model, slug }) {
+  // const { id,  slug } = useParams();
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -18,28 +18,28 @@ function CategoryDesc() {
   const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState({ filter: {} });
   const [filterVisibility, setFilterVisibility] = useState({});
-  const [lookupId, setLookupId] = useState(null);
-  const [model, setModel] = useState(null);
-  const [title,setTitle] =useState(null)
+  // const [lookupId, setLookupId] = useState(null);
+  // const [model, setModel] = useState(null);
+  // const [title,setTitle] =useState(null)
 
-  useEffect(() => {
-    const fetchRouteInfo = async () => {
-      try {
-        const response = await fetch(
-          `https://api.santral.az/v1/routes/find?domain=santral_www&location=/${lang}/${slug}/`
-        );
-        const data = await response.json();
-        const { lookupId, model,title } = data.route;
-        setLookupId(lookupId);
-        setModel(model);
-        setTitle(title)
-      } catch (error) {
-        console.error("Error fetching route info:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRouteInfo = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `https://api.santral.az/v1/routes/find?domain=santral_www&location=${slug}`
+  //       );
+  //       const data = await response.json();
+  //       const { lookupId, model,title } = data.route;
+  //       setLookupId(lookupId);
+  //       setModel(model);
+  //       setTitle(title)
+  //     } catch (error) {
+  //       console.error("Error fetching route info:", error);
+  //     }
+  //   };
 
-    fetchRouteInfo();
-  }, [lang, slug]);
+  //   fetchRouteInfo();
+  // }, [ slug]);
 
   async function fetchProducts() {
     if (!lookupId) return;
@@ -47,8 +47,8 @@ function CategoryDesc() {
     const accessToken = secureLocalStorage.getItem("access_token");
     const endpoint =
       model === "Category"
-        ? `https://api.santral.az/v1/products/mobile?category=${lookupId}&limit=18&lang=${lang}&page=${currentPage}&sort=${sort}&search=${search}`
-        : `https://api.santral.az/v1/products/mobile?brand=${lookupId}&limit=18&lang=${lang}&page=${currentPage}&sort=${sort}&search=${search}`;
+        ? `https://api.santral.az/v1/products/mobile?category=${lookupId}&limit=18&page=${currentPage}&sort=${sort}&search=${search}`
+        : `https://api.santral.az/v1/products/mobile?brand=${lookupId}&limit=18&page=${currentPage}&sort=${sort}&search=${search}`;
 
     try {
       const response = await fetch(endpoint, {
@@ -77,26 +77,26 @@ function CategoryDesc() {
     fetchProducts();
   }, [lookupId, currentPage, filters, sort, search, filterData]);
 
-  useEffect(() => {
-    if (!lookupId) return;
+  // useEffect(() => {
+  //   if (!lookupId) return;
 
-    fetch(`https://api.santral.az/v1/categories/mobile?lang=${lang}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(filterData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const category = data.data.find((item) => item.id == lookupId);
-        if (category) {
-          setCategoryName(category.title);
-        }
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [lookupId]);
+  //   fetch(`https://api.santral.az/v1/categories/mobile`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "*/*",
+  //     },
+  //     body: JSON.stringify(filterData),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const category = data.data.find((item) => item.id == lookupId);
+  //       if (category) {
+  //         setCategoryName(category.title);
+  //       }
+  //     })
+  //     .catch((error) => console.error("Error fetching products:", error));
+  // }, [lookupId]);
 
   useEffect(() => {
     if (!lookupId) return;
@@ -111,8 +111,8 @@ function CategoryDesc() {
   const fetchFilters = () => {
     const endpoint =
       model === "Category"
-        ? `https://api.santral.az/v1/products/mobile?filters=1&category=${lookupId}&lang=${lang}`
-        : `https://api.santral.az/v1/products/mobile?filters=1&brand=${lookupId}&lang=${lang}`;
+        ? `https://api.santral.az/v1/products/mobile?filters=1&category=${lookupId}`
+        : `https://api.santral.az/v1/products/mobile?filters=1&brand=${lookupId}`;
 
     fetch(endpoint, {
       method: "POST",

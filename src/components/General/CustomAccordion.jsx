@@ -56,7 +56,7 @@ const CustomAccordion = ({
           <div className="flex w-full items-center justify-between">
             <Link
               onClick={() => handleChildLinkClick()}
-              to={`/category/${category.id}`}
+              to={category.route}
               className={isSelected ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
             >
               {category.title}
@@ -72,7 +72,7 @@ const CustomAccordion = ({
         ) : (
           <Link
             onClick={() => handleChildLinkClick()}
-            to={`/category/${category.id}`}
+            to={category.route}
             className={isSelected ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
           >
             {category.title}
@@ -86,7 +86,7 @@ const CustomAccordion = ({
               <Link
                 key={child.id}
                 onClick={() => handleChildLinkClick()}
-                to={`/category/${child.id}`}
+                to={child.route}
               >
                 {child.title}
               </Link>

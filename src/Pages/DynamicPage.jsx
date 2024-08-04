@@ -4,15 +4,16 @@ import CategoryDesc from '../components/Categories/CategoryDesc';
 
 
 const DynamicPage = () => {
-  const { lang, slug } = useParams();
+  const { "*":slug } = useParams();
   const [title,setTitle] = useState(null)
   const [model, setModel] = useState(null);
   const [lookupId, setLookupId] = useState(null);
 
   useEffect(() => {
+
     const fetchRouteInfo = async () => {
       try {
-        const response = await fetch(`https://api.santral.az/v1/routes/find?domain=santral_www&location=/${lang}/${slug}/`);
+        const response = await fetch(`https://api.santral.az/v1/routes/find?domain=santral_www&location=/${slug}`);
         const data = await response.json();
         const { lookupId, model,title } = data.route;
         setLookupId(lookupId);
@@ -24,13 +25,13 @@ const DynamicPage = () => {
     };
 
     fetchRouteInfo();
-  }, [lang, slug]);
+  }, [ slug]);
 
   if (!model || !lookupId) {
     return <p>Loading...</p>;
   }
 
-  return <CategoryDesc title={title} lookupId={lookupId} lang={lang} model={model} />;
+  return <CategoryDesc title={title} lookupId={lookupId}  model={model}  slug={slug}/>;
 };
 
 export default DynamicPage;
