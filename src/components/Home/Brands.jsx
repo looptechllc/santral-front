@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Brands = () => {
 
@@ -14,6 +15,7 @@ const Brands = () => {
           .then((response) => response.json())
           .then((data) => {
             setBrands(data.data);
+            console.log(data)
 
 
           })
@@ -26,11 +28,11 @@ const Brands = () => {
         <h2 className='font-[600] text-[48px]'>
         Brands
         </h2>
-        <div className='grid grid-cols-7 gap-[16px]'>
+        <div className='grid grid-cols-3 lg:grid-cols-7 grid-rows-2 overflow-scroll gap-[16px]'>
             {brands?.map((item,index)=>(
-                <div className='w-[180px] h-[146px] rounded-full bg-black flex items-center justify-center'>
+                <Link to={item.route} className='w-[180px] h-[146px] rounded-full bg-black flex items-center justify-center'>
                     <img className='max-w-[120px]' src={`https://cdn.santral.az/images/${item.logo}`} alt="" />
-                </div>
+                </Link>
             ))}
         </div>
     </div>
