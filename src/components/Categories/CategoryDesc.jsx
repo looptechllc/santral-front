@@ -6,7 +6,7 @@ import searchIcon from "../../assets/search.svg";
 import secureLocalStorage from "react-secure-storage";
 
 function CategoryDesc() {
-  const { id } = useParams();
+  const { id, lang, slug } = useParams();
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -18,13 +18,40 @@ function CategoryDesc() {
   const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState({ filter: {} });
   const [filterVisibility, setFilterVisibility] = useState({});
+  const [lookupId, setLookupId] = useState(null);
+  const [model, setModel] = useState(null);
+  const [title,setTitle] =useState(null)
+
+  useEffect(() => {
+    const fetchRouteInfo = async () => {
+      try {
+        const response = await fetch(
+          `https://api.santral.az/v1/routes/find?domain=santral_www&location=/${lang}/${slug}/`
+        );
+        const data = await response.json();
+        const { lookupId, model,title } = data.route;
+        setLookupId(lookupId);
+        setModel(model);
+        setTitle(title)
+      } catch (error) {
+        console.error("Error fetching route info:", error);
+      }
+    };
+
+    fetchRouteInfo();
+  }, [lang, slug]);
 
   async function fetchProducts() {
+    if (!lookupId) return;
+
     const accessToken = secureLocalStorage.getItem("access_token");
-    const url = `https://api.santral.az/v1/products/mobile?category=${id}&limit=18&lang=az&page=${currentPage}&sort=${sort}&search=${search}`;
+    const endpoint =
+      model === "Category"
+        ? `https://api.santral.az/v1/products/mobile?category=${lookupId}&limit=18&lang=${lang}&page=${currentPage}&sort=${sort}&search=${search}`
+        : `https://api.santral.az/v1/products/mobile?brand=${lookupId}&limit=18&lang=${lang}&page=${currentPage}&sort=${sort}&search=${search}`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -47,7 +74,13 @@ function CategoryDesc() {
   }
 
   useEffect(() => {
-    fetch(`https://api.santral.az/v1/categories/mobile?lang=az`, {
+    fetchProducts();
+  }, [lookupId, currentPage, filters, sort, search, filterData]);
+
+  useEffect(() => {
+    if (!lookupId) return;
+
+    fetch(`https://api.santral.az/v1/categories/mobile?lang=${lang}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,34 +90,37 @@ function CategoryDesc() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setCategoryName(data.data.filter((item) => item.id == id)[0]?.title);
+        const category = data.data.find((item) => item.id == lookupId);
+        if (category) {
+          setCategoryName(category.title);
+        }
       })
       .catch((error) => console.error("Error fetching products:", error));
-  }, [id]);
+  }, [lookupId]);
 
   useEffect(() => {
+    if (!lookupId) return;
+    
     fetchFilters();
-  }, [id]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [id, currentPage, filters, sort, search, filterData]);
+  }, [lookupId]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   const fetchFilters = () => {
-    fetch(
-      `https://api.santral.az/v1/products/mobile?filters=1&category=${id}&lang=az`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      }
-    )
+    const endpoint =
+      model === "Category"
+        ? `https://api.santral.az/v1/products/mobile?filters=1&category=${lookupId}&lang=${lang}`
+        : `https://api.santral.az/v1/products/mobile?filters=1&brand=${lookupId}&lang=${lang}`;
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
       .then((response) => response.json())
       .then((data) => setFilterOptions(data.data))
       .catch((error) => console.error("Error fetching filters:", error));
@@ -116,7 +152,7 @@ function CategoryDesc() {
     <div className="my-24 bg-white lg:w-[95%] max-w-[1440px] mx-auto p-[16px]">
       <div className="w-full flex flex-col md:flex-row items-center justify-between mb-[24px]">
         <h1 className="text-[24px] md:text-[48px] font-bold md:whitespace-nowrap pb-[10px] md:pb-0">
-          {categoryName}{" "}
+          {title}{" "}
           <span className="text-black/40 text-[24px] font-medium">
             ({itemCount} məhsul)
           </span>

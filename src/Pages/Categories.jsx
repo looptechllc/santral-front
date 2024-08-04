@@ -17,7 +17,7 @@ function Categories() {
             body: JSON.stringify({})
         })
             .then(response => response.json())
-            .then(data => setCategories(data.data))
+            .then(data =>{ setCategories(data.data); console.log(data.data)})
             .catch(error => console.error('Error fetching categories:', error));
     }, []);
 

@@ -20,6 +20,7 @@ import About from './Pages/About'
 import Branches from './Pages/Branches'
 import Drawer from './components/UI/Drawer'
 import { useState } from 'react'
+import DynamicPage from './Pages/DynamicPage'
 
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
         <Route path='/products/:query' element={<Products />} />
         <Route path='/product/:name' element={<Product />} />
 
+
+        <Route path='/:lang/:slug' element={<DynamicPage />} />
       </Routes>
 
     
