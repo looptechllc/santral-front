@@ -50,22 +50,22 @@ const SaleProducts = () => {
                 <div className="w-full relative">
                   <Link to={`/product/${item.products[0].name}`}>
                     <img
-                      className="w-full h-[600px]"
+                      className="w-full h-[600px] object-cover"
                       src={`https://cdn.santral.az//images/${item.image}`}
                       alt="element image"
                     />
                   </Link>
                 </div>
                 <div className="p-[16px] h-full flex flex-col items-start gap-[16px]">
-                  <p className="font-medium text-[48px] max-h-[64px] overflow-hidden">
+                  <p className="font-medium text-[40px] max-h-[64px] overflow-hidden">
                     {item.title}
                   </p>
                   <div className="flex items-center gap-[16px]">
-                    <p className="text-[#FD8521] text-[48px] font-medium leading-[32px]">
+                    <p className="text-[#FD8521] text-[40px] font-medium leading-[32px]">
                       {item.products[0].price} ₼
                     </p>
                     {item.products[0].oldPrice !== 0 && (
-                      <p className="text-[#808080] line-through text-[32px] font-medium leading-[32px]">
+                      <p className="text-[#808080] line-through text-[28px] font-medium leading-[32px]">
                         {item.products[0].oldPrice} ₼
                       </p>
                     )}

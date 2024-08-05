@@ -110,7 +110,7 @@ const ElementCard = ({
       <div className="w-full relative">
         <Link to={`/product/${link}`}>
           {" "}
-          <img className="w-full h-[250px]" src={img} alt="element image" />
+          <img className="w-full h-[250px] object-cover" src={img} alt="element image" />
         </Link>
         {sale != 0&&beforePrice!=0 && (
           <p className="bg-red-500 text-white rounded-bl-[8px] absolute top-0 right-0 p-[12px]">
@@ -119,7 +119,7 @@ const ElementCard = ({
         )}
       </div>
       <div className="p-[16px] flex flex-col items-start gap-[16px]">
-        <p className="font-medium text-[24px] max-h-[64px] overflow-hidden">{name}</p>
+        <p className="font-medium text-[20px] max-h-[64px] overflow-hidden">{name}</p>
         <div className="flex items-center gap-[12px]">
           <p className="text-[#FD8521] text-[24px] font-medium leading-[32px]">
             {price} ₼
