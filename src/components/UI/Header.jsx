@@ -14,8 +14,10 @@ import ruflag from '../../assets/ruflag.png'
 import Container from "@mui/material/Container";
 import secureLocalStorage from "react-secure-storage";
 import Catalog from "../General/Catalog";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ isOpen, setIsOpen }) => {
+const {t,i18n} = useTranslation()
 
   const [formData, setFormData] = useState();
   const [categories, setCategories] = useState([]);
@@ -130,7 +132,7 @@ const Header = ({ isOpen, setIsOpen }) => {
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
     setLanguageDropdownOpen(false);
-
+    i18n.changeLanguage(language.code)
   };
 
   const toggleLanguageDropdown = () => {
