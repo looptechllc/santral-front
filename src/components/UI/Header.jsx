@@ -8,12 +8,15 @@ import cart from "../../assets/whiteCart.svg";
 import searchIcon from "../../assets/search.svg";
 import whiteRightArrow from "../../assets/whiteRightArrow.svg";
 import yellowrightarrow from "../../assets/yellowRightArrow.svg";
-
+import azflag from '../../assets/azflag.png'
+import enflag from '../../assets/enflag.png'
+import ruflag from '../../assets/ruflag.png'
 import Container from "@mui/material/Container";
 import secureLocalStorage from "react-secure-storage";
 import Catalog from "../General/Catalog";
 
-const Header = ({isOpen,setIsOpen}) => {
+const Header = ({ isOpen, setIsOpen }) => {
+
   const [formData, setFormData] = useState();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,7 +91,7 @@ const Header = ({isOpen,setIsOpen}) => {
     const newTimeoutId = setTimeout(() => {
       if (query) {
         navigate(`/products/${query}`);
-        setShowCatalog(false)
+        setShowCatalog(false);
       } else {
         navigate("/");
       }
@@ -97,6 +100,58 @@ const Header = ({isOpen,setIsOpen}) => {
     // Store the timeout ID
     setTimeoutId(newTimeoutId);
   };
+
+  const [selectedLanguage, setSelectedLanguage] = useState({
+    code: "az",
+    label: "Az",
+    flag:azflag,
+  });
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const languages = [
+    {
+      code: "az",
+      label: "Az",
+      flag: azflag
+    },
+    {
+      code: "en",
+      label: "En",
+      flag: enflag
+    },
+    {
+      code: "ru",
+      label: "Ru",
+      flag: ruflag
+    },
+  ];
+
+  const handleLanguageSelect = (language) => {
+    setSelectedLanguage(language);
+    setLanguageDropdownOpen(false);
+
+  };
+
+  const toggleLanguageDropdown = () => {
+    setLanguageDropdownOpen(!languageDropdownOpen);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setLanguageDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   return (
     <header className="sticky top-0 z-[9999]">
@@ -276,11 +331,49 @@ const Header = ({isOpen,setIsOpen}) => {
                 />
               </svg>
             </button>
-            <select name="" id="" className="bg-transparent hidden md:block">
-              <option value="">Az</option>
-              <option value="">En</option>
-              <option value="">Ru</option>
-            </select>
+            <div className="relative">
+          <button
+            onClick={toggleLanguageDropdown}
+            className="flex items-center space-x-1"
+          >
+            <img src={selectedLanguage.flag} alt="flag" className="w-[23px] h-[16px]" />
+            <span>{selectedLanguage.label}</span>
+            <svg
+              className={`transform transition-transform duration-200 ${
+                languageDropdownOpen ? "rotate-180" : "rotate-0"
+              }`}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7 10L12 15L17 10H7Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          {languageDropdownOpen && (
+            <ul
+              ref={dropdownRef}
+              className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50"
+            >
+              {languages.map((language) => (
+                <li
+                  key={language.code}
+                  className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleLanguageSelect(language)}
+                >
+                  <img src={language.flag} alt="flag" className="w-[23px] h-[16px]" />
+                  <span>{language.label}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
           </div>
         </div>
       </div>
