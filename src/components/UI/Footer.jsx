@@ -12,7 +12,7 @@ import yellowFacebook from "../../assets/yellowFacebook.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [categories,setCategories] = useState()
+  const [categories, setCategories] = useState();
   useEffect(() => {
     fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
       method: "POST",
@@ -24,11 +24,10 @@ const Footer = () => {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.data);
-        console.log(data.data)
+        console.log(data.data);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-
       });
   }, []);
 
@@ -37,12 +36,40 @@ const Footer = () => {
     <div className=" border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
       <div className="w-[95%] max-w-[1440px] mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center gap-[30px] w-full">
-        <Link className="" to="/">
-          <img className="w-[217px]" src={logo} alt="logo.svg" />
-        </Link>
-        <a href="https://www.facebook.com/SantralAzerbaijan?mibextid=LQQJ4d" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowFacebook} alt="facebook.svg" /></a>
-        <a href="https://www.instagram.com/santral_azerbaijan?igsh=MWlscjNqdnpqZ25peQ==" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowInstagram} alt="facebook.svg" /></a>
-        <a href="https://api.whatsapp.com/send/?phone=994504001410&text&type=phone_number&app_absent=0" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowWhatsapp} alt="facebook.svg" /></a></div>
+          <Link className="" to="/">
+            <img className="w-[217px]" src={logo} alt="logo.svg" />
+          </Link>
+          <a
+            href="https://www.facebook.com/SantralAzerbaijan?mibextid=LQQJ4d"
+            target="_blank"
+          >
+            <img
+              className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]"
+              src={yellowFacebook}
+              alt="facebook.svg"
+            />
+          </a>
+          <a
+            href="https://www.instagram.com/santral_azerbaijan?igsh=MWlscjNqdnpqZ25peQ=="
+            target="_blank"
+          >
+            <img
+              className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]"
+              src={yellowInstagram}
+              alt="facebook.svg"
+            />
+          </a>
+          <a
+            href="https://api.whatsapp.com/send/?phone=994504001410&text&type=phone_number&app_absent=0"
+            target="_blank"
+          >
+            <img
+              className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]"
+              src={yellowWhatsapp}
+              alt="facebook.svg"
+            />
+          </a>
+        </div>
         <div className="w-full"></div>
         <p className="text-white/60">
           2000-ci ildən bu yana “Santral Elektrik” QSC şirkəti belə uğurlu
@@ -72,7 +99,7 @@ const Footer = () => {
           <div className="flex flex-col items-start gap-[16px]">
             <Link to="/about">Haqqımızda</Link>
             <Link to="/branches">Filliallar</Link>
-            <Link  to="/news">Xəbərlər</Link>
+            <Link to="/news">Xəbərlər</Link>
             <a>Partnyorlar</a>
           </div>
         </div>
@@ -91,10 +118,33 @@ const Footer = () => {
             Kateqoriyalar
           </h2>
           <div className="flex flex-col flex-wrap items-start gap-[16px]">
-            {categories?.slice(0,5).map((item,index)=>(
-              <Link key={index} to={item.route}>{item.title}</Link>
+            {categories?.slice(0, 5).map((item, index) => (
+              <Link key={index} to={item.route}>
+                {item.title}
+              </Link>
             ))}
           </div>
+          {/* <div className="col-span-2 md:col-span-1">
+  <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
+    Kateqoriyalar
+  </h2>
+  <div className="flex flex-wrap md:space-x-8">
+    <div className="flex flex-col space-y-4">
+      {categories?.slice(0, Math.ceil(categories.length / 2)).map((item, index) => (
+        <Link key={index} to={item.route}>
+          {item.title}
+        </Link>
+      ))}
+    </div>
+    <div className="flex flex-col space-y-4">
+      {categories?.slice(Math.ceil(categories.length / 2)).map((item, index) => (
+        <Link key={index} to={item.route}>
+          {item.title}
+        </Link>
+      ))}
+    </div>
+  </div>
+</div> */}
         </div>
         <div className="flex flex-col items-start  justify-center">
           <h2 className="font-medium text-[20px] mb-[16px] md:mb-[32px] text-[#FFD23F]">
@@ -109,23 +159,33 @@ const Footer = () => {
               <img src={yellowCall} alt="call" />
               0123104314
             </a>
-            <a href="mailto:sales@santral.az" className="flex items-center gap-[8px]">
+            <a
+              href="mailto:sales@santral.az"
+              className="flex items-center gap-[8px]"
+            >
               <img src={yellowMail} alt="mail" /> sales@santral.az
             </a>
-            <a className="flex items-center gap-[8px]">
-              <img src={yellowLocation} alt="location" /> Z.Bünyadov pr., 2071 <br />
+            <a href="https://maps.app.goo.gl/a4zex47PsNa3fsYaA" target="_blank" className="flex items-center gap-[8px]">
+              <img src={yellowLocation} alt="location" /> Z.Bünyadov pr., 2071{" "}
+              <br />
               AZ1029, AZərbaycan, Bakı
             </a>
             <div className="flex items-center gap-[8px]">
-            <img src={visa} alt="visa.svg" />
-            <img className="border-l border-solid border-[#EAEAEA] px-[8px]" src={mastercard} alt="mastercard.svg" />
+              <img src={visa} alt="visa.svg" />
+              <img
+                className="border-l border-solid border-[#EAEAEA] px-[8px]"
+                src={mastercard}
+                alt="mastercard.svg"
+              />
             </div>
           </div>
         </div>
       </div>
       <hr className="w-full h-[1px] bg-white/40 border-none mt-[40px]" />
       <div className="flex items-center justify-center py-[20px]">
-        <p className="text-center flex items-center gap-[8px] text-[18px] whitespace-nowrap">Saytı hazırladı: <img src={looptech} alt="looptechLogo" /></p>
+        <p className="text-center flex items-center gap-[8px] text-[18px] whitespace-nowrap">
+          Saytı hazırladı: <img src={looptech} alt="looptechLogo" />
+        </p>
       </div>
     </div>
   );
