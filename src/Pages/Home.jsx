@@ -84,7 +84,7 @@ const Home = () => {
       <div className="mt-[24px] hidden md:block hover:absolute hover:z-[80] w-full">
         <Catalog />
       </div>
-      <div className="w-full overflow-hidden md:w-[970px] absolute md:right-[54px] md:h-[600px] mt-[6px] md:mt-[24px]">
+      <div className="w-full overflow-hidden md:w-[970px] absolute md:right-[54px] md:h-[624px] mt-[6px] md:mt-[24px]">
         <Slider {...settings}>
           {sliderData?.map((item, index) => (
             <div
@@ -92,7 +92,7 @@ const Home = () => {
               style={{
                 // backgroundImage: ,
               }}
-              className="bg-center bg-cover h-[460px] md:h-[600px] w-full relative md:rounded-[16px] overflow-hidden"
+              className="bg-center bg-cover h-[460px] md:h-[624px] w-full relative md:rounded-[16px] overflow-hidden"
             >
               <img src={`https://cdn.santral.az/images/${item.image}`} alt="background image" className="absolute top-0 left-0 w-full h-full object-cover" />
               <div className="absolute bg-white/40 bottom-[48px] left-[48px]  right-[48px]  flex gap-[16px] justify-between rounded-[16px] flex-col md:flex-row items-start md:items-center p-[16px] ">
