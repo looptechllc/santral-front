@@ -51,8 +51,9 @@ const Footer = () => {
             Şirkət
           </h2>
           <div className="flex flex-col items-start gap-[16px]">
-            <a>Haqqımızda</a>
-            <a>Dükanlar</a>
+            <Link to="/about">Haqqımızda</Link>
+            <Link to="/branches">Filliallar</Link>
+            <Link  to="/news">Xəbərlər</Link>
             <a>Partnyorlar</a>
           </div>
         </div>
@@ -62,8 +63,6 @@ const Footer = () => {
           </h2>
           <div className="flex flex-col items-start gap-[16px]">
             <a>Çatdırılma qaydaları</a>
-            <a>İstifadə qaydaları</a>
-            <a>Ödəmə üsulları</a>
             <a>Məxfilik siyasəti</a>
             <a>Blog</a>
           </div>
@@ -85,15 +84,15 @@ const Footer = () => {
             Əlaqə
           </h2>
           <div className="flex flex-col items-start gap-[16px]">
-            <a className="flex items-center gap-[8px]">
+            <a href="tel:1410" className="flex items-center gap-[8px]">
               <img src={yellowCall} alt="call" />
               1410
             </a>
-            <a className="flex items-center gap-[8px]">
+            <a href="tel:0123104314" className="flex items-center gap-[8px]">
               <img src={yellowCall} alt="call" />
               0123104314
             </a>
-            <a className="flex items-center gap-[8px]">
+            <a href="mailto:sales@santral.az" className="flex items-center gap-[8px]">
               <img src={yellowMail} alt="mail" /> sales@santral.az
             </a>
             <a className="flex items-center gap-[8px]">
