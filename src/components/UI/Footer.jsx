@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.svg";
 import yellowCall from "../../assets/yellowCall.svg";
 import yellowMail from "../../assets/yellowMail.svg";
@@ -12,6 +12,26 @@ import yellowFacebook from "../../assets/yellowFacebook.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [categories,setCategories] = useState()
+  useEffect(() => {
+    fetch("https://api.santral.az/v1/categories/mobile?lang=az", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.data);
+        console.log(data.data)
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+
+      });
+  }, []);
+
   const [showMore, setShowMore] = useState(false);
   return (
     <div className=" border-t-[1px] border-solid border-[#ffd23f] pt-[40px]  bg-black text-white">
@@ -70,12 +90,10 @@ const Footer = () => {
           <h2 className="font-medium text-[20px] mb-[32px] text-[#FFD23F]">
             Kateqoriyalar
           </h2>
-          <div className="flex flex-col items-start gap-[16px]">
-            <a>Mebel</a>
-            <a>Divar kağızları</a>
-            <a>Bağçılıq</a>
-            <a>Seramika & Santexnik</a>
-            <a>Elektrik malları</a>
+          <div className="flex flex-col flex-wrap items-start gap-[16px]">
+            {categories?.slice(0,5).map((item,index)=>(
+              <Link key={index} to={item.route}>{item.title}</Link>
+            ))}
           </div>
         </div>
         <div className="flex flex-col items-start  justify-center">
