@@ -21,6 +21,8 @@ import Branches from './Pages/Branches'
 import Drawer from './components/UI/Drawer'
 import { useState } from 'react'
 import DynamicPage from './Pages/DynamicPage'
+import PrivacyPolicy from './Pages/PrivacyPolicy'
+import Delivery from './Pages/Delivery'
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path='/success' element={<Success />} />
         <Route path='/branches' element={<Branches />} />
         <Route path='/about' element={<About />} />
+        <Route path='/mexfilik-siyaseti' element={<PrivacyPolicy />} />
+        <Route path='/catdirilma-xidmeti' element={<Delivery />} />
         <Route path='/registration' element={<Registration />} />
         <Route path='/news' element={<News />} />
         <Route path='/news/:slug' element={<NewsDetail />} />

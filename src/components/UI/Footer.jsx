@@ -61,8 +61,8 @@ const Footer = () => {
             Müştəri üçün
           </h2>
           <div className="flex flex-col items-start gap-[16px]">
-            <a>Çatdırılma qaydaları</a>
-            <a>Məxfilik siyasəti</a>
+            <Link to="/catdirilma-xidmeti">Çatdırılma qaydaları</Link>
+            <Link to="/mexfilik-siyaseti">Məxfilik siyasəti</Link>
             <a>Blog</a>
           </div>
         </div>
