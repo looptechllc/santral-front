@@ -25,8 +25,8 @@ const {t,i18n} = useTranslation()
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [showCatalog, setShowCatalog] = useState();
-  const [basketCount,setBasketCount] = useState(0);
-  const [favoritesCount,setFavoritesCount] = useState(0);
+  const [basketCount,setBasketCount] = useState([]);
+  const [favoritesCount,setFavoritesCount] = useState([]);
   const [cashback,setCashback] = useState(0)
   const language = "en";
 
@@ -214,7 +214,7 @@ const {t,i18n} = useTranslation()
     fetchBasket();
     fetchFavorites();
     getUserInfo()
-  },[])
+  },[loggedIn])
 
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
@@ -493,11 +493,11 @@ const {t,i18n} = useTranslation()
               className="rounded-full bg-[#232323] relative p-[8px] hidden md:block"
             >
               <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
-              <div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{favoritesCount?.length}</div>
+              {favoritesCount?.length>0&&<div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{favoritesCount?.length}</div>}
             </Link>
             <Link to="/basket" className="rounded-full relative bg-[#232323] p-[8px]">
               <img className="w-[24px] h-[24px]" src={cart} alt="heart.svg" />
-              <div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{basketCount?.length}</div>
+              {basketCount?.length>0&&<div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{basketCount?.length}</div>}
             </Link>
           </div>
         </div>
