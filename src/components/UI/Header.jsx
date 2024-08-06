@@ -25,6 +25,8 @@ const {t,i18n} = useTranslation()
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [showCatalog, setShowCatalog] = useState();
+  const [basketCount,setBasketCount] = useState(0);
+  const [favoritesCount,setFavoritesCount] = useState(0)
   const language = "en";
 
   const location = useLocation();
@@ -128,6 +130,59 @@ const {t,i18n} = useTranslation()
       flag: ruflag
     },
   ];
+
+  async function fetchBasket() {
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/products/basket`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setBasketCount(data.data)
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  async function fetchFavorites() {
+    const accessToken = secureLocalStorage.getItem("access_token");
+    const url = `https://api.santral.az/v1/customers/favorites/`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        // body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setFavoritesCount(data)
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  useEffect(()=>{
+    fetchBasket();
+    fetchFavorites()
+  },[])
 
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
@@ -336,7 +391,7 @@ const {t,i18n} = useTranslation()
             <div className="relative">
           <button
             onClick={toggleLanguageDropdown}
-            className="flex items-center space-x-1"
+            className=" items-center space-x-1 hidden md:flex"
           >
             <img src={selectedLanguage.flag} alt="flag" className="w-[23px] h-[16px]" />
             <span>{selectedLanguage.label}</span>
@@ -400,12 +455,14 @@ const {t,i18n} = useTranslation()
           <div className="md:w-[50%] flex items-center justify-end gap-[20px]">
             <Link
               to="/favorites"
-              className="rounded-full bg-[#232323] p-[8px] hidden md:block"
+              className="rounded-full bg-[#232323] relative p-[8px] hidden md:block"
             >
               <img className="w-[24px] h-[24px]" src={heart} alt="heart.svg" />
+              <div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{favoritesCount?.length}</div>
             </Link>
-            <Link to="/basket" className="rounded-full bg-[#232323] p-[8px]">
+            <Link to="/basket" className="rounded-full relative bg-[#232323] p-[8px]">
               <img className="w-[24px] h-[24px]" src={cart} alt="heart.svg" />
+              <div className="min-w-[20px] h-[20px] bg-[#FFD23F] text-[12px] absolute -top-2 -right-2 rounded-full flex items-center justify-center">{basketCount?.length}</div>
             </Link>
           </div>
         </div>
