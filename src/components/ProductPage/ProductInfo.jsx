@@ -539,8 +539,9 @@ const ProductInfo = () => {
         className={`${
           isModalOpen ? "" : "hidden"
         } w-full h-full fixed top-0 left-0 bg-black/50 z-[100000000] flex items-center justify-center`}
+        onClick={closeModal}
       >
-        <div className="bg-white p-[24px] rounded-[16px] relative md:w-[600px]">
+        <div onClick={(e)=>{e.stopPropagation()}} className="bg-white p-[24px] rounded-[16px] relative md:w-[600px]">
           <button
             onClick={closeModal}
             className="absolute top-[16px] right-[24px]"
