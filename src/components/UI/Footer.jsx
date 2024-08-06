@@ -20,10 +20,9 @@ const Footer = () => {
         <Link className="" to="/">
           <img className="w-[217px]" src={logo} alt="logo.svg" />
         </Link>
-        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowFacebook} alt="facebook.svg" />
-        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowInstagram} alt="facebook.svg" />
-        <img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowWhatsapp} alt="facebook.svg" />
-        </div>
+        <a href="https://www.facebook.com/SantralAzerbaijan?mibextid=LQQJ4d" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowFacebook} alt="facebook.svg" /></a>
+        <a href="https://www.instagram.com/santral_azerbaijan?igsh=MWlscjNqdnpqZ25peQ==" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowInstagram} alt="facebook.svg" /></a>
+        <a href="https://api.whatsapp.com/send/?phone=994504001410&text&type=phone_number&app_absent=0" target="_blank"><img className="p-[8px] bg-[#232323] rounded-full w-[40px] h-[40px]" src={yellowWhatsapp} alt="facebook.svg" /></a></div>
         <div className="w-full"></div>
         <p className="text-white/60">
           2000-ci ildən bu yana “Santral Elektrik” QSC şirkəti belə uğurlu
