@@ -79,8 +79,8 @@ const Home = () => {
       });
   }, []);
   return (
-    <main className="max-w-[1440px] mx-auto">
-     <div className="flex relative overflow-hidden w-full h-[700px] px-[50px]">
+    <main className="max-w-[1440px] mx-auto overflow-hidden">
+     <div className="flex relative overflow-hidden w-full h-[700px] md:px-[50px]">
       <div className="mt-[24px] hidden md:block hover:absolute hover:z-[80] w-full">
         <Catalog />
       </div>
@@ -106,7 +106,7 @@ const Home = () => {
                   <p className="text-[24px] font-[500]">{item.title}</p>
                   <p className="text-[14px] font-[500]">{item.desc}</p>
                 </div>
-                <Link to={"/products/"+item.route?.split("/").slice(-1)[0]} className="px-[24px] py-[16px] bg-[#FFD23F] rounded-[32px]">
+                <Link to={item.route} className="px-[24px] py-[16px] bg-[#FFD23F] rounded-[32px]">
                 {item.label}
                 </Link>
 
