@@ -26,7 +26,8 @@ const {t,i18n} = useTranslation()
   const [loggedIn, setLoggedIn] = useState(false);
   const [showCatalog, setShowCatalog] = useState();
   const [basketCount,setBasketCount] = useState(0);
-  const [favoritesCount,setFavoritesCount] = useState(0)
+  const [favoritesCount,setFavoritesCount] = useState(0);
+  const [cashback,setCashback] = useState(0)
   const language = "en";
 
   const location = useLocation();
@@ -48,6 +49,36 @@ const {t,i18n} = useTranslation()
     dropdown?.classList.toggle("hidden");
     setDropdownOpen(!dropdownOpen);
   };
+
+
+  async function getUserInfo() {
+    const url = `https://api.santral.az/v1/auth/me`;
+    const accessToken = secureLocalStorage.getItem("access_token");
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+     setCashback(data.cashback)
+
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+
 
   async function loginWithUser(e) {
     e.preventDefault();
@@ -181,7 +212,8 @@ const {t,i18n} = useTranslation()
   }
   useEffect(()=>{
     fetchBasket();
-    fetchFavorites()
+    fetchFavorites();
+    getUserInfo()
   },[])
 
   const handleLanguageSelect = (language) => {
@@ -233,6 +265,8 @@ const {t,i18n} = useTranslation()
 
             <div className="dropdown w-full md:w-fit relative">
               {loggedIn ? (
+                <div className="flex items-center ">
+                <div className="min-w-[108px] border border-black bg-[#FEDA4F] rounded-[32px] p-[8px] whitespace-nowrap">Keşbek: <span className="font-bold">{cashback} ₼</span></div>
                 <Link
                   to="/profile"
                   className="dropbtn  px-[24px] py-[16px] text-white"
@@ -263,6 +297,7 @@ const {t,i18n} = useTranslation()
                     </defs>
                   </svg>
                 </Link>
+                </div>
               ) : (
                 <button
                   onClick={toggleDropdown}
