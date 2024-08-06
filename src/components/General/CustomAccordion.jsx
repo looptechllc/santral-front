@@ -15,6 +15,7 @@ const CustomAccordion = ({
   isInitiallyExpanded = false,
 }) => {
   const [expanded, setExpanded] = useState(isInitiallyExpanded);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     setExpanded(isInitiallyExpanded); // Set expanded based on isInitiallyExpanded prop
@@ -24,12 +25,14 @@ const CustomAccordion = ({
     if (!isMobile && expandable) {
       setExpanded(true);
       onCategorySelect(category);
+      setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (!isMobile && expandable) {
       setExpanded(false);
+      setIsHovered(false);
     }
   };
 
@@ -57,12 +60,12 @@ const CustomAccordion = ({
             <Link
               onClick={() => handleChildLinkClick()}
               to={category.route}
-              className={isSelected ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
+              className={isSelected && isHovered ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
             >
               {category.title}
             </Link>
             <span>
-              {isSelected ? (
+              {isSelected && isHovered ? (
                 <img src={yellowrightarrow} alt="rightarrow.svg" />
               ) : (
                 <img src={whiteRightArrow} alt="rightarrow.svg" />
@@ -73,7 +76,7 @@ const CustomAccordion = ({
           <Link
             onClick={() => handleChildLinkClick()}
             to={category.route}
-            className={isSelected ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
+            className={isSelected && isHovered ? "text-yellow-400 p-[8px]" : "text-white p-[8px]"}
           >
             {category.title}
           </Link>
@@ -83,13 +86,14 @@ const CustomAccordion = ({
         <div className={`accordion-details px-[16px] ${expanded && isMobile ? "expanded" : ""}`}>
           {category.children &&
             category.children.map((child) => (
-              <Link
+              <CustomAccordion
                 key={child.id}
-                onClick={() => handleChildLinkClick()}
-                to={child.route}
-              >
-                {child.title}
-              </Link>
+                category={child}
+                language="en"
+                isExpanded={true} // Keep child accordions expanded by default
+                isMobile={isMobile}
+                isVisible={isVisible}
+              />
             ))}
         </div>
       )}
