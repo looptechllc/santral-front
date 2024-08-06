@@ -80,11 +80,11 @@ const Home = () => {
   }, []);
   return (
     <main className="max-w-[1440px] mx-auto">
-     <div className="flex relative overflow-hidden w-full h-[700px]">
+     <div className="flex relative overflow-hidden w-full h-[700px] px-[50px]">
       <div className="mt-[24px] hidden md:block hover:absolute hover:z-[80] w-full">
         <Catalog />
       </div>
-      <div className="w-full overflow-hidden md:w-[840px] absolute md:right-[144px] md:h-[600px] mt-[6px] md:mt-[24px]">
+      <div className="w-full overflow-hidden md:w-[950px] absolute md:right-[54px] md:h-[600px] mt-[6px] md:mt-[24px]">
         <Slider {...settings}>
           {sliderData?.map((item, index) => (
             <div

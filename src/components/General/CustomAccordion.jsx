@@ -17,7 +17,7 @@ const CustomAccordion = ({
   const [expanded, setExpanded] = useState(isInitiallyExpanded);
 
   useEffect(() => {
-    setExpanded(isInitiallyExpanded);
+    setExpanded(isInitiallyExpanded); // Set expanded based on isInitiallyExpanded prop
   }, [isInitiallyExpanded]);
 
   const handleMouseEnter = () => {
@@ -80,7 +80,7 @@ const CustomAccordion = ({
         )}
       </div>
       {(isMobile || expanded) && (
-        <div className={`accordion-details px-[16px] ${expanded && isMobile ? "expanded " : ""}`}>
+        <div className={`accordion-details px-[16px] ${expanded && isMobile ? "expanded" : ""}`}>
           {category.children &&
             category.children.map((child) => (
               <Link
