@@ -6,7 +6,6 @@ import searchIcon from "../../assets/search.svg";
 import secureLocalStorage from "react-secure-storage";
 
 function CategoryDesc({ title, lookupId, model, slug }) {
-  // const { id,  slug } = useParams();
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -18,28 +17,6 @@ function CategoryDesc({ title, lookupId, model, slug }) {
   const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState({ filter: {} });
   const [filterVisibility, setFilterVisibility] = useState({});
-  // const [lookupId, setLookupId] = useState(null);
-  // const [model, setModel] = useState(null);
-  // const [title,setTitle] =useState(null)
-
-  // useEffect(() => {
-  //   const fetchRouteInfo = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://api.santral.az/v1/routes/find?domain=santral_www&location=${slug}`
-  //       );
-  //       const data = await response.json();
-  //       const { lookupId, model,title } = data.route;
-  //       setLookupId(lookupId);
-  //       setModel(model);
-  //       setTitle(title)
-  //     } catch (error) {
-  //       console.error("Error fetching route info:", error);
-  //     }
-  //   };
-
-  //   fetchRouteInfo();
-  // }, [ slug]);
 
   async function fetchProducts() {
     if (!lookupId) return;
@@ -77,27 +54,6 @@ function CategoryDesc({ title, lookupId, model, slug }) {
     fetchProducts();
   }, [lookupId, currentPage, filters, sort, search, filterData]);
 
-  // useEffect(() => {
-  //   if (!lookupId) return;
-
-  //   fetch(`https://api.santral.az/v1/categories/mobile`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "*/*",
-  //     },
-  //     body: JSON.stringify(filterData),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const category = data.data.find((item) => item.id == lookupId);
-  //       if (category) {
-  //         setCategoryName(category.title);
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching products:", error));
-  // }, [lookupId]);
-
   useEffect(() => {
     if (!lookupId) return;
     
@@ -127,18 +83,28 @@ function CategoryDesc({ title, lookupId, model, slug }) {
   };
 
   const handleFilterChange = (filterId, optionId) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterId]: optionId,
-    }));
+    setFilters((prevFilters) => {
+      const updatedFilter = prevFilters[filterId]
+        ? prevFilters[filterId].includes(optionId)
+          ? prevFilters[filterId].filter((id) => id !== optionId)
+          : [...prevFilters[filterId], optionId]
+        : [optionId];
 
-    setFilterData((prevFilters) => ({
-      ...prevFilters,
-      filter: {
-        ...prevFilters.filter,
-        ["param_" + filterId]: [optionId],
-      },
-    }));
+      return { ...prevFilters, [filterId]: updatedFilter };
+    });
+
+    setFilterData((prevFilters) => {
+      const updatedFilterData = prevFilters.filter[`param_${filterId}`]
+        ? prevFilters.filter[`param_${filterId}`].includes(optionId)
+          ? prevFilters.filter[`param_${filterId}`].filter((id) => id !== optionId)
+          : [...prevFilters.filter[`param_${filterId}`], optionId]
+        : [optionId];
+
+      return {
+        ...prevFilters,
+        filter: { ...prevFilters.filter, [`param_${filterId}`]: updatedFilterData },
+      };
+    });
   };
 
   const toggleFilterVisibility = (filterId) => {
@@ -216,7 +182,7 @@ function CategoryDesc({ title, lookupId, model, slug }) {
                       <input
                         type="checkbox"
                         id={option.id}
-                        checked={filters[filter.id] === option.id}
+                        checked={filters[filter.id]?.includes(option.id) || false}
                         onChange={() => handleFilterChange(filter.id, option.id)}
                         className="hidden"
                       />
@@ -226,12 +192,12 @@ function CategoryDesc({ title, lookupId, model, slug }) {
                       >
                         <div
                           className={`w-[24px] h-[24px] border rounded-sm mr-2 flex items-center justify-center transition-colors ${
-                            filters[filter.id] === option.id
+                            filters[filter.id]?.includes(option.id)
                               ? "bg-[#FFD23F] border-[#FFD23F]"
                               : "bg-black border-white/40"
                           }`}
                         >
-                          {filters[filter.id] === option.id && (
+                          {filters[filter.id]?.includes(option.id) && (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-3 w-3 text-black"
