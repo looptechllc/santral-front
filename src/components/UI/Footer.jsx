@@ -184,7 +184,7 @@ const Footer = () => {
       <hr className="w-full h-[1px] bg-white/40 border-none mt-[40px]" />
       <div className="flex items-center justify-center py-[20px]">
         <p className="text-center flex items-center gap-[8px] text-[18px] whitespace-nowrap">
-          Saytı hazırladı: <img src={looptech} alt="looptechLogo" />
+          Saytı hazırladı:  <a href="https://www.looptech.az/" target="_blank"><img src={looptech} alt="looptechLogo" /></a>
         </p>
       </div>
     </div>
