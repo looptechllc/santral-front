@@ -5,7 +5,7 @@ import yellowMail from "../../assets/yellowMail.svg";
 import yellowLocation from "../../assets/yellowLocation.svg";
 import visa from "../../assets/visa.svg";
 import mastercard from "../../assets/mastercard.svg";
-import looptech from "../../assets/logoanimated.svg";
+import logoanimated from "../../assets/logoanimated.svg";
 import yellowWhatsapp from "../../assets/yellowWhatsapp.svg";
 import yellowInstagram from "../../assets/yellowInstagram.svg";
 import yellowFacebook from "../../assets/yellowFacebook.svg";
@@ -184,7 +184,7 @@ const Footer = () => {
       <hr className="w-full h-[1px] bg-white/40 border-none mt-[40px]" />
       <div className="flex items-center justify-center py-[20px]">
         <p className="text-center flex items-center gap-[8px] text-[18px] whitespace-nowrap">
-          Saytı hazırladı:  <a href="https://www.looptech.az/" target="_blank"><img src={looptech} alt="looptechLogo" /></a>
+          Saytı hazırladı:  <a href="https://www.looptech.az/" target="_blank"><img className="w-[135px]" src={logoanimated} alt="looptechLogo" /></a>
         </p>
       </div>
     </div>
